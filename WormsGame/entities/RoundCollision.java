@@ -2,7 +2,7 @@ package entities;
 
 import java.awt.Point;
 import java.awt.Rectangle;
-
+//Class needed for Weapons entity, may need modified or removed
 public class RoundCollision {
 	int x;
 	int y;

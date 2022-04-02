@@ -1,7 +1,7 @@
 package entities;
 
 import java.awt.Rectangle;
-
+//Class needed for Weapons entity, may need modified or removed
 public class Circle {
 	
 	private int x;

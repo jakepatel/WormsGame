@@ -3,7 +3,7 @@ package entities;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-
+//Class needed for Weapons entity, may need modified or removed
 public class Missile extends Weapon{
 	public Missile(Player p, ArrayList<Player> enemies, ArrayList<StaticObjects> s,
 			ArrayList<ReactiveObjects> r, boolean l, double velocity, double angle) {
