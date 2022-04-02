@@ -7,6 +7,11 @@ import javax.swing.*;
 public class ViewTest extends JFrame 
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public ViewTest()
 	{
 		// Set the title and default close operation.

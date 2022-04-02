@@ -9,6 +9,10 @@ import javax.swing.*;
 
 public class InitialView extends JPanel {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton playerLoginButton;
 	private JButton adminLoginButton;
 	private JButton createAccountButton;
