@@ -27,7 +27,6 @@ public class Map {
 		int[] temp = new int[2];
 		// adding static objects
 		{
-
 			temp[0] = 100;
 			temp[1] = 350;
 			this.objectPositionsXAtIndex.add(temp[0]);
