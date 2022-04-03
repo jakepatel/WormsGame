@@ -24,4 +24,9 @@ public class LoginModel {
 	public String getPassword() {
 		return password;
 	}
+
+	public void setError(String error) {
+		// TODO Auto-generated method stub
+		
+	}
 }
