@@ -7,8 +7,9 @@ import java.io.*;
 import javax.swing.*;
 
 import ClientComm.GameClient;
-import backend.CreateAccountModel;
+
 import backend.Database;
+import frontend.CreateAccountView;
 
 
 public class CreateAccountControl implements ActionListener {
@@ -29,7 +30,7 @@ public class CreateAccountControl implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent ae) {
 
-		CreateAccountModel createAccount = (CreateAccountModel) container.getComponent(2);
+		CreateAccountView createAccount = (CreateAccountView) container.getComponent(2);
 
 		//Events
 		if (ae.getSource() == createAccount.createAccount()) {
@@ -63,7 +64,7 @@ public class CreateAccountControl implements ActionListener {
 					e.printStackTrace();
 				}
 			}
-		} else if (ae.getSource() == createAccount.cancelButon()) {
+		} else if (ae.getSource() == createAccount.cancelButton()) {
 			createAccount.errorMessage(""); //Clear error message
 			createAccount.clearUsernameField();//Clear previous username
 			createAccount.clearPasswordField();//Clear previous password
