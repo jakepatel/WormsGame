@@ -1,7 +1,15 @@
 package frontend;
 //Jake
 
+import java.awt.*;
 
-public class AdminLoginView {
+
+
+public class AdminLoginView extends JPanel{
+	
+	public AdminLoginView()
+	{
+		
+	}
 
 }
