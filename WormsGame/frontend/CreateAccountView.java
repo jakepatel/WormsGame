@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 
 import controller.CreateAccountControl;
 
-public class CreateAccountView {
+public class CreateAccountView extends JPanel {
 
 	 private JTextField usernameField;
 	  private JPasswordField passwordField;
@@ -90,8 +90,9 @@ public class CreateAccountView {
 	    this.add(grid);
 	  }
 
-	private void add(JPanel grid) {
-		// TODO Auto-generated method stub
-		
-	}
+
+
+
+
+
 }
