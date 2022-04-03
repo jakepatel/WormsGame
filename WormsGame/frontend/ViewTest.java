@@ -2,7 +2,10 @@ package frontend;
 
 import java.awt.BorderLayout;
 
+
 import javax.swing.*;
+
+import controller.LoginControl;
 
 public class ViewTest extends JFrame 
 {
@@ -19,7 +22,7 @@ public class ViewTest extends JFrame
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    
 	    //test the view
-	    JPanel test = new InitialView();
+	    JPanel test = new LoginView(new LoginControl());
 		this.add(test, BorderLayout.CENTER);
 		
 		// Show the JFrame.
