@@ -6,6 +6,7 @@ import java.awt.CardLayout;
 import javax.swing.*;
 
 import ClientComm.GameClient;
+import controller.AdminLoginControl;
 import controller.CreateAccountControl;
 import controller.InitialControl;
 import controller.LoginControl;
@@ -32,27 +33,30 @@ public class ViewTest extends JFrame
 	    
 	    
 	    //instantiate all the different controllers with container and client
-	    InitialControl control_initial = new InitialControl(container, testClient);
+	    InitialControl control_initial = new InitialControl(container);
 	    LoginControl control_login = new LoginControl(container, testClient);
 	    CreateAccountControl control_ca = new CreateAccountControl(container, testClient);
+	    AdminLoginControl control_alc = new AdminLoginControl(container, testClient);
 	    
 	    
 	    //instantiate all the different view with their controllers when ready
 	    InitialView initial =  new InitialView(control_initial);
 	    LoginView loginview = new LoginView(control_login);
 	    CreateAccountView createaccview = new CreateAccountView(control_ca);
+	    AdminLoginView adminloginview = new AdminLoginView(control_alc);
 	    
 	    
-	    //add the view to the container
-	    container.add(initial, "InitialView");
-	    container.add(loginview, "LoginView");
-	    container.add(createaccview, "CreateAccountView");
+	    //add the view to the container and the commented numbers correspond to the cardLayout.getComponent(number);
+	    container.add(initial, "InitialView");	//0
+	    container.add(loginview, "LoginView");	//1
+	    container.add(createaccview, "CreateAccountView");	//2
+	    container.add(adminloginview, "AdminLoginView");	//3
 
 
 	    
 	    //test the view
 		this.add(container, BorderLayout.CENTER);
-		cardLayout.show(container, "CreateAccountView");
+		cardLayout.show(container, "InitialView");
 		
 		// Show the JFrame.
 	    this.setSize(550, 350);

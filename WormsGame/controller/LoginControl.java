@@ -34,7 +34,7 @@ public class LoginControl implements ActionListener {
 	    if (command == "Cancel")
 	    {
 	      CardLayout cardLayout = (CardLayout)container.getLayout();
-	      cardLayout.show(container, "initialPanel");
+	      cardLayout.show(container, "InitialView");
 	    }
 
 	    // The Submit button submits the login information to the server.
@@ -62,12 +62,7 @@ public class LoginControl implements ActionListener {
 	    }
 	  }
 
-	  // After the login is successful, display the main menu for the player
-	  public void loginSuccess()
-	  {
-		  
-	    
-	  }
+
 
 	  // Method that displays a message in the error - could be invoked by ChatClient or by this class (see above)
 	  public void displayError(String error)
