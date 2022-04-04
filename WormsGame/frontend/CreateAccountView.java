@@ -42,7 +42,7 @@ public class CreateAccountView extends JPanel {
 	    errorLabel.setText(error);
 	  }
 	  
-	 public void CreateAccountPanel(CreateAccountControl cac)
+	 public CreateAccountView(CreateAccountControl cac)
 	  {
 	    // Create the controller and set it in the chat client.
 	    //LoginControl controller = new LoginControl(container, client);

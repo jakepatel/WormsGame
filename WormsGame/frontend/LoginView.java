@@ -37,7 +37,7 @@ public class LoginView extends JPanel{
 	    errorLabel.setText(error);
 	  }
 	
-	 public void LoginPanel(LoginControl lc)
+	 public LoginView(LoginControl lc)
 	  {
 	    // Create the controller and set it in the chat client.
 	    //LoginControl controller = new LoginControl(container, client);

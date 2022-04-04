@@ -9,6 +9,11 @@ public class GameClient extends AbstractClient{
 		super(host, port);
 		// TODO Auto-generated constructor stub
 	}
+	
+	public GameClient()
+	{
+		super("localhost", 12345);
+	}
 
 	@Override
 	protected void handleMessageFromServer(Object arg0) {

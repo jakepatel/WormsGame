@@ -3,6 +3,8 @@ package frontend;
 import java.awt.*;
 import javax.swing.*;
 
+import controller.InitialControl;
+
 //Jake
 
 
@@ -17,7 +19,7 @@ public class InitialView extends JPanel {
 	private JButton adminLoginButton;
 	private JButton createAccountButton;
 	
-	public InitialView()
+	public InitialView(InitialControl lc)
 	{
 		//instantiate the buttons
 		playerLoginButton = new JButton("Player Login");
@@ -31,6 +33,11 @@ public class InitialView extends JPanel {
 		adminLogBtnBuffer.add(adminLoginButton);
 		JPanel createAccBtnBuffer = new JPanel();
 		createAccBtnBuffer.add(createAccountButton);
+		
+		//add actionlisteners to the buttons
+		playerLoginButton.addActionListener(lc);
+		adminLoginButton.addActionListener(lc);
+		createAccountButton.addActionListener(lc);		
 		
 		//set up the view for the buttons
 		JPanel grid = new JPanel(new GridLayout(3,1,5,5));
