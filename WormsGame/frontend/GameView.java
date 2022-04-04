@@ -1,5 +1,7 @@
 package frontend;
-//Jake
+//Name: Jake
+
+
 
 
 public class GameView {
