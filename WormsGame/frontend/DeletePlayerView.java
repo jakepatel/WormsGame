@@ -4,6 +4,16 @@ package frontend;
 
 import javax.swing.*;
 
-public class DeletePlayerView extends JPanel{
+import controller.DeletePlayerControl;
 
+public class DeletePlayerView extends JPanel
+{
+	//private variables here
+	
+	public DeletePlayerView(DeletePlayerControl dpc)
+	{
+		
+	}
+	
+	
 }

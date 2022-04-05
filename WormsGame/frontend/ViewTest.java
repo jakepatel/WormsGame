@@ -10,6 +10,8 @@ import controller.AdminLoginControl;
 import controller.CreateAccountControl;
 import controller.InitialControl;
 import controller.LoginControl;
+import controller.LogoutControl;
+import controller.MainMenuControl;
 
 public class ViewTest extends JFrame 
 {
@@ -37,6 +39,8 @@ public class ViewTest extends JFrame
 	    LoginControl control_login = new LoginControl(container, testClient);
 	    CreateAccountControl control_ca = new CreateAccountControl(container, testClient);
 	    AdminLoginControl control_alc = new AdminLoginControl(container, testClient);
+	    MainMenuControl control_mmc = new MainMenuControl(container, testClient);
+	    LogoutControl control_logout = new LogoutControl(container, testClient);
 	    
 	    
 	    //instantiate all the different view with their controllers when ready
@@ -44,6 +48,8 @@ public class ViewTest extends JFrame
 	    LoginView loginview = new LoginView(control_login);
 	    CreateAccountView createaccview = new CreateAccountView(control_ca);
 	    AdminLoginView adminloginview = new AdminLoginView(control_alc);
+	    MainMenuView mainmenuview = new MainMenuView(control_mmc);
+	    LogoutView logoutview = new LogoutView(control_logout);
 	    
 	    
 	    //add the view to the container and the commented numbers correspond to the cardLayout.getComponent(number);
@@ -51,6 +57,9 @@ public class ViewTest extends JFrame
 	    container.add(loginview, "LoginView");	//1
 	    container.add(createaccview, "CreateAccountView");	//2
 	    container.add(adminloginview, "AdminLoginView");	//3
+	    container.add(mainmenuview, "MainMenuView");	//4
+	    container.add(logoutview, "LogOutView"); 	//5
+	    
 
 
 	    

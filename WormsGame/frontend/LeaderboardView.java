@@ -4,6 +4,17 @@ package frontend;
 
 import javax.swing.*;
 
-public class LeaderboardView extends JPanel{
+import controller.LeaderboardControl;
 
+public class LeaderboardView extends JPanel
+{
+	//private variables here
+	
+	
+	public LeaderboardView(LeaderboardControl lc)
+	{
+		
+	}
+	
+	
 }
