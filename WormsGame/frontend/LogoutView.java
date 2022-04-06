@@ -38,7 +38,7 @@ public class LogoutView extends JPanel
 		JPanel grid = new JPanel(new GridLayout(3,1,5,5));
 		grid.add(logoutMessage);
 		grid.add(backToHomeBtn);
-		grid.add(backToHomeBtn);
+		grid.add(closeWindowBtn);
 		this.add(grid);
 				
 		

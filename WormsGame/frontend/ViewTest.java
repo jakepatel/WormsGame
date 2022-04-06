@@ -40,7 +40,7 @@ public class ViewTest extends JFrame
 	    CreateAccountControl control_ca = new CreateAccountControl(container, testClient);
 	    AdminLoginControl control_alc = new AdminLoginControl(container, testClient);
 	    MainMenuControl control_mmc = new MainMenuControl(container, testClient);
-	    LogoutControl control_logout = new LogoutControl(container, testClient);
+	    LogoutControl control_logout = new LogoutControl(container, testClient, this);	//pass this to close frame 
 	    
 	    
 	    //instantiate all the different view with their controllers when ready
@@ -58,14 +58,14 @@ public class ViewTest extends JFrame
 	    container.add(createaccview, "CreateAccountView");	//2
 	    container.add(adminloginview, "AdminLoginView");	//3
 	    container.add(mainmenuview, "MainMenuView");	//4
-	    container.add(logoutview, "LogOutView"); 	//5
+	    container.add(logoutview, "LogoutView"); 	//5
 	    
 
 
 	    
 	    //test the view
 		this.add(container, BorderLayout.CENTER);
-		cardLayout.show(container, "InitialView");
+		cardLayout.show(container, "LogoutView");
 		
 		// Show the JFrame.
 	    this.setSize(550, 350);

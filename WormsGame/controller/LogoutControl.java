@@ -1,25 +1,30 @@
 package controller;
+//Jake
 
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import ClientComm.GameClient;
+import frontend.ViewTest;
 
 public class LogoutControl implements ActionListener
 {
 	// Private data fields for the container and client.
 		  private JPanel container;
 		  private GameClient client;
+		  private JFrame window;
 		  
 		  
 		  // Constructor for the login controller.
-		  public LogoutControl(JPanel container, GameClient client)
+		  public LogoutControl(JPanel container, GameClient client, JFrame window)
 		  {
 		    this.container = container;
 		    this.client = client;
+		    this.window = window;
 		   
 		  }
 
@@ -42,7 +47,7 @@ public class LogoutControl implements ActionListener
 	 // The Close Window Button closes the window
 	    else if (command == "Close Window")
 	    {
-
+	    	window.dispose();
 	    }
 	    
 	    else
