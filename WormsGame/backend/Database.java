@@ -86,5 +86,23 @@ public class Database {
 	    
 	    return false;
 	  }
+	  
+	  public boolean deletePlayer(String playerId) {
+		  try {
+			  Statement stmt = conn.createStatement();
+			  ResultSet rs = stmt.executeQuery("select * from user where id='" + playerId + "';");
+			  
+			  if (rs.next()) {
+				  return false;
+			  } else {
+				  Statement insert = conn.createStatement();
+				  insert.executeUpdate("delete from user where id='" + playerId + "';");
+				  return true;
+			  }
+		  } catch (SQLException e) {
+			  e.printStackTrace();
+		  }
+		  return false;
+	  }
 }
 

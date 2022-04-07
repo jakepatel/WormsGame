@@ -61,6 +61,18 @@ public class GameServer extends AbstractServer {
 					e.printStackTrace();
 				}
 			}
+		} else if (arg0 instanceof DeletePlayerModel) {
+			DeletePlayerModel m = (DeletePlayerModel)arg0;
+			
+			if (db.deletePlayer(m.getId())) {
+				
+			}
+		} else if (arg0 instanceof CreateAccountModel) {
+			CreateAccountModel m = (CreateAccountModel)arg0;
+			
+			if (db.createNewAccount(m.getUsername(), m.getPassword())) {
+				
+			}
 		}
 		
 	}
@@ -75,5 +87,16 @@ public class GameServer extends AbstractServer {
 	
 	public void listeningException(Throwable exception) {
 		exception.printStackTrace();
+	}
+	
+	
+	public static void main(String[] args) {
+		GameServer gs = new GameServer();
+		
+		try {
+			gs.listen();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
