@@ -19,6 +19,7 @@ public class GameClient extends AbstractClient{
 	protected void handleMessageFromServer(Object arg0) {
 		// TODO Auto-generated method stub
 		
+		
 	}
 
 }

@@ -17,12 +17,7 @@ public class LeaderboardView extends JPanel
 	//private variables here
 	//TODO Create database connection here
 	//private Database;
-	private Connection conn;
-	  
-	  private String url;
-	  private String user;
-	  private String pass;
-	  HashMap<String, String> database;
+
 	
 	public LeaderboardView(LeaderboardControl lc)
 	{
@@ -43,9 +38,9 @@ public class LeaderboardView extends JPanel
 		
 	    // Create a panel for the buttons.
 	    JPanel buttonPanel = new JPanel();
-	    JButton menuButton = new JButton("Main Menu");
+	    JButton menuButton = new JButton("Back to Main Menu");
 	    //menuButton.addActionListener(lc);    
-	    menuButton.add(menuButton);
+	    buttonPanel.add(menuButton);
 	    
 	    // Arrange the three panels in a grid.
 	    JPanel grid = new JPanel(new GridLayout(3, 1, 0, 10));

@@ -9,6 +9,7 @@ import ClientComm.GameClient;
 import controller.AdminLoginControl;
 import controller.CreateAccountControl;
 import controller.InitialControl;
+import controller.LeaderboardControl;
 import controller.LoginControl;
 import controller.LogoutControl;
 import controller.MainMenuControl;
@@ -41,6 +42,7 @@ public class ViewTest extends JFrame
 	    AdminLoginControl control_alc = new AdminLoginControl(container, testClient);
 	    MainMenuControl control_mmc = new MainMenuControl(container, testClient);
 	    LogoutControl control_logout = new LogoutControl(container, testClient, this);	//pass this to close frame 
+	    LeaderboardControl control_leaderboard = new LeaderboardControl(container, testClient);
 	    
 	    
 	    //instantiate all the different view with their controllers when ready
@@ -50,6 +52,8 @@ public class ViewTest extends JFrame
 	    AdminLoginView adminloginview = new AdminLoginView(control_alc);
 	    MainMenuView mainmenuview = new MainMenuView(control_mmc);
 	    LogoutView logoutview = new LogoutView(control_logout);
+	    LeaderboardView leaderboardView = new LeaderboardView(control_leaderboard);
+	    GameWaitingView waitingView = new GameWaitingView();
 	    
 	    
 	    //add the view to the container and the commented numbers correspond to the cardLayout.getComponent(number);
@@ -59,13 +63,15 @@ public class ViewTest extends JFrame
 	    container.add(adminloginview, "AdminLoginView");	//3
 	    container.add(mainmenuview, "MainMenuView");	//4
 	    container.add(logoutview, "LogoutView"); 	//5
+	    container.add(leaderboardView, "LeaderboardView");	//6
+	    container.add(waitingView, "GameWaitingView");
 	    
 
 
 	    
 	    //test the view
 		this.add(container, BorderLayout.CENTER);
-		cardLayout.show(container, "LogoutView");
+		cardLayout.show(container, "GameWaitingView");
 		
 		// Show the JFrame.
 	    this.setSize(550, 350);
