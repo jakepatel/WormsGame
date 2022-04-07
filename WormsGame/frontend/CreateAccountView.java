@@ -3,13 +3,11 @@ package frontend;
 
 import java.awt.Color;
 import java.awt.GridLayout;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-
 import controller.CreateAccountControl;
 
 public class CreateAccountView extends JPanel {
