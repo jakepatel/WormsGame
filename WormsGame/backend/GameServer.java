@@ -1,0 +1,79 @@
+package backend;
+
+import java.io.IOException;
+
+import ocsf.server.*;
+
+public class GameServer extends AbstractServer {
+    public GameModel gameData;
+    public LoginModel logInData;
+    public LeaderboardModel leaderBrdData;
+    public MainMenuModel mainMenuData;
+    // public LogOutModel logOutData; ??
+    public GameOverModel gameOverData;
+    public AdminSettingModel adminSettingData;
+    
+    private Database db;
+
+    public GameServer() {
+    	super(8000);
+    }
+
+	@Override
+	protected void handleMessageFromClient(Object arg0, ConnectionToClient arg1) {
+		// TODO Auto-generated method stub
+		
+		if (arg0 instanceof AdminSettingModel) {
+			this.adminSettingData = (AdminSettingModel)arg0;
+		} else if (arg0 instanceof LoginModel) {
+			LoginModel m = (LoginModel)arg0;
+			// process login
+			if (db.verifyAccount(m.getUsername(), m.getPassword())) {
+				// successful login, send to client
+				try {
+					arg1.sendToClient("Successful Login");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else {
+				// send login failure to client
+				try {
+					arg1.sendToClient("Failed Login");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		} else if (arg0 instanceof AdminLoginModel) {
+			LoginModel m = (LoginModel)arg0;
+			// process login
+			if (db.verifyAdminAccount(m.getUsername(), m.getPassword())) {
+				// successful login, send to client
+				try {
+					arg1.sendToClient("Successful Login");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else {
+				// send login failure to client
+				try {
+					arg1.sendToClient("Failed Login");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+	
+	public void serverStarted() {}
+	
+	public void serverStopped() {}
+	
+	public void serverClosed() {}
+	
+	public void clientConnected(ConnectionToClient client) {}
+	
+	public void listeningException(Throwable exception) {
+		exception.printStackTrace();
+	}
+}
