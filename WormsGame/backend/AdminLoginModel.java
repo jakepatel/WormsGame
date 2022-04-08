@@ -1,7 +1,13 @@
 package backend;
 
-public class AdminLoginModel {
+import java.io.Serializable;
+
+public class AdminLoginModel implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String username;
 	private String password;
 	

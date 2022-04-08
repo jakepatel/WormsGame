@@ -1,6 +1,12 @@
 package backend;
 
-public class LoginModel {
+import java.io.Serializable;
+
+public class LoginModel implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String username;
 	private String password;
 	

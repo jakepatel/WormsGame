@@ -1,6 +1,12 @@
 package backend;
 
-public class AdminSettingModel {
+import java.io.Serializable;
+
+public class AdminSettingModel implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String gameTitle;
 	
 	
