@@ -2,6 +2,7 @@ package frontend;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.io.IOException;
 
 import javax.swing.*;
 
@@ -33,6 +34,13 @@ public class ViewTest extends JFrame
 	    JPanel container = new JPanel(cardLayout);
 	    
 	    GameClient testClient = new GameClient();
+	    testClient.setHost("localhost");
+	    testClient.setPort(8300);
+	    try {
+	    	testClient.openConnection();
+	    } catch (IOException e) {
+	    	e.printStackTrace();
+	    }
 	    
 	    
 	    //instantiate all the different controllers with container and client
@@ -71,7 +79,8 @@ public class ViewTest extends JFrame
 	    
 	    //test the view
 		this.add(container, BorderLayout.CENTER);
-		cardLayout.show(container, "GameWaitingView");
+//		cardLayout.show(container, "GameWaitingView");
+		cardLayout.show(container, "InitialView");
 		
 		// Show the JFrame.
 	    this.setSize(550, 350);

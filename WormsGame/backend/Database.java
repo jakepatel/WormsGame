@@ -13,20 +13,21 @@ public class Database {
 	  private String user;
 	  private String pass;
 	  //Add any other data fields you like � at least a Connection object is mandatory
-	  public Database() throws IOException
+	  public Database()
 	  {
-	    //Add your code here
-		//Read properties file
-		Properties prop = new Properties();
-		FileInputStream fis = new FileInputStream("lab7out/db.properties");
-		prop.load(fis);
-		url = prop.getProperty("url");
-		user = prop.getProperty("user");
-		pass = prop.getProperty("password");  
-		//Perform the Connection
 	    try {
+	    	Properties prop = new Properties();
+			FileInputStream fis = new FileInputStream("db.properties");
+			prop.load(fis);
+			url = prop.getProperty("url");
+			user = prop.getProperty("user");
+			pass = prop.getProperty("password");
+	    } catch (IOException e) {
+	    	e.printStackTrace();
+	    }
+		//Perform the Connection
+	    try { 
 			conn = DriverManager.getConnection(url, user, pass);
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

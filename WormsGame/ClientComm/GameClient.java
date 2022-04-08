@@ -12,13 +12,13 @@ public class GameClient extends AbstractClient{
 	
 	public GameClient()
 	{
-		super("localhost", 12345);
+		super("localhost", 8300);
 	}
 
 	@Override
 	protected void handleMessageFromServer(Object arg0) {
 		// TODO Auto-generated method stub
-		
+		System.out.println((String)arg0);
 		
 	}
 
