@@ -38,8 +38,8 @@ public class Database {
 	  {
 		try {
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("select username, aes_decrypt(passwd, 'key') as passwd from user where username='" + username + "' and role='admin';");
-			if (rs.next() && rs.getString("passwd").equals((password))) {
+			ResultSet rs = stmt.executeQuery("select username, aes_decrypt(password, 'key') as password from user where username='" + username + "' and role='admin';");
+			if (rs.next() && rs.getString("password").equals((password))) {
 				return true;
 			} else {
 				return false;
@@ -55,9 +55,9 @@ public class Database {
 	  {
 		try {
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("select username, aes_decrypt(passwd, 'key') as passwd from user where username='" + username + "';");
+			ResultSet rs = stmt.executeQuery("select username, aes_decrypt(password, 'key') as password from user where username='" + username + "';");
 		
-			if (rs.next() && rs.getString("passwd").equals((password))) {
+			if (rs.next() && rs.getString("password").equals((password))) {
 				return true;
 			} else {
 				return false;
@@ -78,7 +78,26 @@ public class Database {
 				  return false;
 			  } else {
 				  Statement insert = conn.createStatement();
-				  insert.executeUpdate("insert into user values ('" + username + "', aes_encrypt('" + password + "', 'key'));");
+				  insert.executeUpdate("insert into user values ('" + username + "', aes_encrypt('" + password + "', 'key'), 'user');");
+				  return true;
+			  }
+		  } catch (SQLException e) {
+			  e.printStackTrace();
+		  }
+	    
+	    return false;
+	  }
+	  
+	  public boolean createAdminAccount(String username, String password)
+	  {
+		  try {
+			  Statement stmt = conn.createStatement();
+			  ResultSet rs = stmt.executeQuery("select * from user where username='" + username + "';");
+			  if (rs.next()) {
+				  return false;
+			  } else {
+				  Statement insert = conn.createStatement();
+				  insert.executeUpdate("insert into user values ('" + username + "', aes_encrypt('" + password + "', 'key'), 'admin');");
 				  return true;
 			  }
 		  } catch (SQLException e) {
