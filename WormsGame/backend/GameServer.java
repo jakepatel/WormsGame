@@ -12,7 +12,7 @@ public class GameServer extends AbstractServer {
     // public LogOutModel logOutData; ??
     public GameOverModel gameOverData;
     public AdminSettingModel adminSettingData;
-    
+    private boolean stopActionFlag;
     private Database db;
 
     public GameServer() {
@@ -111,6 +111,11 @@ public class GameServer extends AbstractServer {
 		exception.printStackTrace();
 	}
 	
+	/*Setting the parameter stopActionFlag from StopHandler class, to 
+	 * this ChatServer's stopActionFlag */
+	public void setStopFlag(boolean stopActionFlag) {
+		this.stopActionFlag = stopActionFlag;
+	}
 	
 	public static void main(String[] args) throws InterruptedException {
 		GameServer gs = new GameServer();
