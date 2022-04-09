@@ -10,10 +10,11 @@ import ClientComm.GameClient;
 import backend.CreateAccountModel;
 import backend.Database;
 import frontend.CreateAccountView;
+import frontend.GameGUI;
 
 
 public class CreateAccountControl implements ActionListener {
-	private JPanel container;
+	private static JPanel container;
 	private GameClient client;
 	
 	public CreateAccountControl(JPanel container, GameClient client)
@@ -73,4 +74,14 @@ public class CreateAccountControl implements ActionListener {
 			
 		}
 	}
+	
+	 // After an account is created, set the User object and display the contacts screen.
+	  public static void createAccountSuccess()
+	  {
+	    CreateAccountView createAccountPanel = (CreateAccountView)container.getComponent(2);
+	    GameGUI clientGUI = (GameGUI)SwingUtilities.getWindowAncestor(createAccountPanel);
+	    //clientGUI.setUser(new User(createAccountPanel.getUsername(), createAccountPanel.getPassword()));
+	    CardLayout cardLayout = (CardLayout)container.getLayout();
+	    cardLayout.show(container, "4");
+	  }
 }

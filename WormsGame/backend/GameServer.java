@@ -38,7 +38,8 @@ public class GameServer extends AbstractServer {
 		
 		if (arg0 instanceof AdminSettingModel) {
 			this.adminSettingData = (AdminSettingModel)arg0;
-		} else if (arg0 instanceof LoginModel) {
+		} 
+		else if (arg0 instanceof LoginModel) {
 			System.out.println("login model recieved!");
 			LoginModel m = (LoginModel)arg0;
 			// process login
@@ -57,7 +58,8 @@ public class GameServer extends AbstractServer {
 					e.printStackTrace();
 				}
 			}
-		} else if (arg0 instanceof AdminLoginModel) {
+		} 
+		else if (arg0 instanceof AdminLoginModel) {
 			System.out.println("admin login model recieved!");
 			LoginModel m = (LoginModel)arg0;
 			// process login
@@ -91,8 +93,10 @@ public class GameServer extends AbstractServer {
 			CreateAccountModel m = (CreateAccountModel)arg0;
 			
 			if (db.createNewAccount(m.getUsername(), m.getPassword())) {
+				log.append("Client " + arg1.getId() + " created a new account called " + m.getUsername() + "\n");
 				try {
 					arg1.sendToClient("account created");
+					
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -107,7 +111,7 @@ public class GameServer extends AbstractServer {
 		status.setText("Listening");
 		status.setForeground(Color.green);
 	}
-	
+	//When server is stopped it will send message to console and server log
 	public void serverStopped() {
 		
 		//log.append("Server Stopped Accepting New Clients - Press Listen to Start Accepting New Clients\n");
