@@ -109,11 +109,32 @@ public class GameServer extends AbstractServer {
 	}
 	
 	public void serverStopped() {
-		System.out.println("Server Stopped");
+		
+		//log.append("Server Stopped Accepting New Clients - Press Listen to Start Accepting New Clients\n");
+		/*If the close() method was called first, 
+		 * the stopActionFlag will be set to false.*/
+		if(stopActionFlag==true) {
+			System.out.println("Server Stopped");
+			log.append("Server Stopped Accepting New Clients - "
+					+ "Press Listen to reconnect");
+			log.append("\n");
+			status.setText("Stopped");
+			status.setForeground(Color.red);
+		}
 	}
 	
 	public void serverClosed() {
-		System.out.println("Server Closed");
+		System.out.println("Server and all current clients are closed - Press Listen to Restart");
+		//log.append("Server Stopped Accepting New Clients - Press Listen to Start Accepting New Clients\n");
+		/*If the close() method was called first, 
+		* the stopActionFlag will be set to false.*/
+				if(stopActionFlag==false) {
+					log.append("Server Closed - "
+							+ "Press Listen to reconnect");
+					log.append("\n");
+					status.setText("Closed");
+					status.setForeground(Color.red);
+				}
 	}
 	
 	public void clientConnected(ConnectionToClient client) {
