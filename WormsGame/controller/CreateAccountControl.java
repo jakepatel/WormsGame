@@ -14,7 +14,7 @@ import frontend.GameGUI;
 
 
 public class CreateAccountControl implements ActionListener {
-	private static JPanel container;
+	private JPanel container;
 	private GameClient client;
 	
 	public CreateAccountControl(JPanel container, GameClient client)
@@ -76,12 +76,12 @@ public class CreateAccountControl implements ActionListener {
 	}
 	
 	 // After an account is created, set the User object and display the contacts screen.
-	  public static void createAccountSuccess()
+	  public void createAccountSuccess()
 	  {
 	    CreateAccountView createAccountPanel = (CreateAccountView)container.getComponent(2);
 	    GameGUI clientGUI = (GameGUI)SwingUtilities.getWindowAncestor(createAccountPanel);
 	    //clientGUI.setUser(new User(createAccountPanel.getUsername(), createAccountPanel.getPassword()));
 	    CardLayout cardLayout = (CardLayout)container.getLayout();
-	    cardLayout.show(container, "4");
+	    cardLayout.show(container, "LoginView");
 	  }
 }

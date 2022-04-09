@@ -14,11 +14,15 @@ public class GameClient extends AbstractClient{
 	private LoginControl loginControl;
 	private CreateAccountControl createAccountControl;
 
-	public GameClient(String host, int port) {
-		super(host, port);
-		// TODO Auto-generated constructor stub
+	// Setters for the GUI controllers.
+	public void setLoginControl(LoginControl loginControl)
+	{
+		this.loginControl = loginControl;
 	}
-
+	public void setCreateAccountControl(CreateAccountControl createAccountControl)
+	{
+		this.createAccountControl = createAccountControl;
+	}
 	public GameClient()
 	{
 		super("localhost", 8300);
@@ -37,7 +41,7 @@ public class GameClient extends AbstractClient{
 			System.out.println((String)arg0);
 			String msg = (String)arg0;
 			if(msg.equals("account created")) {
-				CreateAccountControl.createAccountSuccess();
+				createAccountControl.createAccountSuccess();
 				//Handle Login Here
 
 			}
@@ -53,15 +57,7 @@ public class GameClient extends AbstractClient{
 		//Add your code here
 		System.out.println("Connection Established");
 	}
-	// Setters for the GUI controllers.
-	  public void setLoginControl(LoginControl loginControl)
-	  {
-	    this.loginControl = loginControl;
-	  }
-	  public void setCreateAccountControl(CreateAccountControl createAccountControl)
-	  {
-	    this.createAccountControl = createAccountControl;
-	  }
+
 	//Dummy Main
 	public static void main(String[] args)
 	{

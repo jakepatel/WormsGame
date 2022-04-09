@@ -43,6 +43,10 @@ public class GameGUI extends JFrame
 	    LogoutControl control_logout = new LogoutControl(container, client, this);	//pass this to close frame 
 	    LeaderboardControl control_leaderboard = new LeaderboardControl(container, client);
 	    
+	  //Set the client info
+	    client.setLoginControl(control_login);
+	    client.setCreateAccountControl(control_ca);
+	    
 	    
 	    //instantiate all the different view with their controllers when ready
 	    InitialView initial =  new InitialView(control_initial);
