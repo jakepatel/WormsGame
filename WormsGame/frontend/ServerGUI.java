@@ -112,7 +112,7 @@ public class ServerGUI extends JFrame
 		panelTwo.add(scrollPane);
 
 		//Creating Respective Handler and ChatServer objects
-		server = new GameServer();
+		server = new GameServer(log, status);
 		ConnectHandler listener1 = new ConnectHandler(textFields[0], textFields[1], log, server);
 		StopHandler listener2 = new StopHandler(textFields[0], textFields[1], log, server);
 		

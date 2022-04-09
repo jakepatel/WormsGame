@@ -1,6 +1,10 @@
 package backend;
 
+import java.awt.Color;
 import java.io.IOException;
+
+import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
 import ocsf.server.*;
 
@@ -14,11 +18,17 @@ public class GameServer extends AbstractServer {
     public AdminSettingModel adminSettingData;
     private boolean stopActionFlag;
     private Database db;
+    
+    private JTextArea log;
+	private JLabel status;
 
-    public GameServer() {
+    public GameServer(JTextArea log, JLabel status) {
     	super(12345);
-    	
+    	setTimeout(500);
+    	this.setLog(log);
+    	this.setStatus(status);
 		db = new Database();
+		
     	
     }
 
@@ -93,6 +103,9 @@ public class GameServer extends AbstractServer {
 	
 	public void serverStarted() {
 		System.out.println("Server Started");
+		log.append("Server Started\n");
+		status.setText("Listening");
+		status.setForeground(Color.green);
 	}
 	
 	public void serverStopped() {
@@ -110,33 +123,30 @@ public class GameServer extends AbstractServer {
 	public void listeningException(Throwable exception) {
 		exception.printStackTrace();
 	}
-	
+	public void setLog(JTextArea log)
+	{
+		this.log = log;
+	}
+
+	public JTextArea getLog()
+	{
+		return log;
+	}
+
+	public void setStatus(JLabel status)
+	{
+		this.status = status;
+	}
+
+	public JLabel getStatus()
+	{
+		return status;
+	}
 	/*Setting the parameter stopActionFlag from StopHandler class, to 
 	 * this ChatServer's stopActionFlag */
 	public void setStopFlag(boolean stopActionFlag) {
 		this.stopActionFlag = stopActionFlag;
 	}
 	
-	public static void main(String[] args) throws InterruptedException {
-		GameServer gs = new GameServer();
-		
-		try {
-			gs.setPort(8300);
-			gs.setTimeout(500);
-			gs.listen();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		Runtime.getRuntime().addShutdownHook(new Thread() {
-			public void run() {
-				System.out.println("Shutdown hook ran");
-				try {
-					gs.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 }
