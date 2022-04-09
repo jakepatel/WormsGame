@@ -34,15 +34,7 @@ public class ViewTest extends JFrame
 	    JPanel container = new JPanel(cardLayout);
 	    
 	    GameClient testClient = new GameClient();
-	    testClient.setHost("localhost");
-	    testClient.setPort(8300);
-	    try {
-	    	testClient.openConnection();
-	    } catch (IOException e) {
-	    	e.printStackTrace();
-	    }
-	    
-	    
+
 	    //instantiate all the different controllers with container and client
 	    InitialControl control_initial = new InitialControl(container);
 	    LoginControl control_login = new LoginControl(container, testClient);
