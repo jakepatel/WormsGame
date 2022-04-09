@@ -117,7 +117,10 @@ public class GameServer extends AbstractServer {
 	}
 	
 	public void clientConnected(ConnectionToClient client) {
-		System.out.println("Client " + client.getId() + " Connected!");
+		System.out.println("Client Connected");
+		//Display number of Clients:
+		System.out.println("Number of Client:" + this.getNumberOfClients());	
+		log.append("Client Connected\n");
 	}
 	
 	public void listeningException(Throwable exception) {
@@ -147,6 +150,8 @@ public class GameServer extends AbstractServer {
 	public void setStopFlag(boolean stopActionFlag) {
 		this.stopActionFlag = stopActionFlag;
 	}
+	
+	
 	
 
 }
