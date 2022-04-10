@@ -13,6 +13,7 @@ import backend.LoginModel;
 import frontend.GameGUI;
 import frontend.LeaderboardView;
 import frontend.LoginView;
+import frontend.MainMenuView;
 
 //Name: Collins or Barton
 
@@ -33,7 +34,16 @@ public class LeaderboardControl implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		 // Get the name of the button clicked.
+	    String command = e.getActionCommand();
+		System.out.println(command);
+		// The Login button takes the user to the login panel.
+	    if (command.equals("Back to Main Menu"))
+	    {
+	      //handle page to main menu 
+	      CardLayout cardLayout = (CardLayout)container.getLayout();
+	      cardLayout.show(container, "MainMenuView"); 
+	    }
 	}
 	// After an account is created, set the User object and display the contacts screen.
 	public void showLeaderboard(String[] token)

@@ -52,6 +52,7 @@ public class LeaderboardView extends JPanel
 		// Create a panel for the buttons.
 		JPanel buttonPanel = new JPanel();
 		JButton menuButton = new JButton("Back to Main Menu");
+		menuButton.addActionListener(lc);
 		//menuButton.addActionListener(lc);    
 		buttonPanel.add(menuButton);
 
