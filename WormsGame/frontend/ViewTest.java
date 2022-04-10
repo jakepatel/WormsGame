@@ -9,6 +9,7 @@ import javax.swing.*;
 import ClientComm.GameClient;
 import controller.AdminLoginControl;
 import controller.CreateAccountControl;
+import controller.DeletePlayerControl;
 import controller.InitialControl;
 import controller.LeaderboardControl;
 import controller.LoginControl;
@@ -43,6 +44,7 @@ public class ViewTest extends JFrame
 	    MainMenuControl control_mmc = new MainMenuControl(container, testClient);
 	    LogoutControl control_logout = new LogoutControl(container, testClient, this);	//pass this to close frame 
 	    LeaderboardControl control_leaderboard = new LeaderboardControl(container, testClient);
+	    DeletePlayerControl delete_control = new DeletePlayerControl(container, testClient);
 	    
 	    
 	    //instantiate all the different view with their controllers when ready
@@ -54,6 +56,7 @@ public class ViewTest extends JFrame
 	    LogoutView logoutview = new LogoutView(control_logout);
 	    LeaderboardView leaderboardView = new LeaderboardView(control_leaderboard);
 	    GameWaitingView waitingView = new GameWaitingView();
+	    DeletePlayerView deleteView = new DeletePlayerView(delete_control);
 	    
 	    
 	    //add the view to the container and the commented numbers correspond to the cardLayout.getComponent(number);
@@ -64,8 +67,8 @@ public class ViewTest extends JFrame
 	    container.add(mainmenuview, "MainMenuView");	//4
 	    container.add(logoutview, "LogoutView"); 	//5
 	    container.add(leaderboardView, "LeaderboardView");	//6
-	    container.add(waitingView, "GameWaitingView");
-	    
+	    container.add(waitingView, "GameWaitingView");	//7
+	    container.add(deleteView, "DeletePlayerView");	//8
 
 
 	    
