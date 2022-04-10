@@ -1,6 +1,12 @@
 package backend;
 
-public class MainMenuModel {
+import java.io.Serializable;
+
+public class MainMenuModel implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String gameSelection;
 	
 	

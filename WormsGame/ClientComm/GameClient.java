@@ -2,17 +2,21 @@ package ClientComm;
 //Jake
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
 import controller.CreateAccountControl;
+import controller.LeaderboardControl;
 import controller.LoginControl;
+import controller.MainMenuControl;
 import ocsf.client.*;
 
 public class GameClient extends AbstractClient{
 	// Private data fields for storing the GUI controllers.
 	private LoginControl loginControl;
 	private CreateAccountControl createAccountControl;
+	private LeaderboardControl leaderboardControl;
 
 	// Setters for the GUI controllers.
 	public void setLoginControl(LoginControl loginControl)
@@ -22,6 +26,10 @@ public class GameClient extends AbstractClient{
 	public void setCreateAccountControl(CreateAccountControl createAccountControl)
 	{
 		this.createAccountControl = createAccountControl;
+	}
+	public void setLeaderboardControl(LeaderboardControl leaderboardControl)
+	{
+		this.leaderboardControl = leaderboardControl;
 	}
 	public GameClient()
 	{
@@ -48,9 +56,14 @@ public class GameClient extends AbstractClient{
 				loginControl.loginSuccess();
 				//Handle Login Here
 			}
-			
-			
+			if(msg.contains(",")) {
+				
+				String[] token = msg.split(",");
+				leaderboardControl.showLeaderboard(token);
+				//Handle Login Here
+			}
 		}
+		
 
 	}
 	public void connectionException (Throwable exception) 

@@ -6,12 +6,15 @@ import java.awt.GridLayout;
 
 import javax.swing.*;
 
-import controller.InitialControl;
 import controller.MainMenuControl;
 
 public class MainMenuView extends JPanel
 {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JButton joinAGameButton;
 	private JButton leaderboardButton;
 	private JButton logOutButton;

@@ -1,37 +1,23 @@
 package backend;
 
+import java.util.ArrayList;
+
 public class LeaderboardModel {
 	private String playerHandle;
 	private String playerID;
 	private String playerScore;
-	
-	public LeaderboardModel(String playerHandle, String playerID, String playerScore){
-		this.playerHandle = playerHandle;
-		this.playerID = playerID;
-		this.playerScore = playerScore;
+	private String[] leaderboard;
+	public LeaderboardModel(String[] leaderboard){
+		this.leaderboard = leaderboard;
 	}
 	
-	public void setPlayerHandle(String playerHandle) {
-		this.playerHandle = playerHandle;
+	public void setLeaderboard(String[] leaderboard) {
+		this.leaderboard = leaderboard;
+	}
+
+	public String[] getleaderboard() {
+		return leaderboard;
 	}
 	
-	public void setPlayerID(String playerID) {
-		this.playerID = playerID;
-	}
-	
-	public void setPlayerScore(String playerScore) {
-		this.playerScore = playerScore;
-	}
-	
-	public String gePlayerHandle() {
-		return playerHandle;
-	}
-	
-	public String getPlayerID() {
-		return playerID;
-	}
-	
-	public String getPlayerScore() {
-		return playerScore;
-	}
+
 }

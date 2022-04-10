@@ -3,6 +3,7 @@ package backend;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Properties;
 
 
@@ -123,6 +124,23 @@ public class Database {
 			  e.printStackTrace();
 		  }
 		  return false;
+	  }
+	  
+	  public ArrayList<String> getLeaderBoard() {
+		  
+		  ArrayList<String> leaderboard = new ArrayList<String>();
+		  try {
+			  Statement stmt = conn.createStatement();
+			  ResultSet rs = stmt.executeQuery("select * from user;");
+			  
+			  while(rs.next()) {
+				 leaderboard.add(rs.getString(1));
+			  } 
+				  	  
+		  } catch (SQLException e) {
+			  e.printStackTrace();
+		  }
+		  return leaderboard;
 	  }
 }
 
