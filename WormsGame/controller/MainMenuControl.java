@@ -67,7 +67,7 @@ public class MainMenuControl implements ActionListener
 			//handle page to Leaderboard View
 			MainMenuModel data = new MainMenuModel(command.toString());
 			//handle page to login view 
-     
+
 			//send data to server
 			try 
 			{
@@ -82,20 +82,8 @@ public class MainMenuControl implements ActionListener
 		}
 		else if(command.equals("Log Out"))
 		{
-			//handle page to Logout View
-			MainMenuView mmv = (MainMenuView)container.getComponent(4);	//component number of mainmenuview
-			MainMenuModel data = new MainMenuModel(command.toString());
-			//send data to server
-			try 
-			{
-				client.sendToServer(data);
-			} 
-			catch (IOException e1) 
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-
+			CardLayout cardLayout = (CardLayout)container.getLayout();
+			cardLayout.show(container, "LogoutView");	
 		}
 		else
 			//print an error on console
