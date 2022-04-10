@@ -26,7 +26,7 @@ import javax.swing.Timer;
 import controller.GameControl;
 import entities.Bullet;
 import entities.Grenade;
-import entities.MainPlayer;
+import entities.GamePlayer;
 import entities.Maps;
 import entities.Missile;
 import entities.ReactiveObjects;
@@ -42,8 +42,8 @@ public class GameView extends JPanel
 	Timer timer, changeTurns; // this is the object which is going to call the
 	// function actionPerformed
 
-	public ArrayList<MainPlayer> team1 = new ArrayList<MainPlayer>();
-	public ArrayList<MainPlayer> team2 = new ArrayList<MainPlayer>();
+	public ArrayList<GamePlayer> team1 = new ArrayList<GamePlayer>();
+	public ArrayList<GamePlayer> team2 = new ArrayList<GamePlayer>();
 	public KeyListener listener1;
 	public Image backgroundImage, boardImage, player1WeaponImage, player2WeaponImage;
 	public ArrayList<Integer> pressedKeys = new ArrayList<Integer>();
@@ -64,7 +64,7 @@ public class GameView extends JPanel
 	public String player1Name;
 	public String player2Name;
 	
-	public MainPlayer p; 
+	public GamePlayer p; 
 	public boolean move = true;
 	public int moving = 0;
 	
@@ -150,21 +150,21 @@ public class GameView extends JPanel
 		this.player2WeaponImage = (new ImageIcon("images/weapons/missile0.png")
 				.getImage());
 
-		team1.add(new MainPlayer(50, 50, staticobjects, reactiveobjects,
+		team1.add(new GamePlayer(50, 50, staticobjects, reactiveobjects,
 				team2));
-		team2.add(new MainPlayer(650, 100, staticobjects, reactiveobjects,
+		team2.add(new GamePlayer(650, 100, staticobjects, reactiveobjects,
 				team1));
-		team1.add(new MainPlayer(500, 100, staticobjects, reactiveobjects,
+		team1.add(new GamePlayer(500, 100, staticobjects, reactiveobjects,
 				team2));
-		team2.add(new MainPlayer(400, 100, staticobjects, reactiveobjects,
+		team2.add(new GamePlayer(400, 100, staticobjects, reactiveobjects,
 				team1));
-		team1.add(new MainPlayer(300, 100, staticobjects, reactiveobjects,
+		team1.add(new GamePlayer(300, 100, staticobjects, reactiveobjects,
 				team2));
-		team2.add(new MainPlayer(900, 100, staticobjects, reactiveobjects,
+		team2.add(new GamePlayer(900, 100, staticobjects, reactiveobjects,
 				team1));
-		team1.add(new MainPlayer(150, 100, staticobjects, reactiveobjects,
+		team1.add(new GamePlayer(150, 100, staticobjects, reactiveobjects,
 				team2));
-		team2.add(new MainPlayer(800, 50, staticobjects, reactiveobjects,
+		team2.add(new GamePlayer(800, 50, staticobjects, reactiveobjects,
 				team1));
 				
 		this.p = team1.get(0);
@@ -243,19 +243,19 @@ public class GameView extends JPanel
 		this.changeTurns = changeTurns;
 	}
 
-	public ArrayList<MainPlayer> getTeam1() {
+	public ArrayList<GamePlayer> getTeam1() {
 		return team1;
 	}
 
-	public void setTeam1(ArrayList<MainPlayer> team1) {
+	public void setTeam1(ArrayList<GamePlayer> team1) {
 		this.team1 = team1;
 	}
 
-	public ArrayList<MainPlayer> getTeam2() {
+	public ArrayList<GamePlayer> getTeam2() {
 		return team2;
 	}
 
-	public void setTeam2(ArrayList<MainPlayer> team2) {
+	public void setTeam2(ArrayList<GamePlayer> team2) {
 		this.team2 = team2;
 	}
 
@@ -451,11 +451,11 @@ public class GameView extends JPanel
 		this.player2Name = player2Name;
 	}
 
-	public MainPlayer getP() {
+	public GamePlayer getP() {
 		return p;
 	}
 
-	public void setP(MainPlayer p) {
+	public void setP(GamePlayer p) {
 		this.p = p;
 	}
 

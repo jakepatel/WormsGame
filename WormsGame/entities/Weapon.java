@@ -31,11 +31,11 @@ public class Weapon implements ActionListener {
 											// object
 	public Rectangle rectangle;
 	public Timer timer;
-	private MainPlayer player;
+	private GamePlayer player;
 	ArrayList<StaticObjects> staticobjects; // just pointers to the two
 											// arraylists that are created
 	ArrayList<ReactiveObjects> reactiveobjects; // in class MainClass
-	ArrayList<MainPlayer> enemies;
+	ArrayList<GamePlayer> enemies;
 	public int[][] trajectoryIncrements; // used to store the trajectory
 	public int trajectoryIndex; // this represents the index in
 	private int expIndex; // trajectoryIncrements
@@ -49,7 +49,7 @@ public class Weapon implements ActionListener {
 
 	// that we are currently at
 
-	public Weapon(MainPlayer p, ArrayList<MainPlayer> enemies, ArrayList<StaticObjects> s,
+	public Weapon(GamePlayer p, ArrayList<GamePlayer> enemies, ArrayList<StaticObjects> s,
 			ArrayList<ReactiveObjects> r, boolean l, double velocity,
 			double angle) {
 		trajectoryIncrements = calculateTrajectory(velocity, angle);

@@ -23,13 +23,13 @@ public class Bullet implements ActionListener {
 	int imageWidth,imageHeight; //width and height of the image of the object
 	Rectangle rectangle;
 	Timer timer,timerDestroy;
-	MainPlayer player, enemy;
+	GamePlayer player, enemy;
 	ArrayList<StaticObjects> staticobjects;     //just pointers to the two arraylists that are created 
 	ArrayList<ReactiveObjects> reactiveobjects; // in class MainClass
 	int [][] trajectoryIncrements;              //used to store the trajectory
 	int trajectoryIndex,currentImageIndex=0;
 	
-	public Bullet(MainPlayer p,MainPlayer enemy,ArrayList<StaticObjects> s,ArrayList<ReactiveObjects> r, boolean l){
+	public Bullet(GamePlayer p,GamePlayer enemy,ArrayList<StaticObjects> s,ArrayList<ReactiveObjects> r, boolean l){
 		
 		this.trajectoryIncrements=this.calculateTrajectory();
 		this.visible=true;

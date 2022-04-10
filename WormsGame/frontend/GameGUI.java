@@ -15,17 +15,25 @@ import controller.LeaderboardControl;
 import controller.LoginControl;
 import controller.LogoutControl;
 import controller.MainMenuControl;
+import entities.Player;
 
 //Jake
 
 
+
+
 public class GameGUI extends JFrame 
 {
+	
+	private GameClient client;
+
+	
+	
 	// Constructor that creates the client GUI.
-	public GameGUI()
+	public GameGUI(GameClient client)
 	{
 		// Set up the chat client.
-		GameClient client = new GameClient();
+		this.client = client;
 
 		// Set the title and default close operation.
 		this.setTitle("Chat Client");
@@ -84,11 +92,22 @@ public class GameGUI extends JFrame
 	    this.setSize(550, 350);
 	    this.setVisible(true);
 	}
+	
+	
+	public GameClient getClient()
+	
+	{
+		return client;
+	}
+	
+	
+
+
 
 	// Main function that creates the client GUI when the program is started.
 	public static void main(String[] args)
 	{
-		new GameGUI();
+		new GameGUI(new GameClient());
 	}
 }
 

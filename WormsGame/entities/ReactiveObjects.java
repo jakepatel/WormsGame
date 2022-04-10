@@ -98,7 +98,7 @@ public class ReactiveObjects implements ActionListener {
 		this.imageWidth=this.currentImage.getWidth(null);
 	}
 	
-	public void destroy(MainPlayer player){
+	public void destroy(GamePlayer player){
 		player.hasHit(type);
 		timer.start();
 	}

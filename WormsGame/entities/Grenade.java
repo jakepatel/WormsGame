@@ -7,7 +7,7 @@ public class Grenade extends Weapon {
 	
 	
 	
-	public Grenade(MainPlayer p, ArrayList<MainPlayer> enemies,
+	public Grenade(GamePlayer p, ArrayList<GamePlayer> enemies,
 			ArrayList<StaticObjects> s, ArrayList<ReactiveObjects> r,
 			boolean l, double velocity, double angle) 
 	{

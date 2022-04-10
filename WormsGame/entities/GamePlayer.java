@@ -11,7 +11,7 @@ import javax.sound.sampled.Line;
 import javax.swing.Timer;
 import javax.swing.ImageIcon;
 
-public class MainPlayer implements ActionListener { // the class for the user
+public class GamePlayer implements ActionListener { // the class for the user
 													// controlled player
 
 	public Image playerImage; // the image that is associated with the object and is
@@ -40,7 +40,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 	ArrayList<StaticObjects> staticobjects; // just pointers to the two
 											// arraylists that are created
 	ArrayList<ReactiveObjects> reactiveobjects; // in class MainClass
-	ArrayList<MainPlayer> enemies;
+	ArrayList<GamePlayer> enemies;
 	Timer timer;
 	int gravityIncrment = 0;	
 	int jumpQuantity;
@@ -48,8 +48,8 @@ public class MainPlayer implements ActionListener { // the class for the user
 	private int grenadesAvailable = 5;
 	private int missilesAvailable = 10;
 
-	public MainPlayer(int xvalue, int yvalue, ArrayList<StaticObjects> s,
-			ArrayList<ReactiveObjects> r, ArrayList<MainPlayer> enemies) {
+	public GamePlayer(int xvalue, int yvalue, ArrayList<StaticObjects> s,
+			ArrayList<ReactiveObjects> r, ArrayList<GamePlayer> enemies) {
 		x = xvalue;
 		y = yvalue;
 		jumpSpeed = 0; // this function sets the variables of this object
@@ -492,7 +492,7 @@ public class MainPlayer implements ActionListener { // the class for the user
 	}
 
 	public void updateSystemVariables(ArrayList<StaticObjects> s,
-			ArrayList<ReactiveObjects> r, ArrayList<MainPlayer> enemies ) {
+			ArrayList<ReactiveObjects> r, ArrayList<GamePlayer> enemies ) {
 		this.staticobjects = s;
 		this.reactiveobjects = r;
 		

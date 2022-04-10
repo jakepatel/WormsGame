@@ -11,7 +11,7 @@ public class Missile extends Weapon {
 	
 	
 
-		public Missile(MainPlayer p, ArrayList<MainPlayer> enemies, ArrayList<StaticObjects> s,
+		public Missile(GamePlayer p, ArrayList<GamePlayer> enemies, ArrayList<StaticObjects> s,
 			ArrayList<ReactiveObjects> r, boolean l, double velocity,
 			double angle) {
 		super(p, enemies, s, r, l, velocity, angle);
