@@ -43,8 +43,13 @@ public class GameClient extends AbstractClient{
 			if(msg.equals("account created")) {
 				createAccountControl.createAccountSuccess();
 				//Handle Login Here
-
 			}
+			if(msg.equals("login successful")) {
+				loginControl.loginSuccess();
+				//Handle Login Here
+			}
+			
+			
 		}
 
 	}

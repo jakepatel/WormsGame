@@ -77,10 +77,10 @@ public class LoginControl implements ActionListener {
 	// After an account is created, set the User object and display the contacts screen.
 	public void loginSuccess()
 	{
-		LoginView createAccountPanel = (LoginView)container.getComponent(2);
-		GameGUI clientGUI = (GameGUI)SwingUtilities.getWindowAncestor(createAccountPanel);
-		//clientGUI.setUser(new User(createAccountPanel.getUsername(), createAccountPanel.getPassword()));
+		LoginView loginPanel = (LoginView)container.getComponent(1);
+		GameGUI GameGUI = (GameGUI)SwingUtilities.getWindowAncestor(loginPanel);
+		//GameGUI.setUser(new User(createAccountPanel.getUsername(), createAccountPanel.getPassword()));
 		CardLayout cardLayout = (CardLayout)container.getLayout();
-		cardLayout.show(container, "LoginView");
+		cardLayout.show(container, "MainMenuView");
 	}
 }
