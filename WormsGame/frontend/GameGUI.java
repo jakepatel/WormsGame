@@ -30,10 +30,10 @@ public class GameGUI extends JFrame
 	
 	
 	// Constructor that creates the client GUI.
-	public GameGUI(GameClient client)
+	public GameGUI(GameClient c)
 	{
 		// Set up the chat client.
-		this.client = client;
+		this.client = c;
 
 		// Set the title and default close operation.
 		this.setTitle("Chat Client");
