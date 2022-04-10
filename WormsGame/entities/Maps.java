@@ -2,14 +2,14 @@ package entities;
 
 import java.util.ArrayList;
 
-public class Map {
+public class Maps {
 	
 	int mapIndex;
-	ArrayList<Integer> objectPositionsXAtIndex = new ArrayList<Integer>();
-	ArrayList<Integer> objectPositionsYAtIndex = new ArrayList<Integer>();
-	ArrayList<Integer> objectTypeAtIndex = new ArrayList<Integer>();
+	public ArrayList<Integer> objectPositionsXAtIndex = new ArrayList<Integer>();
+	public ArrayList<Integer> objectPositionsYAtIndex = new ArrayList<Integer>();
+	public ArrayList<Integer> objectTypeAtIndex = new ArrayList<Integer>();
 
-	public Map(int mapIndex) {
+	public Maps(int mapIndex) {
 		this.mapIndex = mapIndex;
 		switch (mapIndex) {
 		case 1:
