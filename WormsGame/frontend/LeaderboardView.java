@@ -17,8 +17,7 @@ public class LeaderboardView extends JPanel
 {
 	//private variables here
 	private JList<String> dataList;
-	//TODO Create database connection here
-	//private Database;
+
 	// Getter for the text in the username field.
 	public void setDataList(String[] dataList){
 		DefaultListModel<String> listModel = new DefaultListModel<String>();
@@ -34,17 +33,12 @@ public class LeaderboardView extends JPanel
 	}
 	public LeaderboardView(LeaderboardControl lc)
 	{
-
-		// TODO Load databbase connection
-
-
 		//create title label for the LeadersBoardView Panel
 		JLabel titleLabel = new JLabel("Leaders Board", JLabel.CENTER);
 
 		//Creating a Scroll Pane for leadersBoard 
 		JPanel scrollPanel = new JPanel();
-		//TODO: data = Query database for list of usernames.
-		dataList = new JList<String>(/*TODO data*/);
+		dataList = new JList<String>();
 		JScrollPane scrollPane = new JScrollPane(dataList);
 		scrollPanel.add(scrollPane);
 
@@ -53,7 +47,6 @@ public class LeaderboardView extends JPanel
 		JPanel buttonPanel = new JPanel();
 		JButton menuButton = new JButton("Back to Main Menu");
 		menuButton.addActionListener(lc);
-		//menuButton.addActionListener(lc);    
 		buttonPanel.add(menuButton);
 
 		// Arrange the three panels in a grid.

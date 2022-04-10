@@ -11,7 +11,8 @@ import javax.swing.SwingUtilities;
 
 import ClientComm.GameClient;
 import backend.MainMenuModel;
-
+import frontend.CreateAccountView;
+import frontend.DeletePlayerView;
 import frontend.GameGUI;
 import frontend.LeaderboardView;
 
@@ -96,6 +97,13 @@ public class MainMenuControl implements ActionListener
 				e1.printStackTrace();
 			}
 
+		}
+		else if(command.equals("Delete Account"))
+		{
+			//handle page to DeletePlayerView	    	
+	    	DeletePlayerView deletePlayerView = (DeletePlayerView)container.getComponent(8);
+	    	CardLayout cardLayout = (CardLayout)container.getLayout();
+	    	cardLayout.show(container, "DeletePlayerView");
 		}
 		else
 			//print an error on console
