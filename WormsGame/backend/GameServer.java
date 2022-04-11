@@ -124,6 +124,7 @@ public class GameServer extends AbstractServer {
 		} else if (arg0 instanceof MainMenuModel) {
 			System.out.println("MainMenuModel recieved!");
 			MainMenuModel m = (MainMenuModel)arg0;
+			
 			if(m.getGameSelection().equals("Leaderboard")) {
 				ArrayList<String> leaderboard = new ArrayList<String>();
 				leaderboard = db.getLeaderBoard();

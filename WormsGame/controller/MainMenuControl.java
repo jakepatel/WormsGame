@@ -45,7 +45,10 @@ public class MainMenuControl implements ActionListener
 		// The Login button takes the user to the login panel.
 		if (command.equals("Join A Game"))
 		{
-			GameFrame gameFrame = new GameFrame(client, "Worms Armageddon");
+			//handle page to Leaderboard View
+			
+			CardLayout cardLayout = (CardLayout)container.getLayout();
+			cardLayout.show(container, "GameWaitingView");	
 
 		}
 
