@@ -16,6 +16,7 @@ import entities.StartGameGranted;
 import frontend.GameFrame;
 import frontend.GameGUI;
 import frontend.GameView;
+import frontend.TestFrame;
 import ocsf.client.*;
 
 public class GameClient extends AbstractClient{
@@ -33,6 +34,10 @@ public class GameClient extends AbstractClient{
 	private GameFrame gameFrame;
 	private GameGUI UIFrame;
 	private String player1, player2;
+	
+	//test game
+	private TestFrame testFrame;
+
 
 	// Setters for the GUI controllers.
 	public void setLoginControl(LoginControl loginControl)
@@ -111,6 +116,19 @@ public class GameClient extends AbstractClient{
 	
 	//end of game related method
 	
+	//start of test game methods
+	
+	public TestFrame getTestFrame() {
+		return testFrame;
+	}
+	public void setTestFrame(TestFrame testFrame) {
+		this.testFrame = testFrame;
+	}
+	
+	
+	//end of test game methods
+	
+	
 	
 	public GameClient()
 	{
@@ -160,8 +178,8 @@ public class GameClient extends AbstractClient{
 			gameFrame.setPlayer2Name(info.getPlayer2());
 			
 			
-			//dispose the wait frame
-			UIFrame.dispose();
+			//hide the user interface frame
+			UIFrame.setVisible(false);
 
 			
 			

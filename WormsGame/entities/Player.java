@@ -14,6 +14,12 @@ public class Player {
 		this.stats = stats;
 	}
 	
+	public Player(String id, String username)
+	{
+		this.id = id;
+		this.username = username;
+	}
+	
 	public void setId(String id) {
 		this.id = id;
 	}

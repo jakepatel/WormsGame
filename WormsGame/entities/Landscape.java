@@ -2,7 +2,7 @@ package entities;
 
 public class Landscape {
 	private Player player;
-	private Map map;
+	private Maps map;
 	private Vehicle vehicle;
 	
 
@@ -13,7 +13,7 @@ public class Landscape {
 	
 	
 	
-	public Landscape(Player player, Map map, Vehicle vehicle, StaticObjects statObj, ReactiveObjects reactObj){
+	public Landscape(Player player, Maps map, Vehicle vehicle, StaticObjects statObj, ReactiveObjects reactObj){
 
 		this.player = player;
 		this.map = map;
@@ -25,7 +25,7 @@ public class Landscape {
 		this.player = player;
 	}
 	
-	public void setMap(Map map) {
+	public void setMap(Maps map) {
 		this.map = map;
 	}
 	
@@ -45,7 +45,7 @@ public class Landscape {
 		return player;
 	}
 	
-	public Map getMap() {
+	public Maps getMap() {
 		return map;
 	}
 	

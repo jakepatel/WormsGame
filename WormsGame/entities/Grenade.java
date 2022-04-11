@@ -1,6 +1,7 @@
 package entities;
 
 import java.util.ArrayList;
+import entities.override;
 
 
 public class Grenade extends Weapon {
@@ -16,10 +17,7 @@ public class Grenade extends Weapon {
 		
 		
 		
-		
-		
 	}
-
 	@override
 	public void destroy() { // applies the explosion images and loops through
 		if(timeToExplode<100){
