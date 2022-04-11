@@ -1,16 +1,13 @@
 package entities;
 
 import java.util.ArrayList;
-import entities.override;
 
 
 public class Grenade extends Weapon {
 	
 	
 	
-	public Grenade(GamePlayer p, ArrayList<GamePlayer> enemies,
-			ArrayList<StaticObjects> s, ArrayList<ReactiveObjects> r,
-			boolean l, double velocity, double angle) 
+	public Grenade(GamePlayer p, ArrayList<GamePlayer> enemies, ArrayList<StaticObjects> s, ArrayList<ReactiveObjects> r, boolean l, double velocity, double angle) 
 	{
 		super(p, enemies, s, r, l, velocity, angle);
 		// TODO Auto-generated constructor stub
@@ -18,21 +15,11 @@ public class Grenade extends Weapon {
 		
 		
 	}
-	@override
-	public void destroy() { // applies the explosion images and loops through
-		if(timeToExplode<100){
-		SoundEffect.WORMIMPACT.play();		
-		this.y=y-8;
-		updateRectangle();						
-		trajectoryIncrements = calculateTrajectory(1000, angle);
-		trajectoryIndex = 0;
-		}else{
-			grenadeDestroy();
-		}
-		
-	}
 	
-	public void grenadeDestroy(){		
+	
+	
+	public void grenadeDestroy()
+	{		
 		destroyRadius();
 		isDestroyed = true;
 		timer.stop();
@@ -43,7 +30,27 @@ public class Grenade extends Weapon {
 	}
 	
 	@override
-	public boolean checkCollisionEnemy() {
+	public void destroy() 
+	{ // applies the explosion images and loops through
+		
+		if(timeToExplode<100)
+		{
+			SoundEffect.WORMIMPACT.play();		
+			this.y=y-8;
+			updateRectangle();						
+			trajectoryIncrements = calculateTrajectory(1000, angle);
+			trajectoryIndex = 0;
+		}
+		else
+		{
+			grenadeDestroy();
+		}
+		
+	}
+	
+	@Override
+	public boolean checkCollisionEnemy() 
+	{
 		for(int i=0; i<4; i++){
 			if (rectangle.intersects(enemies.get(i).CollisionRectangle)) {
 				if (this.isDestroyed == false) {					
@@ -56,5 +63,7 @@ public class Grenade extends Weapon {
 		}
 		return false;
 	}
+	
+	
 	
 }
