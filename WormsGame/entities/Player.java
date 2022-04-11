@@ -1,9 +1,13 @@
 package entities;
 
 import java.awt.Rectangle;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Player {
+public class Player implements Serializable
+{
+	private static final long serialVersionUID = -732641109462475955L;	//auto-generated
+	
 	public static final Rectangle CollisionRectangle = null;
 	private String id, username;
 	ArrayList<String> stats;

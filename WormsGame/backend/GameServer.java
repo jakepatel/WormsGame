@@ -47,6 +47,7 @@ public class GameServer extends AbstractServer {
 		this.setLog(log);
 		this.setStatus(status);
 		db = new Database();
+		connections = new ArrayList<ConnectionToClient>();
 
 
 	}
