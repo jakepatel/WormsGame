@@ -10,18 +10,19 @@ public class StartGameRequest implements Serializable
 	private static final long serialVersionUID = -2250388693926048236L;	//auto-generated
 	
 	
-	private String sentBy;	//contains name of the user who sent a request
+	private Player sentBy;	//contains name of the user who sent a request
 	
 	
-	public String getAccount() {
+	
+	public Player getPlayerAccount() {
 		return sentBy;
 	}
 
-	public void setAccount(String account) {
+	public void setAccount(Player account) {
 		this.sentBy = account;
 	}
 
-	public StartGameRequest(String player)
+	public StartGameRequest(Player player)
 	{
 		sentBy = player;
 	}

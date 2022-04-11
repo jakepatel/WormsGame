@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
+import entities.Player;
+import entities.StartGameGranted;
+import entities.StartGameRequest;
 import ocsf.server.*;
 
 public class GameServer extends AbstractServer {
-	public GameModel gameData;
+
 	public LoginModel logInData;
 	public LeaderboardModel leaderBrdData;
 	public MainMenuModel mainMenuData;
@@ -22,7 +25,22 @@ public class GameServer extends AbstractServer {
 
 	private JTextArea log;
 	private JLabel status;
+	
+	
+	//game related data
+	public GameModel gameData;
+    
+    private Player player1;
+    private Player player2;
+    
+    private static int gamesGranted = 0;
+    
+    private ArrayList<ConnectionToClient> connections;
+    
+	private static int getStaticNumber = 0;
 
+	//end of game related data
+	
 	public GameServer(JTextArea log, JLabel status) {
 		super(12345);
 		setTimeout(500);
@@ -122,6 +140,60 @@ public class GameServer extends AbstractServer {
 			}
 			
 		}
+		else if (arg0 instanceof StartGameRequest)
+		{
+			//TypeCast
+			StartGameRequest request = (StartGameRequest)arg0;
+			
+			if(connections.size() <= 1)		//forcing only two connections at the moment
+			{
+				//store the connection to the array
+				connections.add(arg1);
+				arg1.setName(request.getPlayerAccount().getUsername());
+
+				
+				//check for two playes
+				if(player1 == null && player2 == null)	//no players set
+				{
+						//first player
+					player1 = request.getPlayerAccount();
+				}
+				else if(!(player1 == null) && player2 == null)	//1 player set and second player not set
+				{
+					//second player
+					player2 = request.getPlayerAccount();
+				}
+				
+				
+				if(!(player1 == null || player2 == null))	//both player set
+				{
+					//two players connected, send a StartGameGranted to both
+					StartGameGranted granted = new StartGameGranted(grantGame(), connections.get(0).getName(), connections.get(1).getName());
+					
+					try {
+						connections.get(0).sendToClient(granted);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					
+					try {
+						connections.get(1).sendToClient(granted);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					
+					
+				}
+				
+			}
+			
+			//continue if more than two are connected
+			
+		}
 	}
 
 	public void serverStarted() {
@@ -194,6 +266,17 @@ public class GameServer extends AbstractServer {
 	public void setStopFlag(boolean stopActionFlag) {
 		this.stopActionFlag = stopActionFlag;
 	}
+	
+	public static int getStaticNumber() 
+    {
+		return ++getStaticNumber;
+	}
+	
+	private static int grantGame()
+	{
+		return ++gamesGranted;
+	}
+
 
 
 
