@@ -69,7 +69,7 @@ public class GameGUI extends JFrame
 	    LeaderboardView leaderboardView = new LeaderboardView(control_leaderboard);
 	    GameWaitingView waitingView = new GameWaitingView();
 	    DeletePlayerView deleteView = new DeletePlayerView(control_delete);
-	    
+	
 	    
 	    //add the view to the container and the commented numbers correspond to the cardLayout.getComponent(number);
 	    container.add(initial, "InitialView");	//0

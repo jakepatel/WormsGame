@@ -97,8 +97,6 @@ public class GameFrame extends JFrame implements ActionListener
 	    betweenRoundsPanel1.btnStartMap.addActionListener(this);
 	    
 	    //show the game waiting view
-	    
-	    
 	    this.setVisible(true);
 	    timer = new Timer(1000,this);
 	}

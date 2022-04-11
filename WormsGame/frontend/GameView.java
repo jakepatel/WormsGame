@@ -689,11 +689,7 @@ public class GameView extends JPanel
 	}
 	
 	*/
-	
-	
-	
-	
-	
+
 	public void paintComponent(Graphics g) 
 	{
 		renderScreen(g);

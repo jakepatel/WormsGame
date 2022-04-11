@@ -13,6 +13,7 @@ import ClientComm.GameClient;
 import backend.MainMenuModel;
 import frontend.CreateAccountView;
 import frontend.DeletePlayerView;
+import frontend.GameFrame;
 import frontend.GameGUI;
 import frontend.LeaderboardView;
 
@@ -44,21 +45,7 @@ public class MainMenuControl implements ActionListener
 		// The Login button takes the user to the login panel.
 		if (command.equals("Join A Game"))
 		{
-			//handle page to Game View
-			MainMenuView mmv = (MainMenuView)container.getComponent(4);	//component number of mainmenuview
-			MainMenuModel data = new MainMenuModel(command.toString());
-			//send data to server
-			try 
-			{
-				client.sendToServer(data);
-			} 
-			catch (IOException e1) 
-			{
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-
-			//handle control to Game waiting view
+			GameFrame gameFrame = new GameFrame(client, "Worms Armageddon");
 
 		}
 
