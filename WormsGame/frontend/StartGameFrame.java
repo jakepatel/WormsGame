@@ -44,6 +44,7 @@ public class StartGameFrame extends JPanel {
 		player2Area.setBounds(438, 343, 108, 28);
 		add(player2Area);
 		*/
+	
 		
 	    btnNewButton = new JButton("Starting Game Now...");
 		btnNewButton.setBounds(319, 208, 220, 25);

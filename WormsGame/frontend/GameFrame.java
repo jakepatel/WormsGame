@@ -39,7 +39,6 @@ public class GameFrame extends JFrame implements ActionListener
 	
 	
 	
-	
 	StartGameFrame startGameFrame1;
     BetweenRoundsPanel betweenRoundsPanel1;
     GoHomePageFrame goHomePageFrame1;
