@@ -81,12 +81,12 @@ public class GameFrame extends JFrame implements ActionListener
 		//sets the first view for a frame to enter player name and button to start game
 	    
 		
-		startGameFrame1=new StartGameFrame();		//omit later
-	    startGameFrame1.setPlayer1Name(client.getPlayer1());
-	    startGameFrame1.setPlayer2Name(client.getPlayer2());
+		startGameFrame1=new StartGameFrame();		//keep this for now
+	    //startGameFrame1.setPlayer1Name(client.getPlayer1());
+	    //startGameFrame1.setPlayer2Name(client.getPlayer2());
 	    
-	    startGameFrame1.btnNewButton.addActionListener(this);
-	    this.add(startGameFrame1);
+	    //startGameFrame1.btnNewButton.addActionListener(this);
+	   	this.add(startGameFrame1);
 	    
 	    
 	    
@@ -113,7 +113,7 @@ public class GameFrame extends JFrame implements ActionListener
 
 	    
 	    //build view
-	    /*
+	    
 		SoundEffect.STARTROUND.play();
 		
 		this.player1Name= client.getPlayer1();
@@ -135,10 +135,8 @@ public class GameFrame extends JFrame implements ActionListener
 		this.setVisible(true);	
 		timer.start();
 		
-		card.show(container, "GameView");*/
-	
-  
-	    
+		card.show(container, "GameView");
+ 
 	}
 	
 	
@@ -290,6 +288,7 @@ public class GameFrame extends JFrame implements ActionListener
 				}
 		*/
 		
+		/*
 		if(e.getActionCommand() == startGameFrame1.btnNewButton.getActionCommand())
 		{
 			SoundEffect.STARTROUND.play();
@@ -315,7 +314,7 @@ public class GameFrame extends JFrame implements ActionListener
 			
 			card.show(container, "GameView");
 			
-		}
+		}*/
 
 		
 		if(e.getActionCommand()==betweenRoundsPanel1.btnStartMap.getActionCommand())

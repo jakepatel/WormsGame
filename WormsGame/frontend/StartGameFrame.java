@@ -5,6 +5,8 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JButton;
+
+import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -15,13 +17,15 @@ public class StartGameFrame extends JPanel {
 	JButton btnNewButton;
 	JTextArea player1Area;
 	JTextArea player2Area;
+	
 	public StartGameFrame() 
+	
 	{
 		
 		setLayout(null);
 		
 		
-		
+		/*
 		JLabel lblNewLabel = new JLabel("Player 1 Name");
 		lblNewLabel.setBounds(180, 305, 108, 14);
 		add(lblNewLabel);
@@ -39,10 +43,19 @@ public class StartGameFrame extends JPanel {
 		player2Area.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		player2Area.setBounds(438, 343, 108, 28);
 		add(player2Area);
+		*/
 		
-	    btnNewButton = new JButton("Start Game");
-		btnNewButton.setBounds(319, 208, 120, 23);
+	    btnNewButton = new JButton("Starting Game Now...");
+		btnNewButton.setBounds(319, 208, 220, 25);
 		add(btnNewButton);
+		
+		/*
+		JLabel startingMessage = new JLabel("Starting Game...");
+		JPanel messagebuffer = new JPanel();
+		messagebuffer.add(startingMessage, BorderLayout.CENTER);
+		
+		this.add(messagebuffer, BorderLayout.CENTER);*/
+		
 
 	}
 	
