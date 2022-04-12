@@ -58,42 +58,42 @@ public class GameView extends JPanel
 	public int player1Weapon = 1, player2Weapon = 1;
 	public int timeLeftInTurn = 30, weaponsUsedInTurn = 0, MaxWeaponsPerTurn = 1;
 	String board = "";
-	
+
 	public boolean fired = false;
 	public boolean actionSwitcher = false;
 	public String player1Name;
 	public String player2Name;
-	
+
 	public GamePlayer p; 
 	public boolean move = true;
 	public int moving = 0;
-	
+
 	public int boxPos= -200;
 	public int randX = 0;
 	public boolean drop = false;
 	public StaticObjects box = new StaticObjects(randX, boxPos, 0);
-	
+
 	GameControl controller;
 	public int gameID = 0;		//will be set by the server
-	
+
 	//helper functions
 
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
 	//end helper functions
-	
+
 	public GameView(GameControl controller, String player1Name, String player2Name, Maps map) 
 	{		
 		this.controller = controller;
 		this.player1Name = player1Name;
 		this.player2Name = player2Name;
-		
+
 		this.setFocusable(true);
 		ImageIcon tempImageIcon;
 		tempImageIcon = new ImageIcon(
@@ -166,23 +166,23 @@ public class GameView extends JPanel
 				team2));
 		team2.add(new GamePlayer(800, 50, staticobjects, reactiveobjects,
 				team1));
-				
+
 		this.p = team1.get(0);
 
 		this.addKeyListener(controller);
 		this.addMouseListener(controller);
 		timer = new Timer(30, controller);
 		timer.addActionListener(controller);
-		
-		
-		
-				
+
+
+
+
 		changeTurns = new Timer(1000, new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
-				
+
+
 				if (timeLeftInTurn == 0 ) {
 					fired = false;
 					if(playerTurn==8){
@@ -201,32 +201,32 @@ public class GameView extends JPanel
 					timeLeftInTurn = 5;
 					weaponsUsedInTurn = 0;
 					MaxWeaponsPerTurn = 0;
-					
+
 				}
-				
+
 				board = createResultBoard();
 			}
 
-			
+
 		});
 
 		playerTurn = 1;
 		timer.start();
 		changeTurns.start();
-		
+
 	}
-	
+
 	//Getter/Setters Functions//------------------------------------------------------------
 	public int getGameID()
 	{
 		return gameID;
 	}
-	
+
 	public void setGameID(int id)
 	{
 		gameID = id;
 	}
-	
+
 	public Timer getTimer() {
 		return timer;
 	}
@@ -506,9 +506,9 @@ public class GameView extends JPanel
 	public void setBox(StaticObjects box) {
 		this.box = box;
 	}
-	
+
 	//End of Getters/Setters-------------------------------------------------------------------
-	
+
 	public String createResultBoard() {
 		String board = " ";
 		for (int i = 0; i < 3; i++)
@@ -538,28 +538,28 @@ public class GameView extends JPanel
 			board += team2.get(0).getMissilesAvailable();
 		for (int i = 0; i < 1; i++)
 			board += "          ";
-		
+
 		return board;
 	}
-	
-	
+
+
 	public void stopTimers() {
-	this.timer.stop();
-	this.changeTurns.stop();
+		this.timer.stop();
+		this.changeTurns.stop();
 	}
-	
+
 	public void startTimers() {
-	this.timer.start();
-	this.changeTurns.start();
+		this.timer.start();
+		this.changeTurns.start();
 	}
-	
+
 
 	/*
 	public void dropBox(int boxPos, int randX) {		
-		
+
 		int frame = 0;
 		int condition = (boxPos + 200) %32;
-		
+
 		if(condition==0){frame = 1;}
 		else if(condition==4){frame = 2;}
 		else if(condition==8){frame = 3;}
@@ -568,16 +568,16 @@ public class GameView extends JPanel
 		else if(condition==20){frame = 4;}
 		else if(condition==24){frame = 3;}
 		else if(condition==28){frame = 2;}			
-		
-		
+
+
 		box.setImage(frame);
 		box.setX(randX);
 		box.setY(boxPos);
 		box.updateRectangle();
-		
+
 	}
-	*/
-	
+	 */
+
 	/*
 
 	public void updateGameVariables() 
@@ -598,10 +598,10 @@ public class GameView extends JPanel
 			bullets.get(i)
 					.updateSystemVariables(staticobjects, reactiveobjects);		
 	}
-	
-	
-	*/
-	
+
+
+	 */
+
 	/*
 	public void changeWeapon(int player) {
 	Image temp = (new ImageIcon("images/weapons/missile0.png").getImage());
@@ -611,7 +611,7 @@ public class GameView extends JPanel
 	} else if (player == 1) {
 		tempW = player2Weapon;
 	}
-	
+
 	tempW = (tempW + 1) % 3;
 	switch (tempW) {
 	case 1:
@@ -632,27 +632,27 @@ public class GameView extends JPanel
 		player2Weapon = tempW;
 	}
 	}
-	
-	*/
-	
+
+	 */
+
 	/*
 	public void playerJump() 
 	{
-	
+
 		if (p.injump == false && p.checkCollisionDown(staticobjects, reactiveobjects) == true)
 			p.startJump(0);
 		else if (p.injump == true && p.jumpSpeed > 0 && p.jumpSpeed < p.jumpSpeedBound - 5) 
 		{
 			p.startJump(1);
-		 
+
 		}
 	}
-	*/
-	
-	
+	 */
+
+
 	/*
-	
-	
+
+
 	public void invisibleObjectCleaner(ArrayList<StaticObjects> s,
 		ArrayList<ReactiveObjects> r, ArrayList<Missile> m,
 		ArrayList<Grenade> g, ArrayList<Bullet> b) {
@@ -687,30 +687,30 @@ public class GameView extends JPanel
 				updateGameVariables();
 			}
 	}
-	
-	*/
+
+	 */
 
 	public void paintComponent(Graphics g) 
 	{
 		renderScreen(g);
 	}
-	
+
 	public void renderScreen(Graphics g) 
 	{
-	
+		super.paintComponent(g);
 		g.drawImage(backgroundImage, 0, 0, null);
 		// create the result board
 		g.setFont(new Font("standart", Font.BOLD, 20));
 		g.setColor(Color.orange);
 		g.drawImage(boardImage, 0, 0, null);
 		g.drawString(board, 0, 25);
-		
+
 		g.setFont(new Font("dialog", Font.ROMAN_BASELINE, 12));
-		
+
 		int weapon;
 		if(playerTurn%2==1){weapon = player1Weapon;}			
 		else{weapon = player2Weapon;}
-		
+
 		if(weapon == 1){
 			g.drawString("The MISSILE has High damage ", 810, 15);
 			g.drawString("and explodes on inpact ", 810, 33);
@@ -763,20 +763,20 @@ public class GameView extends JPanel
 		g.setFont(new Font("standart", Font.BOLD, 12));
 		g.setColor(Color.RED);
 		for(int i=0; i<4; i++){
-			 temp = "";
-			 temp += team1.get(i).playerHealth;
-		g.drawString(temp, team1.get(i).getX()+10, team1.get(i).getY());
+			temp = "";
+			temp += team1.get(i).playerHealth;
+			g.drawString(temp, team1.get(i).getX()+10, team1.get(i).getY());
 		}
 		g.setColor(Color.BLUE);
 		for(int i=0; i<4; i++){
-			 temp = "";
-			 temp += team2.get(i).playerHealth;
-		g.drawString(temp, team2.get(i).getX()+10, team2.get(i).getY());
+			temp = "";
+			temp += team2.get(i).playerHealth;
+			g.drawString(temp, team2.get(i).getX()+10, team2.get(i).getY());
 		}
-		
+
 		g.setFont(new Font("standart", Font.ROMAN_BASELINE, 50));
-			
-		
+
+
 		if(playerTurn%2==1){
 			g.setColor(Color.RED);							
 		}
@@ -786,66 +786,69 @@ public class GameView extends JPanel
 			g.drawString("Player 2", 400, 300);
 		}
 		g.fillPolygon(arrowX(), arrowY(), 8);		
-		
-		
+
+
 		g.drawImage(box.objectImage,box.x,box.y,null);
+		validate();
+
+
 	}
-	
-	
-	
-	
-	
+
+
+
+
+
 	//start here
 	public int[] arrowX(){
-	int[] x = {20,40,40,60,30,0,20,20};
-	if(playerTurn%2==1){			
-		for(int i = 0; i<x.length; i++){
-			x[i] = x[i] + team1.get((playerTurn-1)/2).x-10;
+		int[] x = {20,40,40,60,30,0,20,20};
+		if(playerTurn%2==1){			
+			for(int i = 0; i<x.length; i++){
+				x[i] = x[i] + team1.get((playerTurn-1)/2).x-10;
+			}
+		}else{
+			for(int i = 0; i<x.length; i++){
+				x[i] = x[i] + team2.get((playerTurn-1)/2).x-10;
+			}
 		}
-	}else{
-		for(int i = 0; i<x.length; i++){
-			x[i] = x[i] + team2.get((playerTurn-1)/2).x-10;
-		}
+		return x;
 	}
-	  return x;
-	}
-	
-	public int[] arrowY(){
-	int[] y = {0,0,30,30,50,30,30,0};
-	if(playerTurn%2==1){
-		for(int i = 0; i<y.length; i++){
-			y[i] = y[i] + team1.get((playerTurn-1)/2).y -65;
-		}
-	}else{
-		for(int i = 0; i<y.length; i++){
-			y[i] = y[i] + team2.get((playerTurn-1)/2).y -65;
-		}
-	}
-	return y;
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
-	
-	
+	public int[] arrowY(){
+		int[] y = {0,0,30,30,50,30,30,0};
+		if(playerTurn%2==1){
+			for(int i = 0; i<y.length; i++){
+				y[i] = y[i] + team1.get((playerTurn-1)/2).y -65;
+			}
+		}else{
+			for(int i = 0; i<y.length; i++){
+				y[i] = y[i] + team2.get((playerTurn-1)/2).y -65;
+			}
+		}
+		return y;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
 	/*
 	public void fire(double velocity) 
 	{
-	
+
 		SoundEffect.COUGH.play();
-		
+
 		double mx = mouseXY[0];
 		double my = mouseXY[1] * Math.PI;
 		double angleR = Math.atan(my / mx); // calcs angle
 		double angleL = Math.atan(my / -mx); // calcs -angle
-		
+
 		if (playerTurn == 1 | playerTurn == 3 | playerTurn == 5 | playerTurn == 7) 
 		{
 			if (this.weaponsUsedInTurn < this.MaxWeaponsPerTurn)
@@ -873,8 +876,8 @@ public class GameView extends JPanel
 					}
 					this.weaponsUsedInTurn++;
 				}
-			
-			
+
+
 		} 
 		else if (playerTurn == 2 | playerTurn == 4 | playerTurn == 6 | playerTurn == 8) 
 		{
@@ -903,21 +906,21 @@ public class GameView extends JPanel
 					}
 					this.weaponsUsedInTurn++;
 				}
-			
+
 		}			
-		
-	
+
+
 	}
-	*/
-	
+	 */
+
 	/*
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 	// TODO Auto-generated method stub
-	
+
 	}
-	
+
 	@Override
 	public void mousePressed(MouseEvent e) {		
 		fired = true;
@@ -927,9 +930,9 @@ public class GameView extends JPanel
 		mouseXY[1] = team1.get((playerTurn-1)/2).getY() - e.getY();// gets -y of mouse
 		// and adds
 		// player y
-	
+
 	}
-	
+
 	@Override
 	public void mouseReleased(MouseEvent e) {
 	int mousecode = e.getButton();
@@ -942,7 +945,7 @@ public class GameView extends JPanel
 				mouseXY[1] = team1.get((playerTurn-1)/2).getY() - e.getY();// gets -y of mouse
 														// and adds
 				// player y
-	
+
 				if (mousecode == MouseEvent.BUTTON1) {
 					fire(clickVelocity); // fires weapon
 					fired = false;						 
@@ -959,7 +962,7 @@ public class GameView extends JPanel
 				mouseXY[1] = team2.get((playerTurn-1)/2).getY() - e.getY();// gets -y of mouse
 														// and adds
 				// player y
-	
+
 				if (mousecode == MouseEvent.BUTTON1) {
 					fire(clickVelocity); // fires weapon
 					fired = false; // ends the log
@@ -967,39 +970,39 @@ public class GameView extends JPanel
 					this.weaponsUsedInTurn++;
 				}
 			}
-	
+
 	}
-	
+
 	@Override
 	public void mouseEntered(MouseEvent e) {
 	// TODO Auto-generated method stub
-	
+
 	}
-	
+
 	@Override
 	public void mouseExited(MouseEvent e) {
 	// TODO Auto-generated method stub
-	
+
 	}
-	
+
 	}
-	*/
-	
+	 */
+
 	/*
 	public void keyTyped(KeyEvent e) {
-	
+
 	}
-	
+
 	public void keyPressed(KeyEvent e) { // fires automatically when a key is
 	if(move== true){
 	int keycode = e.getKeyCode();
 	if (pressedKeys.contains(keycode) == false) {
 		pressedKeys.add(keycode);
 	}
-	
+
 	if (playerTurn == 1 | playerTurn == 3 | playerTurn == 5 | playerTurn == 7) {
 		p = team1.get((playerTurn-1)/2);
-		
+
 		if (pressedKeys.contains(KeyEvent.VK_DOWN)) {
 			changeWeapon(0);
 		}
@@ -1013,10 +1016,10 @@ public class GameView extends JPanel
 		if (pressedKeys.contains(KeyEvent.VK_SPACE)) {
 			//weaponLaunch();
 		}
-	
+
 	} else {
 		p = team2.get((playerTurn-1)/2);
-		
+
 		if (pressedKeys.contains(KeyEvent.VK_DOWN)) {
 			changeWeapon(1);
 		}
@@ -1034,9 +1037,9 @@ public class GameView extends JPanel
 	move = false;
 	}
 	}
-	
-	*/
-	
+
+	 */
+
 	/*
 	public void actionPerformed(ActionEvent e) { // fires automatically when an
 	if(moving%6 == 0) //slows movement
@@ -1044,9 +1047,9 @@ public class GameView extends JPanel
 	moving++;
 												// timer activates it
 	// drop in box at end of turn
-	
-	
-	
+
+
+
 	if(timeLeftInTurn==0){
 		boxPos = -200;				
 		box.make();
@@ -1066,7 +1069,7 @@ public class GameView extends JPanel
 		dropBox(boxPos, randX);
 	}
 	// drop in box at end of turn
-	
+
 	invisibleObjectCleaner(staticobjects, reactiveobjects, missiles,
 			grenades, bullets);
 	updateGameVariables();
@@ -1080,14 +1083,14 @@ public class GameView extends JPanel
 	if(clickVelocity> 5000){
 		clickVelocity -= 20;
 	}
-			
+
 	}
-	*/
-	
+	 */
 
 
 
-	
+
+
 	/*
 	public void keyReleased(KeyEvent e) { // fires automatically when a key is
 										// released
@@ -1095,9 +1098,9 @@ public class GameView extends JPanel
 	index = pressedKeys.indexOf(e.getKeyCode());
 	if (index != -1)
 		pressedKeys.remove(index);
-	
+
 	}
-	*/
-	
+	 */
+
 }
-	
+
