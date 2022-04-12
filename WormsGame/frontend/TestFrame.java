@@ -33,14 +33,6 @@ public class TestFrame extends JFrame
 	    
 	    this.setVisible(true);
 	    
-	    //send a start game request to the server
-	    try {
-			client.openConnection();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    
 	    //pass this to client
 	    client.setTestFrame(this);
 	    

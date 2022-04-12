@@ -10,14 +10,18 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import ClientComm.GameClient;
+import backend.LoginModel;
 import backend.MainMenuModel;
+import entities.Player;
+import entities.StartGameRequest;
 import frontend.CreateAccountView;
 import frontend.DeletePlayerView;
 import frontend.GameFrame;
 import frontend.GameGUI;
 import frontend.LeaderboardView;
-
+import frontend.LoginView;
 import frontend.MainMenuView;
+import frontend.TestNames;
 
 //Name: Jake
 
@@ -49,6 +53,23 @@ public class MainMenuControl implements ActionListener
 			
 			CardLayout cardLayout = (CardLayout)container.getLayout();
 			cardLayout.show(container, "GameWaitingView");	
+			
+			LoginView loginView = (LoginView)container.getComponent(1);
+			GameGUI GameGUI = (GameGUI)SwingUtilities.getWindowAncestor(loginView);
+			
+			Player player = new Player(loginView.getUsername());
+			
+
+		    Player sentBy = player;
+		    StartGameRequest request = new StartGameRequest(sentBy);
+		    
+		    try {
+				client.sendToServer(request);
+			} catch (IOException exception) {
+				// TODO Auto-generated catch block
+				exception.printStackTrace();
+			}
+		    
 
 		}
 

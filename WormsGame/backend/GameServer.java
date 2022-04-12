@@ -78,6 +78,7 @@ public class GameServer extends AbstractServer {
 					e.printStackTrace();
 				}
 			}
+			
 		} 
 		else if (arg0 instanceof AdminLoginModel) {
 			System.out.println("admin login model recieved!");
@@ -125,6 +126,7 @@ public class GameServer extends AbstractServer {
 			System.out.println("MainMenuModel recieved!");
 			MainMenuModel m = (MainMenuModel)arg0;
 			
+
 			if(m.getGameSelection().equals("Leaderboard")) {
 				ArrayList<String> leaderboard = new ArrayList<String>();
 				leaderboard = db.getLeaderBoard();

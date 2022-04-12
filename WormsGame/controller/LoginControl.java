@@ -6,6 +6,7 @@ import javax.swing.*;
 import ClientComm.GameClient;
 import backend.Database;
 import backend.LoginModel;
+import entities.Player;
 import frontend.CreateAccountView;
 import frontend.GameGUI;
 import frontend.LoginView;
@@ -77,10 +78,11 @@ public class LoginControl implements ActionListener {
 	// After an account is created, set the User object and display the contacts screen.
 	public void loginSuccess()
 	{
-		LoginView loginPanel = (LoginView)container.getComponent(1);
-		GameGUI GameGUI = (GameGUI)SwingUtilities.getWindowAncestor(loginPanel);
+		LoginView loginView = (LoginView)container.getComponent(1);
+		GameGUI GameGUI = (GameGUI)SwingUtilities.getWindowAncestor(loginView);
 		//GameGUI.setUser(new User(createAccountPanel.getUsername(), createAccountPanel.getPassword()));
 		CardLayout cardLayout = (CardLayout)container.getLayout();
 		cardLayout.show(container, "MainMenuView");
+		// Submit the login information to the server.	
 	}
 }

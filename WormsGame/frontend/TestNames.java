@@ -14,10 +14,10 @@ public class TestNames
 	public TestNames()
 	{
 		playerNames = new ArrayList<Player>();
-		playerNames.add(new Player("0", "Alpha"));
-		playerNames.add(new Player("0", "Beta"));
-		playerNames.add(new Player("0", "Charlie"));
-		playerNames.add(new Player("0", "Echo"));
+		playerNames.add(new Player("Alpha"));
+		playerNames.add(new Player("Beta"));
+		playerNames.add(new Player("Charlie"));
+		playerNames.add(new Player("Echo"));
 	}
 	
 	public static ArrayList<Player> getNames()
