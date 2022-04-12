@@ -1,6 +1,7 @@
 package backend;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -8,8 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
 import entities.Player;
+import entities.SoundEffect;
 import entities.StartGameGranted;
 import entities.StartGameRequest;
+import frontend.GameView;
 import ocsf.server.*;
 
 public class GameServer extends AbstractServer {
@@ -51,6 +54,9 @@ public class GameServer extends AbstractServer {
 
 
 	}
+
+
+	
 
 	@Override
 	protected void handleMessageFromClient(Object arg0, ConnectionToClient arg1) {
@@ -198,6 +204,17 @@ public class GameServer extends AbstractServer {
 			//continue if more than two are connected
 			
 		}
+		
+		else if(arg0 instanceof GameModel)		//game model is passed to this server
+		{
+			gameData = (GameModel)arg0;
+			
+			//detect the method that is called
+			if(gameData.getMethodCalled().equals("changeTurnsTimer"))	//changeTurns on the client side called (within GameView class)
+				changeTurnsTimer(gameData, arg1);
+			
+			
+		}
 	}
 
 	public void serverStarted() {
@@ -281,6 +298,61 @@ public class GameServer extends AbstractServer {
 		return ++gamesGranted;
 	}
 
+	
+	//game related action and change view methods ---------------------------------------------------
+	
+	private void changeTurnsTimer(GameModel arg0, ConnectionToClient arg1)
+	{//need ActionEvent e
+		
+		
+		GameView game = gameData.getViewOfGame();
+		ActionEvent e = gameData.getActionE();
+		
+		if (game.timeLeftInTurn == 0 ) 
+		{
+			game.fired = false;
+			
+			if(game.playerTurn==8)
+			{
+				game.playerTurn=1;
+			}
+			else
+			{
+				game.playerTurn++;
+			}
+			
+			game.MaxWeaponsPerTurn = 1;
+			game.weaponsUsedInTurn = 0;
+			game.timeLeftInTurn = 30;
+		} 
+		else
+			game.timeLeftInTurn--;
+		if (game.timeLeftInTurn>0 && game.timeLeftInTurn<=10)
+		{
+			SoundEffect.TIMERTICK.play();
+		}		
+		System.out.println(game.weaponsUsedInTurn);
+		if(game.weaponsUsedInTurn > 1)
+		{
+			game.timeLeftInTurn = 5;
+			game.weaponsUsedInTurn = 0;
+			game.MaxWeaponsPerTurn = 0;
+			
+		}
+		
+		game.board = game.createResultBoard();
+
+		//send updated GameModel to client
+		try {
+			arg1.sendToClient(gameData);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+		
+	}
 
 
 

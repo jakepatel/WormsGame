@@ -77,12 +77,15 @@ public class GameFrame extends JFrame implements ActionListener
 		
 		
 		//sets the first view for a frame to enter player name and button to start game
-	    startGameFrame1=new StartGameFrame();		//omit later
+	    
+		
+		/*startGameFrame1=new StartGameFrame();		//omit later
 	    startGameFrame1.setPlayer1Name(client.getPlayer1());
 	    startGameFrame1.setPlayer2Name(client.getPlayer2());
 	    
 	    startGameFrame1.btnNewButton.addActionListener(this);
 	    this.add(startGameFrame1);
+	    */
 	    
 	    
 	    betweenRoundsPanel1 = new BetweenRoundsPanel();	//possibly omit later
@@ -100,7 +103,39 @@ public class GameFrame extends JFrame implements ActionListener
 	    //show the game waiting view
 	    this.setVisible(true);
 	    timer = new Timer(1000,this);
+	    
+	    
+	    //build view
+	    
+		SoundEffect.STARTROUND.play();
+		
+		this.player1Name= client.getPlayer1();
+		this.player2Name= client.getPlayer2();
+		
+		gameView = new GameView(gameController, this.getPlayer1Name(), this.getPlayer2Name(),new Maps(1));	//added gameView
+		//add to container
+		container.add(gameView, "GameView");	//0
+		gameController.setGameView(container);
+		
+		this.setVisible(false);
+		this.remove(desktop);
+		this.remove(startGameFrame1);
+		desktop.remove(startGameFrame1);
+		this.add(gameView);
+		currentMap=0;
+		MapWinner=new String[3];
+		//mntmHomePage.setVisible(true);
+		this.setVisible(true);	
+		timer.start();
+		
+		card.show(container, "GameView");
+	
+  
+	    
 	}
+	
+	
+	
 	
 	/*
 	public static void main(String[] args)
@@ -190,7 +225,7 @@ public class GameFrame extends JFrame implements ActionListener
 						
 					}
 					else if(gameView.team2.get(0).playerHealth==0 && gameView.team2.get(1).playerHealth==0 && gameView.team2.get(2).playerHealth==0 && gameView.team2.get(3).playerHealth==0)
-					{
+					{//player 2 loses all health
 					
 						this.setVisible(false);
 						this.remove(gameView);
@@ -219,7 +254,8 @@ public class GameFrame extends JFrame implements ActionListener
 					}
 					
 					if(gameView.team1.get(0).playerHealth==0 && gameView.team1.get(1).playerHealth==0 && gameView.team1.get(2).playerHealth==0 && gameView.team1.get(3).playerHealth==0)
-					{
+					{//player 1 loses all health 
+					
 						this.setVisible(false);
 						this.remove(gameView);
 						MapWinner[currentMap]=this.getPlayer2Name();
@@ -246,34 +282,7 @@ public class GameFrame extends JFrame implements ActionListener
 					}
 				}
 		*/
-		if(e.getActionCommand()==startGameFrame1.btnNewButton.getActionCommand())
-		{	
-			
-				SoundEffect.STARTROUND.play();
-				
-			this.player1Name=startGameFrame1.player1Area.getText();
-			this.player2Name=startGameFrame1.player2Area.getText();
-			
-			gameView = new GameView(gameController, this.getPlayer1Name(), this.getPlayer2Name(),new Maps(1));	//added gameView
-			//add to container
-			container.add(gameView, "GameView");	//0
-			gameController.setGameView(container);
-			
-			this.setVisible(false);
-			this.remove(desktop);
-			this.remove(startGameFrame1);
-			desktop.remove(startGameFrame1);
-			this.add(gameView);
-			currentMap=0;
-			MapWinner=new String[3];
-			//mntmHomePage.setVisible(true);
-			this.setVisible(true);	
-			timer.start();
-			
-			card.show(container, "GameView");
-			
-			
-		}
+
 		
 		if(e.getActionCommand()==betweenRoundsPanel1.btnStartMap.getActionCommand())
 		{   

@@ -32,7 +32,7 @@ public class GameClient extends AbstractClient{
 	private GameControl gameController;
 	private GameView gameView;
 	private GameFrame gameFrame;
-	private GameGUI UIFrame;
+	private GameGUI guiFrame;
 	private String player1, player2;
 	
 	//test game
@@ -103,11 +103,15 @@ public class GameClient extends AbstractClient{
 	public void setPlayer2(String player2) {
 		this.player2 = player2;
 	}
+
 	
-	public void setUIFrame(GameGUI frame)
-	{
-		this.UIFrame = frame;
+	public GameGUI getGuiFrame() {
+		return guiFrame;
 	}
+	public void setGuiFrame(GameGUI guiFrame) {
+		this.guiFrame = guiFrame;
+	}
+
 	
 	public GameFrame getGameFrame(GameFrame frame)
 	{
@@ -166,7 +170,12 @@ public class GameClient extends AbstractClient{
 		else if(arg0 instanceof StartGameGranted)
 		{
 			//hide the user interface frame
-			UIFrame.setVisible(false);
+			if(guiFrame != null)
+				guiFrame.setVisible(false);
+			
+			//test frame
+			if(testFrame != null)
+				testFrame.setVisible(false);
 			
 			//TypeCast
 			StartGameGranted info = (StartGameGranted)arg0;
@@ -174,7 +183,6 @@ public class GameClient extends AbstractClient{
 			player2 = info.getPlayer2();
 			
 	
-			
 			//game starts because game request is processed by server
 			gameFrame = new GameFrame(this, "Game Window");
 			gameFrame.setPlayer1Name(info.getPlayer1());

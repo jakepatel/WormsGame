@@ -23,6 +23,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import backend.GameModel;
 import controller.GameControl;
 import entities.Bullet;
 import entities.Grenade;
@@ -57,7 +58,7 @@ public class GameView extends JPanel
 	public int[] mouseXY = new int[2]; // stores coordinates of mouse
 	public int player1Weapon = 1, player2Weapon = 1;
 	public int timeLeftInTurn = 30, weaponsUsedInTurn = 0, MaxWeaponsPerTurn = 1;
-	String board = "";
+	public String board = "";
 	
 	public boolean fired = false;
 	public boolean actionSwitcher = false;
@@ -108,6 +109,7 @@ public class GameView extends JPanel
 		bullets = new ArrayList<Bullet>();
 
 		int posX = 0, posY = 0, type = 0;
+		
 		for (int i = 0; i < map.objectTypeAtIndex.size(); i++) {
 			posX = map.objectPositionsXAtIndex.get(i);
 			posY = map.objectPositionsYAtIndex.get(i);
@@ -180,34 +182,16 @@ public class GameView extends JPanel
 		changeTurns = new Timer(1000, new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) 
+			{
 				
+				//make the GameModel
 				
-				if (timeLeftInTurn == 0 ) {
-					fired = false;
-					if(playerTurn==8){
-						playerTurn=1;
-					}else{playerTurn++;}
-					MaxWeaponsPerTurn = 1;
-					weaponsUsedInTurn = 0;
-					timeLeftInTurn = 30;
-				} else
-					timeLeftInTurn--;
-				if (timeLeftInTurn>0 && timeLeftInTurn<=10){
-					SoundEffect.TIMERTICK.play();
-				}		
-				System.out.println(weaponsUsedInTurn);
-				if(weaponsUsedInTurn > 1){
-					timeLeftInTurn = 5;
-					weaponsUsedInTurn = 0;
-					MaxWeaponsPerTurn = 0;
-					
-				}
-				
-				board = createResultBoard();
-			}
+				GameModel data = new GameModel(getPlayer1Name(), getPlayer2Name(), getGameID());
+
 
 			
+			}
 		});
 
 		playerTurn = 1;

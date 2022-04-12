@@ -23,6 +23,7 @@ public class TestFrame extends JFrame
 	public TestFrame()
 	{
 		client = new GameClient();
+		client.setTestFrame(this);
 		
 		this.setSize(1000, 650);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
