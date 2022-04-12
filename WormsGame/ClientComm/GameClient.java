@@ -165,6 +165,9 @@ public class GameClient extends AbstractClient{
 		}
 		else if(arg0 instanceof StartGameGranted)
 		{
+			//hide the user interface frame
+			UIFrame.setVisible(false);
+			
 			//TypeCast
 			StartGameGranted info = (StartGameGranted)arg0;
 			player1 = info.getPlayer1();
@@ -178,8 +181,7 @@ public class GameClient extends AbstractClient{
 			gameFrame.setPlayer2Name(info.getPlayer2());
 			
 			
-			//hide the user interface frame
-			UIFrame.setVisible(false);
+
 
 			
 			

@@ -49,13 +49,10 @@ public class MainMenuControl implements ActionListener
 		// The Login button takes the user to the login panel.
 		if (command.equals("Join A Game"))
 		{
-			//handle page to Leaderboard View
-			
-			CardLayout cardLayout = (CardLayout)container.getLayout();
-			cardLayout.show(container, "GameWaitingView");	
+	
 			
 			LoginView loginView = (LoginView)container.getComponent(1);
-			GameGUI GameGUI = (GameGUI)SwingUtilities.getWindowAncestor(loginView);
+			//GameGUI GameGUI = (GameGUI)SwingUtilities.getWindowAncestor(loginView);
 			
 			Player player = new Player(loginView.getUsername());
 			
@@ -70,6 +67,9 @@ public class MainMenuControl implements ActionListener
 				exception.printStackTrace();
 			}
 		    
+			//handle page to game waiting
+			CardLayout cardLayout = (CardLayout)container.getLayout();
+			cardLayout.show(container, "GameWaitingView");	
 
 		}
 

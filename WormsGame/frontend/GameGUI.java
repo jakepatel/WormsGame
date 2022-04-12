@@ -34,6 +34,7 @@ public class GameGUI extends JFrame
 	{
 		// Set up the chat client.
 		this.client = c;
+		client.setUIFrame(this);
 
 		// Set the title and default close operation.
 		this.setTitle("Chat Client");

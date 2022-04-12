@@ -53,6 +53,7 @@ public class GameFrame extends JFrame implements ActionListener
 	{
 		
 		this.setTitle(title);
+		this.setResizable(false);
 
 		this.setSize(1000, 650);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
