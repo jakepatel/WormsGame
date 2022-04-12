@@ -92,7 +92,7 @@ public class GameView extends JPanel
 
 	//end helper functions
 
-	public GameView(GameControl controller /*, ChangeTurnsControl timerController*/, String player1Name, String player2Name, Maps map) 
+	public GameView(GameControl controller, String player1Name, String player2Name, Maps map) 
 	{		
 		this.controller = controller;
 	
@@ -217,13 +217,7 @@ public class GameView extends JPanel
 		});
 		
 		
-		//build change turns timer controller
-		/*
-		timerController.setPlayer1Name(this.getPlayer1Name());
-		timerController.setPlayer2Name(this.getPlayer2Name());
-		timerController.setGameID(this.gameID);
-		changeTurns = new Timer(2000, timerController);	//set actionListener to changeTurns datafield
-		*/
+
 
 		playerTurn = 1;
 		timer.start();
@@ -713,7 +707,7 @@ public class GameView extends JPanel
 
 	public void renderScreen(Graphics g) 
 	{
-		paintComponent(g);
+		super.paintComponent(g);
 		g.drawImage(backgroundImage, 0, 0, null);
 		// create the result board
 		g.setFont(new Font("standart", Font.BOLD, 20));
