@@ -12,6 +12,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -39,7 +40,7 @@ import entities.StaticObjects;
 
 
 
-public class GameView extends JPanel 
+public class GameView extends JPanel implements Serializable
 {
 	Timer timer, changeTurns; // this is the object which is going to call the
 	// function actionPerformed
@@ -102,10 +103,9 @@ public class GameView extends JPanel
 
 		this.setFocusable(true);
 		ImageIcon tempImageIcon;
-		tempImageIcon = new ImageIcon(
-				"background.png");
+		tempImageIcon = new ImageIcon("background.png");
 		backgroundImage = tempImageIcon.getImage();
-		tempImageIcon = new ImageIcon("board.png");
+		tempImageIcon = new ImageIcon("/Users/jakepatel/git/WormsGameRepository/board.png");
 		boardImage = tempImageIcon.getImage();
 		staticobjects = new ArrayList<StaticObjects>();
 		reactiveobjects = new ArrayList<ReactiveObjects>();
@@ -188,21 +188,31 @@ public class GameView extends JPanel
 			{
 				
 
-				if (timeLeftInTurn == 0 ) {
+				if (timeLeftInTurn == 0 ) 
+				{
 					fired = false;
-					if(playerTurn==8){
+					if(playerTurn==8)
+					{
 						playerTurn=1;
-					}else{playerTurn++;}
+					}
+					else
+					{
+						playerTurn++;
+					}
 					MaxWeaponsPerTurn = 1;
 					weaponsUsedInTurn = 0;
 					timeLeftInTurn = 30;
-				} else
+				} 
+				else
 					timeLeftInTurn--;
-				if (timeLeftInTurn>0 && timeLeftInTurn<=10){
+				if(timeLeftInTurn>0 && timeLeftInTurn<=10)
+				{
 					SoundEffect.TIMERTICK.play();
 				}		
+				
 				System.out.println(weaponsUsedInTurn);
-				if(weaponsUsedInTurn > 1){
+				if(weaponsUsedInTurn > 1)
+				{
 					timeLeftInTurn = 5;
 					weaponsUsedInTurn = 0;
 					MaxWeaponsPerTurn = 0;
@@ -521,34 +531,34 @@ public class GameView extends JPanel
 
 	public String createResultBoard() {
 		String board = " ";
-		for (int i = 0; i < 3; i++)
-			board += "        ";
+		for (int i = 0; i < 2; i++)
+			board += "          ";
 		int playerhealth1 = team1.get(0).playerHealth + team1.get(1).playerHealth + team1.get(2).playerHealth + team1.get(3).playerHealth;
 		board += String.valueOf(playerhealth1);
 		for (int i = 0; i < 2; i++)
-			board += "           ";
+			board += "        ";
 		if (player1Weapon == 0)
 			board += team1.get(0).getGrenadesAvailable();
 		if (player1Weapon == 1)
 			board += team1.get(0).getMissilesAvailable();
 		for (int i = 0; i < 1; i++)
-			board += "          ";
-		board += String.valueOf(timeLeftInTurn);
+			board += "   ";
+		board += "Time: " + String.valueOf(timeLeftInTurn);
 		for (int i = 0; i < 2; i++)
-			board += "         ";
-		board += "          ";
+			board += "      ";
+		board += "         ";
 		int playerhealth2 = team2.get(0).playerHealth + team2.get(1).playerHealth + team2.get(2).playerHealth + team2.get(3).playerHealth;
 		board += String.valueOf(playerhealth2);
 		for (int i = 0; i < 2; i++)
-			board += "          ";
-		board += "   ";
+			board += "       ";
+		board += "  ";
 		if (player2Weapon == 0)
 			board += team2.get(0).getGrenadesAvailable();
 		if (player2Weapon == 1)
 			board += team2.get(0).getMissilesAvailable();
 		for (int i = 0; i < 1; i++)
 			board += "          ";
-
+		
 		return board;
 	}
 

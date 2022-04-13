@@ -13,6 +13,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -30,8 +32,7 @@ import entities.SoundEffect;
 import entities.StaticObjects;
 import frontend.GameView;
 
-public class GameControl implements ActionListener, KeyListener,
-MouseListener
+public class GameControl implements ActionListener, KeyListener, Serializable, MouseListener
 {
 	
 	JPanel container;
@@ -51,6 +52,9 @@ MouseListener
 		this.container = container;
 		this.game = (GameView)container.getComponent(0);
 		setGameID(game.getGameID());
+		
+		client.setGameView(game);
+		client.setGameController(this);
 	}
 	
 	public int getGameID()
@@ -78,9 +82,28 @@ MouseListener
 	@Override
 	public void mouseReleased(MouseEvent e) 
 	{
-
-
+		//send to server with message mouseReleased
+		GameModel toSendGameData = new GameModel(game.getPlayer1Name(), game.getPlayer2Name(), game.gameID);
+		toSendGameData.setSentBy(game.getPlayer1Name());
+		toSendGameData.setMethodCalled("mouseReleased");		//method called, name used by server
+		toSendGameData.setMouseE(e);	//parameter used by server
 		
+		try {
+			client.openConnection();
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
+		
+		try {
+			client.sendToServer(toSendGameData);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		/*
 		int mousecode = e.getButton();
 		if (game.weaponsUsedInTurn < game.MaxWeaponsPerTurn)
 			if (game.playerTurn%2 ==1)
@@ -124,6 +147,9 @@ MouseListener
 		//set the view again
 		CardLayout card = (CardLayout)container.getLayout();
 		card.show(container, "GameView");
+		
+		*/
+		
 	}
 	
 	@Override
@@ -132,14 +158,29 @@ MouseListener
 
 		//send to server with message mousePressed
 		GameModel toSendGameData = new GameModel(game.getPlayer1Name(), game.getPlayer2Name(), game.gameID);
-		toSendGameData.setViewOfGame(game);
-		toSendGameData.setGameController(this);
-		toSendGameData.setSentBy(game.playerTurn);
+		//toSendGameData.setViewOfGame(game);
+		//toSendGameData.setGameController(this);
+		toSendGameData.setSentBy(game.getPlayer1Name());
 		toSendGameData.setMethodCalled("mousePressed");		//method called, name used by server
-		toSendGameData.setMouseE(e);						//parameter used by server
+		toSendGameData.setMouseE(e);	//parameter used by server
+		 
+		//send to client
+		try {
+			client.openConnection();
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		
+		try {
+			client.sendToServer(toSendGameData);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		
-		
+		/*
 		//the actual implementation of the method
 		game.fired = true;
 		game.mouseXY[0] = e.getX() - game.team1.get((game.playerTurn-1)/2).getX();// gets x of mouse
@@ -153,7 +194,7 @@ MouseListener
 		//set the view
 		CardLayout card = (CardLayout)container.getLayout();
 		card.show(container, "GameView");
-	
+		 */
 	}
 	
 
@@ -205,6 +246,23 @@ MouseListener
 	{ // fires automatically when a key is
 
 		
+		//send to server with message keyPressed
+		GameModel toSendGameData = new GameModel(game.getPlayer1Name(), game.getPlayer2Name(), game.gameID);
+		toSendGameData.setSentBy(game.getPlayer1Name());
+		toSendGameData.setMethodCalled("keyPressed");		//method called, name used by server
+		toSendGameData.setKeyCode(e.getKeyCode());	//parameter used by server
+				 
+				//send to client
+				try {
+					client.openConnection();
+					client.sendToServer(toSendGameData);
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+
+		
+		/*
 		if(game.move == true)
 		{
 			int keycode = e.getKeyCode();
@@ -259,6 +317,8 @@ MouseListener
 		//set the view
 		CardLayout card = (CardLayout)container.getLayout();
 		card.show(container, "GameView");
+		
+		*/
 	}
 
 	@Override
@@ -268,16 +328,36 @@ MouseListener
 		// fires automatically when a key is
 		// released
 		
+		
+		//send to server with message keyReleased
+		GameModel toSendGameData = new GameModel(game.getPlayer1Name(), game.getPlayer2Name(), game.gameID);
+		toSendGameData.setSentBy(game.getPlayer1Name());
+		toSendGameData.setMethodCalled("keyReleased");		//method called, name used by server
+		toSendGameData.setKeyCode(e.getKeyCode());	//parameter used by server
+		
+		
+		//send to client
+		try {
+		client.openConnection();
+		client.sendToServer(toSendGameData);
+		} catch (IOException e2) {
+		// TODO Auto-generated catch block
+		e2.printStackTrace();
+		}
 
 		
+		
+		/*
 		int index;
 		index = game.pressedKeys.indexOf(e.getKeyCode());
 		if (index != -1)
-		game.pressedKeys.remove(index);
+		game.pressedKeys.remove(index);*/
 		
 		//set the view
-		CardLayout card = (CardLayout)container.getLayout();
-		card.show(container, "GameView");
+		//CardLayout card = (CardLayout)container.getLayout();
+		//card.show(container, "GameView");
+		
+		
 		
 	}
 

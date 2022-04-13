@@ -3,6 +3,7 @@ package backend;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 
 import controller.GameControl;
 import entities.Maps;
@@ -11,16 +12,16 @@ import entities.Vehicle;
 import entities.Weapon;
 import frontend.GameView;
 
-public class GameModel {
-	private Weapon weapon;
-	private Player player;
-	private Maps map;
+public class GameModel implements Serializable{
+	private static final long serialVersionUID = -6365350008916444434L;	//auto-generated
+
+
 	//private Vehicle vehicle;
 	
 	//private variables for game
 		String player1, player2;
 		private int gameID;
-		private int sentBy;
+		private String sentBy;
 		
 		private int score;
 		private GameView viewofGame;
@@ -29,8 +30,13 @@ public class GameModel {
 		//for methods
 		private String methodCalled;	//includes the name of the method that was called by the control, ex: mousePressed
 		private MouseEvent mouseE;
-		private KeyEvent keyE;
+		private int keyCode;
+		
+
 		private ActionEvent actionE;
+		
+		//fields for client to use
+		private String serverMessage;
 	
 	
 	
@@ -43,16 +49,24 @@ public class GameModel {
 		
 	}
 	
-	public int getSentBy() 
+	public String getSentBy() 
 	{
 		return sentBy;
 		
 		//must be set to value of Player 1 name, or player 2 name, or Server
 	}
+	
+	public int getKeyCode() {
+		return keyCode;
+	}
 
-	public void setSentBy(int sentBy) 
+	public void setKeyCode(int keyCode) {
+		this.keyCode = keyCode;
+	}
+
+	public void setSentBy(String string) 
 	{
-		this.sentBy = sentBy;
+		this.sentBy = string;
 		
 		//must be set to value of Player 1 name, or player 2 name, or Server
 	}
@@ -128,13 +142,7 @@ public class GameModel {
 		this.mouseE = mouseE;
 	}
 
-	public KeyEvent getKeyE() {
-		return keyE;
-	}
 
-	public void setKeyE(KeyEvent keyE) {
-		this.keyE = keyE;
-	}
 
 	public ActionEvent getActionE() {
 		return actionE;
@@ -143,41 +151,16 @@ public class GameModel {
 	public void setActionE(ActionEvent actionE) {
 		this.actionE = actionE;
 	}
-	
-	
-	public void setWeapon(Weapon weapon) {
-		this.weapon = weapon;
+
+	public void setServerMsg(String string) {
+		// TODO Auto-generated method stub
+		serverMessage = string;
 	}
 	
-	public void setPlayer(Player player) {
-		this.player = player;
-	}
-	
-	public void setMap(Maps map) {
-		this.map = map;
+	public String getServerMsg()
+	{
+		return serverMessage;
 	}
 	
 
-	
-	public Weapon getWeapon() {
-		return weapon;
-	}
-	
-	public Player getPlayer() {
-		return player;
-	}
-	
-	public Maps getMap() {
-		return map;
-	}
-	
-	/*
-	public Vehicle getVehicle() {
-		return vehicle;
-	}
-	
-	public void setVehicle(Vehicle vehicle) {
-		this.vehicle = vehicle;
-	}
-	*/
 }

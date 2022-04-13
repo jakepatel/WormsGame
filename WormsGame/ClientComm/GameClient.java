@@ -2,7 +2,10 @@ package ClientComm;
 //Jake
 
 import java.awt.CardLayout;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -20,7 +23,7 @@ import frontend.GameView;
 import frontend.TestFrame;
 import ocsf.client.*;
 
-public class GameClient extends AbstractClient{
+public class GameClient extends AbstractClient implements Serializable{
 	// Private data fields for storing the GUI controllers.
 	private LoginControl loginControl;
 	private CreateAccountControl createAccountControl;
@@ -30,11 +33,12 @@ public class GameClient extends AbstractClient{
 	
 	//Game related
 	private JPanel container;
-	private GameControl gameController;
-	private GameView gameView;
+	private GameControl controller;
+	private GameView game;
 	private GameFrame gameFrame;
 	private GameGUI guiFrame;
 	private String player1, player2;
+	private String clientPlayer;	//the player that belongs to this client (either player 1 or player 2)
 	
 	//test game
 	private TestFrame testFrame;
@@ -74,19 +78,19 @@ public class GameClient extends AbstractClient{
 	}
 	
 	public GameControl getGameController() {
-		return gameController;
+		return controller;
 	}
 
 	public void setGameController(GameControl gameController) {
-		this.gameController = gameController;
+		this.controller = gameController;
 	}
 
 	public GameView getGameView() {
-		return gameView;
+		return game;
 	}
 
 	public void setGameView(GameView gameView) {
-		this.gameView = gameView;
+		this.game = gameView;
 	}
 	
 	public String getPlayer1() {
@@ -210,26 +214,60 @@ public class GameClient extends AbstractClient{
 			
 			//Typecast
 			GameModel data = (GameModel)arg0;
-			
-			/*if(data.getMethodCalled().equals("ChangeTurnsTimer"))	//game method used in server is ChangeTurnsTimer
+
+			if(data.getServerMsg().equals("mousePressed_Valid"))
 			{
-				//update view
-				this.gameView = data.getViewOfGame();
-				this.gameController = data.getController();
-				
-				container.add(gameView, "GameView");
-				
-				//show view
-				showView("GameView");
+				//mousePressed was validated by server, execute method
+				mousePressed(data.getMouseE());
 				
 				
-			}*/
+				
+				//set the view
+				CardLayout card = (CardLayout)container.getLayout();
+				this.container.add(game, "GameView");
+				card.show(container, "GameView");
+			}
+			else if(data.getServerMsg().equals("mouseReleased_Valid"))
+			{
+				//mouseReleased was validated by server, execute method
+				mouseReleased(data.getMouseE());
+				
+				
+				//set the view again
+				CardLayout card = (CardLayout)container.getLayout();
+				this.container.add(game, "GameView");
+				card.show(container, "GameView");
+			}
+			else if(data.getServerMsg().equals("keyPressed_Valid" ))
+			{
+				//mouseReleased was validated by server, execute method
+				keyPressed(data.getKeyCode());
+				
+				//set the view again
+				CardLayout card = (CardLayout)container.getLayout();
+				this.container.add(game, "GameView");
+				card.show(container, "GameView");
+			}
+			else if(data.getServerMsg().equals("keyReleased_Valid"))
+			{
+				//keyReleased was validated by server, execute method
+				keyReleased(data.getKeyCode());
+				
+				//set the view again
+				CardLayout card = (CardLayout)container.getLayout();
+				this.container.add(game, "GameView");
+				card.show(container, "GameView");
+				
+			}
+			
+			
 			
 			
 			
 			
 			
 		}
+
 		
 
 	}
@@ -249,5 +287,150 @@ public class GameClient extends AbstractClient{
 		// TODO Auto-generated method stub
 
 	}
+	
+	//game related methods --------------------------------------------------------------------
+	
+	private void mousePressed(MouseEvent e)
+	{
+		//the actual implementation of the method
+		game.fired = true;
+		game.mouseXY[0] = e.getX() - game.team1.get((game.playerTurn-1)/2).getX();// gets x of mouse
+				// and takes away
+				// player x
+		game.mouseXY[1] = game.team1.get((game.playerTurn-1)/2).getY() - e.getY();// gets -y of mouse
+				// and adds
+				// player y
+				
+	}
+	
+	
+	//--------------
+	
+	public void mouseReleased(MouseEvent e) 
+	{
 
-}
+		int mousecode = e.getButton();
+		if (game.weaponsUsedInTurn < game.MaxWeaponsPerTurn)
+			if (game.playerTurn%2 ==1)
+				if (game.team1.get(0).getGrenadesAvailable() > 0) 
+				{
+					game.mouseXY[0] = e.getX() - game.team1.get((game.playerTurn-1)/2).getX();// gets x of mouse
+															// and takes away
+															// player x
+					game.mouseXY[1] = game.team1.get((game.playerTurn-1)/2).getY() - e.getY();// gets -y of mouse
+															// and adds
+					// player y
+		
+					if (mousecode == MouseEvent.BUTTON1) 
+					{
+						controller.fire(game.clickVelocity); // fires weapon
+						game.fired = false;						 
+						game.clickVelocity = 0; // resets click velocity
+						game.weaponsUsedInTurn++;
+					}
+				}
+		if (game.weaponsUsedInTurn < game.MaxWeaponsPerTurn)
+			if (game.playerTurn%2 == 0)
+				if (game.team1.get(0).getGrenadesAvailable() > 0) 
+				{
+					game.mouseXY[0] = e.getX() - game.team2.get((game.playerTurn-1)/2).getX();// gets x of mouse
+															// and takes away
+															// player x
+					game.mouseXY[1] = game.team2.get((game.playerTurn-1)/2).getY() - e.getY();// gets -y of mouse
+															// and adds
+					// player y
+		
+					if (mousecode == MouseEvent.BUTTON1) 
+					{
+						controller.fire(game.clickVelocity); // fires weapon
+						game.fired = false; // ends the log
+						game.clickVelocity = 0; // resets click velocity
+						game.weaponsUsedInTurn++;
+					}
+				}
+		
+		
+	}
+	
+	
+	//-----------------------
+	
+	public void keyPressed(int keyCode) 
+	{ // fires automatically when a key is
+
+		
+		if(game.move == true)
+		{
+			int keycode = keyCode;
+			if (game.pressedKeys.contains(keycode) == false) 
+			{
+				game.pressedKeys.add(keycode);
+			}
+		
+			if (game.playerTurn == 1 | game.playerTurn == 3 | game.playerTurn == 5 | game.playerTurn == 7) 
+			{
+				game.p = game.team1.get((game.playerTurn-1)/2);
+				
+				if (game.pressedKeys.contains(KeyEvent.VK_DOWN)) {
+					controller.changeWeapon(0);
+				}
+				if (game.pressedKeys.contains(KeyEvent.VK_UP)) {
+					controller.playerJump();
+				}
+				if (game.pressedKeys.contains(KeyEvent.VK_RIGHT))
+					game.p.moveRight(3);
+				if (game.pressedKeys.contains(KeyEvent.VK_LEFT))
+					game.p.moveLeft(3);
+				if (game.pressedKeys.contains(KeyEvent.VK_SPACE)) 
+				{
+					//weaponLaunch();
+				}
+		
+			} 
+			
+			else 
+			{
+				game.p = game.team2.get((game.playerTurn-1)/2);
+				
+				if (game.pressedKeys.contains(KeyEvent.VK_DOWN)) {
+					controller.changeWeapon(1);
+				}
+				if (game.pressedKeys.contains(KeyEvent.VK_UP)) {
+					controller.playerJump();
+				}
+				if (game.pressedKeys.contains(KeyEvent.VK_RIGHT))
+					game.p.moveRight(3);
+				if (game.pressedKeys.contains(KeyEvent.VK_LEFT))
+					game.p.moveLeft(3);
+				if (game.pressedKeys.contains(KeyEvent.VK_SPACE)) 
+				{
+					//weaponLaunch();
+				}
+			}
+			game.move = false;
+		}
+		
+		
+
+	}
+	
+	//--------------
+	
+	public void keyReleased(int keyCode) 
+	{
+		// TODO Auto-generated method stub
+		// fires automatically when a key is
+		// released
+		
+
+		
+		int index;
+		index = game.pressedKeys.indexOf(keyCode);
+		if (index != -1)
+		game.pressedKeys.remove(index);
+		
+
+		
+	}
+
+}//end of class

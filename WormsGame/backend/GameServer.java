@@ -1,13 +1,17 @@
 package backend;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
+import controller.GameControl;
 import entities.Player;
 import entities.SoundEffect;
 import entities.StartGameGranted;
@@ -45,7 +49,7 @@ public class GameServer extends AbstractServer {
 	//end of game related data
 	
 	public GameServer(JTextArea log, JLabel status) {
-		super(12345);
+		super(8300);
 		setTimeout(500);
 		this.setLog(log);
 		this.setStatus(status);
@@ -160,7 +164,7 @@ public class GameServer extends AbstractServer {
 				//store the connection to the array
 				connections.add(arg1);
 				arg1.setName(request.getPlayerAccount().getUsername());
-
+				
 				
 				//check for two playes
 				if(player1 == null && player2 == null)	//no players set
@@ -210,8 +214,18 @@ public class GameServer extends AbstractServer {
 			gameData = (GameModel)arg0;
 			
 			//detect the method that is called
-			if(gameData.getMethodCalled().equals("changeTurnsTimer"))	//changeTurns on the client side called (within GameView class)
+			if(gameData.getMethodCalled().equals("changeTurns"))	//changeTurns on the client side called (within GameView class)
 				changeTurnsTimer(gameData, arg1);
+			else if(gameData.getMethodCalled().equals("mousePressed"))
+				mousePressed_OnGame(gameData, gameData.getMouseE(), arg1);	//mousePressed on the client side called (within GameControl class)
+			else if(gameData.getMethodCalled().equals("mouseReleased"))
+				mouseReleased_OnGame(gameData, gameData.getMouseE(), arg1);	//mouseReleased on the client side called (within GameControl class)
+			else if(gameData.getMethodCalled().equals("keyPressed"))
+				keyPressed_OnGame(gameData, gameData.getKeyCode(), arg1);	//keyPressed on the client side called (within GameControl)
+			else if(gameData.getMethodCalled().equals("keyReleased"))
+				keyReleased_OnGame(gameData, gameData.getKeyCode(), arg1);   //keyReleased on the client side called (within GameControl)
+					
+				
 			
 			
 		}
@@ -301,9 +315,11 @@ public class GameServer extends AbstractServer {
 	
 	//game related action and change view methods ---------------------------------------------------
 	
+
 	private void changeTurnsTimer(GameModel arg0, ConnectionToClient arg1)
 	{//need ActionEvent e
 		
+		//this method is now depracted (ie. it is not used, just ignore)
 		
 		GameView game = gameData.getViewOfGame();
 		ActionEvent e = gameData.getActionE();
@@ -353,7 +369,75 @@ public class GameServer extends AbstractServer {
 		
 		
 	}
+	
+	private void mousePressed_OnGame(GameModel data, MouseEvent e, ConnectionToClient arg1)		//method found in GameControl
+	{
+		//this method is the API for "mousePressed" method in GameControl
+		
+		//for now, send back valid message
+		data.setServerMsg("mousePressed_Valid");
+		
+		try {
+			arg1.sendToClient(data);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+	}
+	
+	private void mouseReleased_OnGame(GameModel data, MouseEvent e, ConnectionToClient arg1)
+	{
+		//this method is an API for "mouseReleased" method in GameControl
+		
+		//for now, send back valid message
+		data.setServerMsg("mouseReleased_Valid");
+		
+		try {
+			arg1.sendToClient(data);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
 
+		
+	}
+
+	private void keyPressed_OnGame(GameModel data, int keyCode, ConnectionToClient arg1)
+	{
+		//this method is an API for "mouseReleased" method in GameControl
+		
+		//for now, send back valid message
+		data.setServerMsg("keyPressed_Valid");
+		
+		try {
+			arg1.sendToClient(data);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		
+	}
+	
+	private void keyReleased_OnGame(GameModel data, int keyCode, ConnectionToClient arg1)
+	{
+		//this method is an API for "mouseReleased" method in GameControl
+		
+		//for now, send back valid message
+		data.setServerMsg("keyReleased_Valid");
+		
+		try {
+			arg1.sendToClient(data);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+	}
 
 
 
