@@ -182,10 +182,14 @@ public class GameServer extends AbstractServer {
 				if(!(player1 == null || player2 == null))	//both player set
 				{
 					//two players connected, send a StartGameGranted to both
-					StartGameGranted granted = new StartGameGranted(grantGame(), connections.get(0).getName(), connections.get(1).getName());
+					StartGameGranted grantedP1 = new StartGameGranted(grantGame(), 
+							connections.get(0).getName(), connections.get(1).getName(), connections.get(0).getName(), "P1");
+					
+					StartGameGranted grantedP2 = new StartGameGranted(grantGame(), 
+							connections.get(0).getName(), connections.get(1).getName(), connections.get(1).getName(), "P2");
 					
 					try {
-						connections.get(0).sendToClient(granted);
+						connections.get(0).sendToClient(grantedP1);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -193,7 +197,7 @@ public class GameServer extends AbstractServer {
 					
 					
 					try {
-						connections.get(1).sendToClient(granted);
+						connections.get(1).sendToClient(grantedP2);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -369,6 +373,7 @@ public class GameServer extends AbstractServer {
 		
 		
 	}
+	//-------------
 	
 	private void mousePressed_OnGame(GameModel data, MouseEvent e, ConnectionToClient arg1)		//method found in GameControl
 	{
@@ -377,15 +382,23 @@ public class GameServer extends AbstractServer {
 		//for now, send back valid message
 		data.setServerMsg("mousePressed_Valid");
 		
+		
+		this.sendToAllClients(data);
+		
+		/*
 		try {
-			arg1.sendToClient(data);
+			connections.get(1).sendToClient(data);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		*/
+
 		
 		
 	}
+	
+	//-------------
 	
 	private void mouseReleased_OnGame(GameModel data, MouseEvent e, ConnectionToClient arg1)
 	{
@@ -394,17 +407,28 @@ public class GameServer extends AbstractServer {
 		//for now, send back valid message
 		data.setServerMsg("mouseReleased_Valid");
 		
+		
+		try{
+			connections.get(0).sendToClient(data);;
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		try {
-			arg1.sendToClient(data);
+			connections.get(1).sendToClient(data);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
 		
+		
 
 		
 	}
+	
+	//----------
 
 	private void keyPressed_OnGame(GameModel data, int keyCode, ConnectionToClient arg1)
 	{
@@ -413,15 +437,12 @@ public class GameServer extends AbstractServer {
 		//for now, send back valid message
 		data.setServerMsg("keyPressed_Valid");
 		
-		try {
-			arg1.sendToClient(data);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		this.sendToAllClients(data);
 		
 		
 	}
+	
+	//------------
 	
 	private void keyReleased_OnGame(GameModel data, int keyCode, ConnectionToClient arg1)
 	{
@@ -430,12 +451,7 @@ public class GameServer extends AbstractServer {
 		//for now, send back valid message
 		data.setServerMsg("keyReleased_Valid");
 		
-		try {
-			arg1.sendToClient(data);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		this.sendToAllClients(data);
 		
 	}
 

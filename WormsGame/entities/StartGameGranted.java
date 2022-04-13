@@ -9,15 +9,30 @@ public class StartGameGranted implements Serializable
 	
 	private String player1, player2;
 	private int gameID;
+	private String yourPlayer;
+	private String numberPlayer;
 	
 	
-	public StartGameGranted(int id, String p1, String p2)
+	
+
+
+	public StartGameGranted(int id, String p1, String p2, String clientP, String numP)
 	{
 		gameID = id;
 		player1 = p1;
 		player2 = p2;
+		yourPlayer = clientP;
+		numberPlayer = numP;
 	}
 	
+	public String getYourPlayer() {
+		return yourPlayer;
+	}
+
+
+	public void setYourPlayer(String yourPlayer) {
+		this.yourPlayer = yourPlayer;
+	}
 	
 	public String getPlayer1() {
 		return player1;
@@ -42,6 +57,14 @@ public class StartGameGranted implements Serializable
 
 	public void setGameID(int gameID) {
 		this.gameID = gameID;
+	}
+	
+	public String getNumberPlayer() {
+		return numberPlayer;
+	}
+
+	public void setNumberPlayer(String numberPlayer) {
+		this.numberPlayer = numberPlayer;
 	}
 
 

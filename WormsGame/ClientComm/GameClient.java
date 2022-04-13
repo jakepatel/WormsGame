@@ -39,6 +39,7 @@ public class GameClient extends AbstractClient implements Serializable{
 	private GameGUI guiFrame;
 	private String player1, player2;
 	private String clientPlayer;	//the player that belongs to this client (either player 1 or player 2)
+	private String numberPlayer; //either P1 or P2
 	
 	//test game
 	private TestFrame testFrame;
@@ -107,6 +108,20 @@ public class GameClient extends AbstractClient implements Serializable{
 
 	public void setPlayer2(String player2) {
 		this.player2 = player2;
+	}
+
+	public String getClientPlayer() {
+		return clientPlayer;
+	}
+	public void setClientPlayer(String clientPlayer) {
+		this.clientPlayer = clientPlayer;
+	}
+
+	public String getNumberPlayer() {
+		return numberPlayer;
+	}
+	public void setNumberPlayer(String numberPlayer) {
+		this.numberPlayer = numberPlayer;
 	}
 
 	
@@ -186,6 +201,9 @@ public class GameClient extends AbstractClient implements Serializable{
 			StartGameGranted info = (StartGameGranted)arg0;
 			player1 = info.getPlayer1();
 			player2 = info.getPlayer2();
+			clientPlayer = info.getYourPlayer();
+			numberPlayer = info.getNumberPlayer();
+			
 			
 	
 			//game starts because game request is processed by server
@@ -301,12 +319,55 @@ public class GameClient extends AbstractClient implements Serializable{
 				// and adds
 				// player y
 				
+		
+		//mouseReleased implementation
+		int mousecode = e.getButton();
+		if (game.weaponsUsedInTurn < game.MaxWeaponsPerTurn)
+			if (game.playerTurn%2 ==1)
+				if (game.team1.get(0).getGrenadesAvailable() > 0) 
+				{
+					game.mouseXY[0] = e.getX() - game.team1.get((game.playerTurn-1)/2).getX();// gets x of mouse
+															// and takes away
+															// player x
+					game.mouseXY[1] = game.team1.get((game.playerTurn-1)/2).getY() - e.getY();// gets -y of mouse
+															// and adds
+					// player y
+		
+					if (mousecode == MouseEvent.BUTTON1) 
+					{
+						controller.fire(game.clickVelocity); // fires weapon
+						game.fired = false;						 
+						game.clickVelocity = 0; // resets click velocity
+						game.weaponsUsedInTurn++;
+					}
+				}
+		if (game.weaponsUsedInTurn < game.MaxWeaponsPerTurn)
+			if (game.playerTurn%2 == 0)
+				if (game.team1.get(0).getGrenadesAvailable() > 0) 
+				{
+					game.mouseXY[0] = e.getX() - game.team2.get((game.playerTurn-1)/2).getX();// gets x of mouse
+															// and takes away
+															// player x
+					game.mouseXY[1] = game.team2.get((game.playerTurn-1)/2).getY() - e.getY();// gets -y of mouse
+															// and adds
+					// player y
+		
+					if (mousecode == MouseEvent.BUTTON1) 
+					{
+						controller.fire(game.clickVelocity); // fires weapon
+						game.fired = false; // ends the log
+						game.clickVelocity = 0; // resets click velocity
+						game.weaponsUsedInTurn++;
+					}
+				}
+		
+		
 	}
 	
 	
 	//--------------
 	
-	public void mouseReleased(MouseEvent e) 
+	private void mouseReleased(MouseEvent e) 
 	{
 
 		int mousecode = e.getButton();
@@ -410,7 +471,16 @@ public class GameClient extends AbstractClient implements Serializable{
 			game.move = false;
 		}
 		
+		//key released implementation
 		
+
+		
+		int index;
+		index = game.pressedKeys.indexOf(keyCode);
+		if (index != -1)
+		game.pressedKeys.remove(index);
+		
+
 
 	}
 	
