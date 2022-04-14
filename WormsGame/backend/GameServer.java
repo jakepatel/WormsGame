@@ -7,6 +7,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
 
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
@@ -32,22 +34,22 @@ public class GameServer extends AbstractServer {
 
 	private JTextArea log;
 	private JLabel status;
-	
-	
+
+
 	//game related data
 	public GameModel gameData;
-    
-    private Player player1;
-    private Player player2;
-    
-    private static int gamesGranted = 0;
-    
-    private ArrayList<ConnectionToClient> connections;
-    
+
+	private Player player1;
+	private Player player2;
+
+	private static int gamesGranted = 0;
+
+	private ArrayList<ConnectionToClient> connections;
+
 	private static int getStaticNumber = 0;
 
 	//end of game related data
-	
+
 	public GameServer(JTextArea log, JLabel status) {
 		super(8300);
 		setTimeout(500);
@@ -60,7 +62,7 @@ public class GameServer extends AbstractServer {
 	}
 
 
-	
+
 
 	@Override
 	protected void handleMessageFromClient(Object arg0, ConnectionToClient arg1) {
@@ -88,7 +90,7 @@ public class GameServer extends AbstractServer {
 					e.printStackTrace();
 				}
 			}
-			
+
 		} 
 		else if (arg0 instanceof AdminLoginModel) {
 			System.out.println("admin login model recieved!");
@@ -135,7 +137,7 @@ public class GameServer extends AbstractServer {
 		} else if (arg0 instanceof MainMenuModel) {
 			System.out.println("MainMenuModel recieved!");
 			MainMenuModel m = (MainMenuModel)arg0;
-			
+
 
 			if(m.getGameSelection().equals("Leaderboard")) {
 				ArrayList<String> leaderboard = new ArrayList<String>();
@@ -152,24 +154,24 @@ public class GameServer extends AbstractServer {
 					e.printStackTrace();
 				}
 			}
-			
+
 		}
 		else if (arg0 instanceof StartGameRequest)
 		{
 			//TypeCast
 			StartGameRequest request = (StartGameRequest)arg0;
-			
+
 			if(connections.size() <= 1)		//forcing only two connections at the moment
 			{
 				//store the connection to the array
 				connections.add(arg1);
 				arg1.setName(request.getPlayerAccount().getUsername());
-				
-				
+
+
 				//check for two playes
 				if(player1 == null && player2 == null)	//no players set
 				{
-						//first player
+					//first player
 					player1 = request.getPlayerAccount();
 				}
 				else if(!(player1 == null) && player2 == null)	//1 player set and second player not set
@@ -177,46 +179,46 @@ public class GameServer extends AbstractServer {
 					//second player
 					player2 = request.getPlayerAccount();
 				}
-				
-				
+
+
 				if(!(player1 == null || player2 == null))	//both player set
 				{
 					//two players connected, send a StartGameGranted to both
 					StartGameGranted grantedP1 = new StartGameGranted(grantGame(), 
 							connections.get(0).getName(), connections.get(1).getName(), connections.get(0).getName(), "P1");
-					
+
 					StartGameGranted grantedP2 = new StartGameGranted(grantGame(), 
 							connections.get(0).getName(), connections.get(1).getName(), connections.get(1).getName(), "P2");
-					
+
 					try {
 						connections.get(0).sendToClient(grantedP1);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					
-					
+
+
 					try {
 						connections.get(1).sendToClient(grantedP2);
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					
-					
-					
+
+
+
 				}
-				
+
 			}
-			
+
 			//continue if more than two are connected
-			
+
 		}
-		
+
 		else if(arg0 instanceof GameModel)		//game model is passed to this server
 		{
 			gameData = (GameModel)arg0;
-			
+
 			//detect the method that is called
 			if(gameData.getMethodCalled().equals("changeTurns"))	//changeTurns on the client side called (within GameView class)
 				changeTurnsTimer(gameData, arg1);
@@ -224,14 +226,15 @@ public class GameServer extends AbstractServer {
 				mousePressed_OnGame(gameData, gameData.getMouseE(), arg1);	//mousePressed on the client side called (within GameControl class)
 			else if(gameData.getMethodCalled().equals("mouseReleased"))
 				mouseReleased_OnGame(gameData, gameData.getMouseE(), arg1);	//mouseReleased on the client side called (within GameControl class)
-			else if(gameData.getMethodCalled().equals("keyPressed"))
-				keyPressed_OnGame(gameData, gameData.getKeyCode(), arg1);	//keyPressed on the client side called (within GameControl)
-			else if(gameData.getMethodCalled().equals("keyReleased"))
+			else if(gameData.getMethodCalled().equals("keyPressed")) 
+				keyPressed_OnGame(gameData, gameData.getKeyCode(), arg1);			
+			else if(gameData.getMethodCalled().equals("keyReleased")) 
 				keyReleased_OnGame(gameData, gameData.getKeyCode(), arg1);   //keyReleased on the client side called (within GameControl)
-					
-				
+
 			
-			
+
+
+
 		}
 	}
 
@@ -305,33 +308,33 @@ public class GameServer extends AbstractServer {
 	public void setStopFlag(boolean stopActionFlag) {
 		this.stopActionFlag = stopActionFlag;
 	}
-	
+
 	public static int getStaticNumber() 
-    {
+	{
 		return ++getStaticNumber;
 	}
-	
+
 	private static int grantGame()
 	{
 		return ++gamesGranted;
 	}
 
-	
+
 	//game related action and change view methods ---------------------------------------------------
-	
+
 
 	private void changeTurnsTimer(GameModel arg0, ConnectionToClient arg1)
 	{//need ActionEvent e
-		
+
 		//this method is now depracted (ie. it is not used, just ignore)
-		
+
 		GameView game = gameData.getViewOfGame();
 		ActionEvent e = gameData.getActionE();
-		
+
 		if (game.timeLeftInTurn == 0 ) 
 		{
 			game.fired = false;
-			
+
 			if(game.playerTurn==8)
 			{
 				game.playerTurn=1;
@@ -340,7 +343,7 @@ public class GameServer extends AbstractServer {
 			{
 				game.playerTurn++;
 			}
-			
+
 			game.MaxWeaponsPerTurn = 1;
 			game.weaponsUsedInTurn = 0;
 			game.timeLeftInTurn = 30;
@@ -357,9 +360,9 @@ public class GameServer extends AbstractServer {
 			game.timeLeftInTurn = 5;
 			game.weaponsUsedInTurn = 0;
 			game.MaxWeaponsPerTurn = 0;
-			
+
 		}
-		
+
 		game.board = game.createResultBoard();
 
 		//send updated GameModel to client
@@ -369,91 +372,72 @@ public class GameServer extends AbstractServer {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		
-		
+
+
+
 	}
 	//-------------
-	
+
 	private void mousePressed_OnGame(GameModel data, MouseEvent e, ConnectionToClient arg1)		//method found in GameControl
 	{
 		//this method is the API for "mousePressed" method in GameControl
-		
+
 		//for now, send back valid message
 		data.setServerMsg("mousePressed_Valid");
-		
-		
-		this.sendToAllClients(data);
-		
-		/*
-		try {
-			connections.get(1).sendToClient(data);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		*/
 
-		
-		
+
+		this.sendToAllClients(data);
+
 	}
-	
+
 	//-------------
-	
+
 	private void mouseReleased_OnGame(GameModel data, MouseEvent e, ConnectionToClient arg1)
 	{
 		//this method is an API for "mouseReleased" method in GameControl
-		
+
 		//for now, send back valid message
 		data.setServerMsg("mouseReleased_Valid");
-		
-		
-		try{
-			connections.get(0).sendToClient(data);;
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		try {
-			connections.get(1).sendToClient(data);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		
-		
 
-		
+
+		this.sendToAllClients(data);
+
+
 	}
-	
+
 	//----------
 
-	private void keyPressed_OnGame(GameModel data, int keyCode, ConnectionToClient arg1)
+
+	private void keyPressed_OnGame(GameModel data, int keyCode, ConnectionToClient arg1) 
 	{
 		//this method is an API for "mouseReleased" method in GameControl
-		
+
 		//for now, send back valid message
 		data.setServerMsg("keyPressed_Valid");
-		
+
+
 		this.sendToAllClients(data);
-		
-		
+
+
 	}
-	
+
+
 	//------------
-	
+
 	private void keyReleased_OnGame(GameModel data, int keyCode, ConnectionToClient arg1)
 	{
 		//this method is an API for "mouseReleased" method in GameControl
-		
+
 		//for now, send back valid message
 		data.setServerMsg("keyReleased_Valid");
-		
+
+
 		this.sendToAllClients(data);
-		
+
+
 	}
+
+
 
 
 

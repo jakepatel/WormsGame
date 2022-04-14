@@ -58,6 +58,7 @@ public class GameGUI extends JFrame
 	    client.setLoginControl(control_login);
 	    client.setCreateAccountControl(control_ca);
 	    client.setLeaderboardControl(control_leaderboard);
+
 	    
 	    
 	    //instantiate all the different view with their controllers when ready

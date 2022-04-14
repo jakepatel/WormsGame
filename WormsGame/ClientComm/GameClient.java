@@ -258,18 +258,17 @@ public class GameClient extends AbstractClient implements Serializable{
 			}
 			else if(data.getServerMsg().equals("keyPressed_Valid" ))
 			{
-				//mouseReleased was validated by server, execute method
-				keyPressed(data.getKeyCode());
-				
-				//set the view again
+				//keyPressed_Valid was validated by server, execute method
+				keyPressed(data);
 				CardLayout card = (CardLayout)container.getLayout();
 				this.container.add(game, "GameView");
 				card.show(container, "GameView");
+				
 			}
 			else if(data.getServerMsg().equals("keyReleased_Valid"))
 			{
-				//keyReleased was validated by server, execute method
-				keyReleased(data.getKeyCode());
+				//keyReleased_Valid was validated by server, execute method
+				keyReleased(data);
 				
 				//set the view again
 				CardLayout card = (CardLayout)container.getLayout();
@@ -277,13 +276,7 @@ public class GameClient extends AbstractClient implements Serializable{
 				card.show(container, "GameView");
 				
 			}
-			
-			
-			
-			
-			
-			
-			
+
 		}
 
 		
@@ -416,13 +409,13 @@ public class GameClient extends AbstractClient implements Serializable{
 	
 	//-----------------------
 	
-	public void keyPressed(int keyCode) 
+	public void keyPressed(GameModel data) 
 	{ // fires automatically when a key is
 
 		
-		if(game.move == true)
+		if(game.move == true )
 		{
-			int keycode = keyCode;
+			int keycode = data.getKeyCode();
 			if (game.pressedKeys.contains(keycode) == false) 
 			{
 				game.pressedKeys.add(keycode);
@@ -472,13 +465,15 @@ public class GameClient extends AbstractClient implements Serializable{
 		}
 		
 		//key released implementation
+		//set the view again
 		
 
-		
+		/*
 		int index;
-		index = game.pressedKeys.indexOf(keyCode);
+		index = game.pressedKeys.indexOf(data.getKeyCode());
 		if (index != -1)
 		game.pressedKeys.remove(index);
+		*/
 		
 
 
@@ -486,7 +481,7 @@ public class GameClient extends AbstractClient implements Serializable{
 	
 	//--------------
 	
-	public void keyReleased(int keyCode) 
+	public void keyReleased(GameModel data) 
 	{
 		// TODO Auto-generated method stub
 		// fires automatically when a key is
@@ -495,7 +490,7 @@ public class GameClient extends AbstractClient implements Serializable{
 
 		
 		int index;
-		index = game.pressedKeys.indexOf(keyCode);
+		index = game.pressedKeys.indexOf(data.getKeyCode());
 		if (index != -1)
 		game.pressedKeys.remove(index);
 		

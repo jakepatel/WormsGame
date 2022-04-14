@@ -34,40 +34,41 @@ import frontend.GameView;
 
 public class GameControl implements ActionListener, KeyListener, Serializable, MouseListener
 {
-	
+
 	JPanel container;
 	GameClient client;
 	GameView game;
 	int gameID;
-	
+
+
 	public GameControl(JPanel container, GameClient client)
 	{
 		this.container = container;
 		this.client = client;
-			
+
 	}
-	
+
 	public void setGameView(JPanel container)
 	{
 		this.container = container;
 		this.game = (GameView)container.getComponent(0);
 		setGameID(game.getGameID());
-		
+
 		client.setGameView(game);
 		client.setGameController(this);
 	}
-	
+
 	public int getGameID()
 	{
 		return gameID;
 	}
-	
+
 	public void setGameID(int id)
-	
+
 	{
 		gameID = game.getGameID();
 	}
-	
+
 	public GameView getGameView() throws NullPointerException
 	{
 		if(game != null)
@@ -76,8 +77,8 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 			return null;
 
 	}
-	
-	
+
+
 
 	@Override
 	public void mouseReleased(MouseEvent e) 
@@ -87,25 +88,25 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 		toSendGameData.setSentBy(client.getClientPlayer());
 		toSendGameData.setMethodCalled("mouseReleased");		//method called, name used by server
 		toSendGameData.setMouseE(e);	//parameter used by server
-		
+
 		/*
-		
+
 		try {
 			client.openConnection();
 		} catch (IOException e2) {
 			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		
-		
+
+
 		try {
 			client.sendToServer(toSendGameData);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		*/
+
+		 */
 
 		/*
 		int mousecode = e.getButton();
@@ -119,7 +120,7 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 					game.mouseXY[1] = game.team1.get((game.playerTurn-1)/2).getY() - e.getY();// gets -y of mouse
 															// and adds
 					// player y
-		
+
 					if (mousecode == MouseEvent.BUTTON1) 
 					{
 						fire(game.clickVelocity); // fires weapon
@@ -138,7 +139,7 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 					game.mouseXY[1] = game.team2.get((game.playerTurn-1)/2).getY() - e.getY();// gets -y of mouse
 															// and adds
 					// player y
-		
+
 					if (mousecode == MouseEvent.BUTTON1) 
 					{
 						fire(game.clickVelocity); // fires weapon
@@ -147,17 +148,17 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 						game.weaponsUsedInTurn++;
 					}
 				}
-				
-				*/
-		
+
+		 */
+
 		//set the view again
 		CardLayout card = (CardLayout)container.getLayout();
 		card.show(container, "GameView");
-		
-		
-		
+
+
+
 	}
-	
+
 	@Override
 	public void mousePressed(MouseEvent e) 
 	{		
@@ -169,18 +170,19 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 		toSendGameData.setSentBy(client.getClientPlayer());
 		toSendGameData.setMethodCalled("mousePressed");		//method called, name used by server
 		toSendGameData.setMouseE(e);	//parameter used by server
-		 
-		
-		
-		
+
+
+
+
 		try {
+			client.openConnection();
 			client.sendToServer(toSendGameData);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-		
+
+
 		/*
 		//the actual implementation of the method
 		game.fired = true;
@@ -190,56 +192,56 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 		game.mouseXY[1] = game.team1.get((game.playerTurn-1)/2).getY() - e.getY();// gets -y of mouse
 		// and adds
 		// player y
-		
-		
+
+
 		//set the view
 		CardLayout card = (CardLayout)container.getLayout();
 		card.show(container, "GameView");
 		 */
 	}
-	
+
 
 
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 		//set the view
 		CardLayout card = (CardLayout)container.getLayout();
 		card.show(container, "GameView");
-		
+
 	}
 
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 		//set the view
 		CardLayout card = (CardLayout)container.getLayout();
 		card.show(container, "GameView");
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		
+
 		//set the view
 		CardLayout card = (CardLayout)container.getLayout();
 		card.show(container, "GameView");
-		
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 		//set the view
 		CardLayout card = (CardLayout)container.getLayout();
 		card.show(container, "GameView");
-		
+
 	}
 
 	@Override
@@ -247,21 +249,22 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 	{ // fires automatically when a key is
 
 		
-		//send to server with message keyPressed
-		GameModel toSendGameData = new GameModel(game.getPlayer1Name(), game.getPlayer2Name(), game.gameID);
-		toSendGameData.setSentBy(client.getClientPlayer());
-		toSendGameData.setMethodCalled("keyPressed");		//method called, name used by server
-		toSendGameData.setKeyCode(e.getKeyCode());	//parameter used by server
-				 
-				//send to client
-				try {
-					client.sendToServer(toSendGameData);
-				} catch (IOException e2) {
-					// TODO Auto-generated catch block
-					e2.printStackTrace();
-				}
-
+			//send to server with message keyPressed
+			GameModel toSendGameData = new GameModel(game.getPlayer1Name(), game.getPlayer2Name(), game.gameID);
+			toSendGameData.setSentBy(client.getClientPlayer());
+			toSendGameData.setMethodCalled("keyPressed");		//method called, name used by server
+			toSendGameData.setKeyCode(e.getKeyCode());	//parameter used by server
+			toSendGameData.setPlayerTurn(game.getPlayerTurn());	
+			//send to client
+			try {
+				client.openConnection();
+				client.sendToServer(toSendGameData);
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 		
+
 		/*
 		if(game.move == true)
 		{
@@ -270,11 +273,11 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 			{
 				game.pressedKeys.add(keycode);
 			}
-		
+
 			if (game.playerTurn == 1 | game.playerTurn == 3 | game.playerTurn == 5 | game.playerTurn == 7) 
 			{
 				game.p = game.team1.get((game.playerTurn-1)/2);
-				
+
 				if (game.pressedKeys.contains(KeyEvent.VK_DOWN)) {
 					changeWeapon(0);
 				}
@@ -289,13 +292,13 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 				{
 					//weaponLaunch();
 				}
-		
+
 			} 
-			
+
 			else 
 			{
 				game.p = game.team2.get((game.playerTurn-1)/2);
-				
+
 				if (game.pressedKeys.contains(KeyEvent.VK_DOWN)) {
 					changeWeapon(1);
 				}
@@ -313,12 +316,12 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 			}
 			game.move = false;
 		}
-		
+
 		//set the view
 		CardLayout card = (CardLayout)container.getLayout();
 		card.show(container, "GameView");
-		
-		*/
+
+		 */
 	}
 
 	@Override
@@ -327,38 +330,38 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 		// TODO Auto-generated method stub
 		// fires automatically when a key is
 		// released
-		
+
 		
 		//send to server with message keyReleased
 		GameModel toSendGameData = new GameModel(game.getPlayer1Name(), game.getPlayer2Name(), game.gameID);
 		toSendGameData.setSentBy(client.getClientPlayer());
 		toSendGameData.setMethodCalled("keyReleased");		//method called, name used by server
 		toSendGameData.setKeyCode(e.getKeyCode());	//parameter used by server
-		
-		/*
+		toSendGameData.setPlayerTurn(game.getPlayerTurn());	
+
 		//send to client
 		try {
-		client.openConnection();
-		client.sendToServer(toSendGameData);
+			client.openConnection();
+			client.sendToServer(toSendGameData);
 		} catch (IOException e2) {
-		// TODO Auto-generated catch block
-		e2.printStackTrace();
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
 		}
-		*/
-		
-		
+
+
+
 		/*
 		int index;
 		index = game.pressedKeys.indexOf(e.getKeyCode());
 		if (index != -1)
 		game.pressedKeys.remove(index);*/
-		
+
 		//set the view
 		CardLayout card = (CardLayout)container.getLayout();
 		card.show(container, "GameView");
-		
-		
-		
+
+
+
 	}
 
 
@@ -370,8 +373,8 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 	@Override
 	public void actionPerformed(ActionEvent e) 
 	{ // fires automatically when an
-		
-		
+
+
 		if(game.moving%6 == 0) //slows movement
 		{
 			game.move = true;
@@ -379,9 +382,9 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 		game.moving++;
 		// timer activates it
 		// drop in box at end of turn
-		
-		
-		
+
+
+
 		if(game.timeLeftInTurn==0)
 		{
 			game.boxPos = -200;				
@@ -405,15 +408,15 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 			dropBox(game.boxPos, game.randX);
 		}
 		// drop in box at end of turn
-		
+
 		invisibleObjectCleaner(game.staticobjects, game.reactiveobjects, game.missiles,
 				game.grenades, game.bullets);
-				updateGameVariables();
+		updateGameVariables();
 		game.repaint();
 		if (game.fired) 
 		{
 			game.clickVelocity += 20; // adds increments to the velocity every event
-									// when log timer is active
+			// when log timer is active
 		} 
 		else 
 		{
@@ -423,20 +426,20 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 		{
 			game.clickVelocity -= 20;
 		}
-		
+
 		//set the view
 		CardLayout card = (CardLayout)container.getLayout();
 		card.show(container, "GameView");
-				
+
 	}
-	
+
 	public void dropBox(int boxPos, int randX) 
 	{		
 
-		
+
 		int frame = 0;
 		int condition = (boxPos + 200) %32;
-		
+
 		if(condition==0){frame = 1;}
 		else if(condition==4){frame = 2;}
 		else if(condition==8){frame = 3;}
@@ -445,20 +448,20 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 		else if(condition==20){frame = 4;}
 		else if(condition==24){frame = 3;}
 		else if(condition==28){frame = 2;}			
-		
-		
+
+
 		game.box.setImage(frame);
 		game.box.setX(randX);
 		game.box.setY(boxPos);
 		game.box.updateRectangle();
-		
+
 	}
 
 	public void updateGameVariables() 
 	{
-		
 
-		
+
+
 		game.team1.get(0).updateSystemVariables(game.staticobjects, game.reactiveobjects, game.team2);
 		if (game.team2.get(0) != null)
 			game.team2.get(0).updateSystemVariables(game.staticobjects, game.reactiveobjects,game.team1);
@@ -471,11 +474,11 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 		for (int i = 0; i < game.bullets.size(); i++)
 			game.bullets.get(i).updateSystemVariables(game.staticobjects, game.reactiveobjects);		
 	}
-	
+
 	public void changeWeapon(int player) 
 	{
 
-		
+
 		Image temp = (new ImageIcon("images/weapons/missile0.png").getImage());
 		int tempW = 0;
 		if (player == 0) 
@@ -485,19 +488,19 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 		{
 			tempW = game.player2Weapon;
 		}
-		
+
 		tempW = (tempW + 1) % 3;
 		switch (tempW) 
 		{
-			case 1:
-				temp = (new ImageIcon("images/weapons/missile0.png").getImage());
-				break;
-			case 0:
-				temp = (new ImageIcon("images/grenade/grenade0.png").getImage());
-				break;
-			case 2:
-				temp = (new ImageIcon("images/weapons/bullet-right.png").getImage());
-				break;
+		case 1:
+			temp = (new ImageIcon("images/weapons/missile0.png").getImage());
+			break;
+		case 0:
+			temp = (new ImageIcon("images/grenade/grenade0.png").getImage());
+			break;
+		case 2:
+			temp = (new ImageIcon("images/weapons/bullet-right.png").getImage());
+			break;
 		}
 		if (player == 0) 
 		{
@@ -509,30 +512,30 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 			this.game.player2WeaponImage = temp;
 			game.player2Weapon = tempW;
 		}
-		
+
 	}
-	
+
 	public void playerJump() 
 	{
-		
 
-		
+
+
 		if (game.p.injump == false && game.p.checkCollisionDown(game.staticobjects, game.reactiveobjects) == true)
-				game.p.startJump(0);
+			game.p.startJump(0);
 		else if (game.p.injump == true && game.p.jumpSpeed > 0 && game.p.jumpSpeed < game.p.jumpSpeedBound - 5) 
 		{
 			game.p.startJump(1);
 		}
-		
+
 
 	}
-	
 
-	
+
+
 	public void invisibleObjectCleaner(ArrayList<StaticObjects> s, ArrayList<ReactiveObjects> r, ArrayList<Missile> m, ArrayList<Grenade> g, ArrayList<Bullet> b) 
 	{
 
-		
+
 		if (s.isEmpty() == false)
 			for (int i = 0; i < s.size(); i++)
 				if (s.get(i).visible == false) 
@@ -568,24 +571,24 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 					b.remove(i);
 					updateGameVariables();
 				}
-		
-		
-		
+
+
+
 	}
-	
-	
+
+
 	public void fire(double velocity) 
 	{
-		
 
-	
+
+
 		SoundEffect.COUGH.play();
-		
+
 		double mx = game.mouseXY[0];
 		double my = game.mouseXY[1] * Math.PI;
 		double angleR = Math.atan(my / mx); // calcs angle
 		double angleL = Math.atan(my / -mx); // calcs -angle
-		
+
 		if (game.playerTurn == 1 | game.playerTurn == 3 | game.playerTurn == 5 | game.playerTurn == 7) 
 		{
 			if (game.weaponsUsedInTurn < game.MaxWeaponsPerTurn)
@@ -613,8 +616,8 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 					}
 					game.weaponsUsedInTurn++;
 				}
-			
-			
+
+
 		} 
 		else if (game.playerTurn == 2 | game.playerTurn == 4 | game.playerTurn == 6 | game.playerTurn == 8) 
 		{
@@ -643,18 +646,18 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 					}
 					game.weaponsUsedInTurn++;
 				}
-			
+
 		}			
-		
-	
+
+
 	}
-	
+
 	/*used in the gameView
-	
+
 	private String createResultBoard() 
 	{
 
-		
+
 		String board = " ";
 		for (int i = 0; i < 3; i++)
 			board += "        ";
@@ -683,14 +686,14 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 			board += game.team2.get(0).getMissilesAvailable();
 		for (int i = 0; i < 1; i++)
 			board += "          ";
-		
+
 		return board;
 	}
-	
-	*/
-	
-	
 
-	
+	 */
+
+
+
+
 }
 

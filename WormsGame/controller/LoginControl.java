@@ -83,6 +83,8 @@ public class LoginControl implements ActionListener {
 		//GameGUI.setUser(new User(createAccountPanel.getUsername(), createAccountPanel.getPassword()));
 		CardLayout cardLayout = (CardLayout)container.getLayout();
 		cardLayout.show(container, "MainMenuView");
-		// Submit the login information to the server.	
+		// Submit the login information to the server.
+		Player player = new Player(loginView.getUsername());
 	}
+	
 }

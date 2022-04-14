@@ -31,7 +31,7 @@ public class GameModel implements Serializable{
 		private String methodCalled;	//includes the name of the method that was called by the control, ex: mousePressed
 		private MouseEvent mouseE;
 		private int keyCode;
-		
+		private int playerTurn;
 
 		private ActionEvent actionE;
 		
@@ -56,6 +56,13 @@ public class GameModel implements Serializable{
 		//must be set to value of Player 1 name, or player 2 name, or Server
 	}
 	
+	public void setSentBy(String string) 
+	{
+		this.sentBy = string;
+		
+		//must be set to value of Player 1 name, or player 2 name, or Server
+	}
+	
 	public int getKeyCode() {
 		return keyCode;
 	}
@@ -64,12 +71,7 @@ public class GameModel implements Serializable{
 		this.keyCode = keyCode;
 	}
 
-	public void setSentBy(String string) 
-	{
-		this.sentBy = string;
-		
-		//must be set to value of Player 1 name, or player 2 name, or Server
-	}
+	
 
 	
 	
@@ -77,18 +79,17 @@ public class GameModel implements Serializable{
 	{
 		this.viewofGame = view;
 	}
-	
-	public void setGameController(GameControl controller)
-	{
-		this.controller = controller;
-	}
-	
 	public GameView getViewOfGame()
 	{
 		
 		return viewofGame;
 	}
 	
+	public void setGameController(GameControl controller)
+	{
+		this.controller = controller;
+	}
+		
 	public GameControl getController()
 	{
 		return controller;
@@ -161,6 +162,10 @@ public class GameModel implements Serializable{
 	{
 		return serverMessage;
 	}
-	
-
+	public void setPlayerTurn(int playerTurn) {
+		this.playerTurn = playerTurn;
+	}
+	public int getPlayerTurn() {
+		return playerTurn;
+	}
 }

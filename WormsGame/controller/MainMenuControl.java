@@ -13,6 +13,7 @@ import ClientComm.GameClient;
 import backend.LoginModel;
 import backend.MainMenuModel;
 import entities.Player;
+import entities.StartGameGranted;
 import entities.StartGameRequest;
 import frontend.CreateAccountView;
 import frontend.DeletePlayerView;
@@ -55,6 +56,7 @@ public class MainMenuControl implements ActionListener
 			//GameGUI GameGUI = (GameGUI)SwingUtilities.getWindowAncestor(loginView);
 			
 			Player player = new Player(loginView.getUsername());
+			MainMenuModel data = new MainMenuModel(command.toString());
 			
 
 		    Player sentBy = player;
@@ -110,6 +112,7 @@ public class MainMenuControl implements ActionListener
 
 
 	}
+
 
 
 }
