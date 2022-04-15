@@ -178,6 +178,8 @@ public class GameClient extends AbstractClient implements Serializable{
 			} else if(msg.equals("login successful")) {
 				loginControl.loginSuccess();
 				//Handle Login Here
+			} else if (msg.equals("Failed Login")) {
+				loginControl.displayError("Login Failed");
 			} else if(msg.contains(",")) {
 				
 				String[] token = msg.split(",");

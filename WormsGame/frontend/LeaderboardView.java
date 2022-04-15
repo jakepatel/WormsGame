@@ -41,7 +41,8 @@ public class LeaderboardView extends JPanel
 		dataList = new JList<String>();
 		JScrollPane scrollPane = new JScrollPane(dataList);
 		scrollPanel.add(scrollPane);
-
+		
+		System.out.println("leaderboard view constructor called");
 
 		// Create a panel for the buttons.
 		JPanel buttonPanel = new JPanel();
