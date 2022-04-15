@@ -175,16 +175,16 @@ public class GameClient extends AbstractClient implements Serializable{
 			if(msg.equals("account created")) {
 				createAccountControl.createAccountSuccess();
 				//Handle Login Here
-			}
-			if(msg.equals("login successful")) {
+			} else if(msg.equals("login successful")) {
 				loginControl.loginSuccess();
 				//Handle Login Here
-			}
-			if(msg.contains(",")) {
+			} else if(msg.contains(",")) {
 				
 				String[] token = msg.split(",");
 				leaderboardControl.showLeaderboard(token);
 				//Handle Login Here
+			} else if (msg.equals("account creation failed")) {
+				createAccountControl.createAccountFailure();
 			}
 		}
 		else if(arg0 instanceof StartGameGranted)

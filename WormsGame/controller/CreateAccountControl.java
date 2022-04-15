@@ -74,6 +74,11 @@ public class CreateAccountControl implements ActionListener {
 			
 		}
 	}
+
+	public void createAccountFailure() {
+		CreateAccountView createAccountPanel = (CreateAccountView)container.getComponent(2);
+		createAccountPanel.setError("Account already exists");
+	}
 	
 	 // After an account is created, set the User object and display the contacts screen.
 	  public void createAccountSuccess()

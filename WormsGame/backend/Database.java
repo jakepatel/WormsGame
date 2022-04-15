@@ -76,6 +76,7 @@ public class Database {
 			  Statement stmt = conn.createStatement();
 			  ResultSet rs = stmt.executeQuery("select * from user where username='" + username + "';");
 			  if (rs.next()) {
+				  System.out.println("duplicate account");
 				  return false;
 			  } else {
 				  Statement insert = conn.createStatement();

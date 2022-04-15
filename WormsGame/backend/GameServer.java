@@ -129,7 +129,13 @@ public class GameServer extends AbstractServer {
 				log.append("Client " + arg1.getId() + " created a new account called " + m.getUsername() + "\n");
 				try {
 					arg1.sendToClient("account created");
-
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else {
+				log.append("Client " + arg1.getId() + " failed to create account " + m.getUsername() + "\n");
+				try {
+					arg1.sendToClient("account creation failed");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
