@@ -844,6 +844,7 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 		CardLayout card = (CardLayout)container.getLayout();
 		card.show(container, "GameView");
 		
+		System.out.print(false)
 	}
 
 
