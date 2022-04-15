@@ -238,44 +238,27 @@ public class GameClient extends AbstractClient implements Serializable{
 			if(data.getServerMsg().equals("mousePressed_Valid"))
 			{
 				//mousePressed was validated by server, execute method
-				mousePressed(data.getMouseE());
-				
-				
-				
-				//set the view
-				CardLayout card = (CardLayout)container.getLayout();
-				this.container.add(game, "GameView");
-				card.show(container, "GameView");
+				controller.mousePressedGranted(data.getMouseE());
+
 			}
 			else if(data.getServerMsg().equals("mouseReleased_Valid"))
 			{
 				//mouseReleased was validated by server, execute method
-				mouseReleased(data.getMouseE());
-				
-				
-				//set the view again
-				CardLayout card = (CardLayout)container.getLayout();
-				this.container.add(game, "GameView");
-				card.show(container, "GameView");
+				controller.mouseReleasedGranted(data.getMouseE());
+
 			}
 			else if(data.getServerMsg().equals("keyPressed_Valid" ))
 			{
 				//keyPressed_Valid was validated by server, execute method
-				keyPressed(data);
-				CardLayout card = (CardLayout)container.getLayout();
-				this.container.add(game, "GameView");
-				card.show(container, "GameView");
+				controller.keyPressedGranted(data);
+
 				
 			}
 			else if(data.getServerMsg().equals("keyReleased_Valid"))
 			{
 				//keyReleased_Valid was validated by server, execute method
-				keyReleased(data);
-				
-				//set the view again
-				CardLayout card = (CardLayout)container.getLayout();
-				this.container.add(game, "GameView");
-				card.show(container, "GameView");
+				controller.keyReleasedGranted(data);
+
 				
 			}
 

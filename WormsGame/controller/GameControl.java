@@ -89,14 +89,6 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 		toSendGameData.setMethodCalled("mouseReleased");		//method called, name used by server
 		toSendGameData.setMouseE(e);	//parameter used by server
 
-		/*
-
-		try {
-			client.openConnection();
-		} catch (IOException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
 
 
 		try {
@@ -106,7 +98,7 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 			e1.printStackTrace();
 		}
 
-		 */
+		 
 
 		/*
 		int mousecode = e.getButton();
@@ -175,7 +167,6 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 
 
 		try {
-			client.openConnection();
 			client.sendToServer(toSendGameData);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
@@ -257,7 +248,6 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 			toSendGameData.setPlayerTurn(game.getPlayerTurn());	
 			//send to client
 			try {
-				client.openConnection();
 				client.sendToServer(toSendGameData);
 			} catch (IOException e2) {
 				// TODO Auto-generated catch block
@@ -341,7 +331,6 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 
 		//send to client
 		try {
-			client.openConnection();
 			client.sendToServer(toSendGameData);
 		} catch (IOException e2) {
 			// TODO Auto-generated catch block
@@ -691,6 +680,171 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 	}
 
 	 */
+	
+	
+	//game related methods --------------------------------------------------------------------
+	
+	public void mousePressedGranted(MouseEvent e)
+	{
+		//the actual implementation of the method
+		game.fired = true;
+		game.mouseXY[0] = e.getX() - game.team1.get((game.playerTurn-1)/2).getX();// gets x of mouse
+				// and takes away
+				// player x
+		game.mouseXY[1] = game.team1.get((game.playerTurn-1)/2).getY() - e.getY();// gets -y of mouse
+				// and adds
+				// player y
+		
+
+		//set the view
+		CardLayout card = (CardLayout)container.getLayout();
+		card.show(container, "GameView");
+		
+		
+	}
+	
+	
+	//--------------
+	
+	public void mouseReleasedGranted(MouseEvent e) 
+	{
+
+		int mousecode = e.getButton();
+		if (game.weaponsUsedInTurn < game.MaxWeaponsPerTurn)
+			if (game.playerTurn%2 ==1)
+				if (game.team1.get(0).getGrenadesAvailable() > 0) 
+				{
+					game.mouseXY[0] = e.getX() - game.team1.get((game.playerTurn-1)/2).getX();// gets x of mouse
+															// and takes away
+															// player x
+					game.mouseXY[1] = game.team1.get((game.playerTurn-1)/2).getY() - e.getY();// gets -y of mouse
+															// and adds
+					// player y
+		
+					if (mousecode == MouseEvent.BUTTON1) 
+					{
+						this.fire(game.clickVelocity); // fires weapon
+						game.fired = false;						 
+						game.clickVelocity = 0; // resets click velocity
+						game.weaponsUsedInTurn++;
+					}
+				}
+		if (game.weaponsUsedInTurn < game.MaxWeaponsPerTurn)
+			if (game.playerTurn%2 == 0)
+				if (game.team1.get(0).getGrenadesAvailable() > 0) 
+				{
+					game.mouseXY[0] = e.getX() - game.team2.get((game.playerTurn-1)/2).getX();// gets x of mouse
+															// and takes away
+															// player x
+					game.mouseXY[1] = game.team2.get((game.playerTurn-1)/2).getY() - e.getY();// gets -y of mouse
+															// and adds
+					// player y
+		
+					if (mousecode == MouseEvent.BUTTON1) 
+					{
+						this.fire(game.clickVelocity); // fires weapon
+						game.fired = false; // ends the log
+						game.clickVelocity = 0; // resets click velocity
+						game.weaponsUsedInTurn++;
+					}
+				}
+
+		//set the view
+		CardLayout card = (CardLayout)container.getLayout();
+		card.show(container, "GameView");
+		
+	}
+	
+	
+	//-----------------------
+	
+	public void keyPressedGranted(GameModel data) 
+	{ // fires automatically when a key is
+
+		
+		if(game.move == true )
+		{
+			int keycode = data.getKeyCode();
+			if (game.pressedKeys.contains(keycode) == false) 
+			{
+				game.pressedKeys.add(keycode);
+			}
+		
+			if (game.playerTurn == 1 | game.playerTurn == 3 | game.playerTurn == 5 | game.playerTurn == 7) 
+			{
+				game.p = game.team1.get((game.playerTurn-1)/2);
+				
+				if (game.pressedKeys.contains(KeyEvent.VK_DOWN)) {
+					this.changeWeapon(0);
+				}
+				if (game.pressedKeys.contains(KeyEvent.VK_UP)) {
+					this.playerJump();
+				}
+				if (game.pressedKeys.contains(KeyEvent.VK_RIGHT))
+					game.p.moveRight(3);
+				if (game.pressedKeys.contains(KeyEvent.VK_LEFT))
+					game.p.moveLeft(3);
+				if (game.pressedKeys.contains(KeyEvent.VK_SPACE)) 
+				{
+					//weaponLaunch();
+				}
+		
+			} 
+			
+			else 
+			{
+				game.p = game.team2.get((game.playerTurn-1)/2);
+				
+				if (game.pressedKeys.contains(KeyEvent.VK_DOWN)) {
+					this.changeWeapon(1);
+				}
+				if (game.pressedKeys.contains(KeyEvent.VK_UP)) {
+					this.playerJump();
+				}
+				if (game.pressedKeys.contains(KeyEvent.VK_RIGHT))
+					game.p.moveRight(3);
+				if (game.pressedKeys.contains(KeyEvent.VK_LEFT))
+					game.p.moveLeft(3);
+				if (game.pressedKeys.contains(KeyEvent.VK_SPACE)) 
+				{
+					//weaponLaunch();
+				}
+			}
+			game.move = false;
+		}
+
+		
+
+		//set the view
+		CardLayout card = (CardLayout)container.getLayout();
+		card.show(container, "GameView");
+
+		
+
+
+	}
+	
+	//--------------
+	
+	public void keyReleasedGranted(GameModel data) 
+	{
+		// TODO Auto-generated method stub
+		// fires automatically when a key is
+		// released
+		
+
+		
+		int index;
+		index = game.pressedKeys.indexOf(data.getKeyCode());
+		if (index != -1)
+		game.pressedKeys.remove(index);
+		
+
+		//set the view
+		CardLayout card = (CardLayout)container.getLayout();
+		card.show(container, "GameView");
+		
+	}
 
 
 
