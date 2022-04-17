@@ -285,7 +285,7 @@ public class GameClient extends AbstractClient implements Serializable{
 	}
 	
 	//game related methods --------------------------------------------------------------------
-	
+	/*
 	private void mousePressed(MouseEvent e)
 	{
 		//the actual implementation of the method
@@ -453,12 +453,12 @@ public class GameClient extends AbstractClient implements Serializable{
 		//set the view again
 		
 
-		/*
+		
 		int index;
 		index = game.pressedKeys.indexOf(data.getKeyCode());
 		if (index != -1)
 		game.pressedKeys.remove(index);
-		*/
+		
 		
 
 
@@ -482,5 +482,5 @@ public class GameClient extends AbstractClient implements Serializable{
 
 		
 	}
-
+*/
 }//end of class

@@ -161,6 +161,7 @@ public class GameView extends JPanel implements Serializable
 				team2));
 		team2.add(new GamePlayer(650, 100, staticobjects, reactiveobjects,
 				team1));
+	
 		team1.add(new GamePlayer(500, 100, staticobjects, reactiveobjects,
 				team2));
 		team2.add(new GamePlayer(400, 100, staticobjects, reactiveobjects,
@@ -173,7 +174,7 @@ public class GameView extends JPanel implements Serializable
 				team2));
 		team2.add(new GamePlayer(800, 50, staticobjects, reactiveobjects,
 				team1));
-
+	
 		this.p = team1.get(0);
 
 		this.addKeyListener(controller);
@@ -210,7 +211,7 @@ public class GameView extends JPanel implements Serializable
 					SoundEffect.TIMERTICK.play();
 				}		
 				
-				System.out.println(weaponsUsedInTurn);
+				//System.out.println(weaponsUsedInTurn);
 				if(weaponsUsedInTurn > 1)
 				{
 					timeLeftInTurn = 5;
@@ -531,7 +532,7 @@ public class GameView extends JPanel implements Serializable
 
 	public String createResultBoard() {
 		String board = " ";
-		for (int i = 0; i < 2; i++)
+		for (int i = 0; i < 1; i++)
 			board += "          ";
 		int playerhealth1 = team1.get(0).playerHealth + team1.get(1).playerHealth + team1.get(2).playerHealth + team1.get(3).playerHealth;
 		board += String.valueOf(playerhealth1);
@@ -746,12 +747,14 @@ public class GameView extends JPanel implements Serializable
 		// create the result board
 		g.drawImage(team1.get(0).playerImage, team1.get(0).x, team1.get(0).y, null);
 		g.drawImage(team2.get(0).playerImage, team2.get(0).x, team2.get(0).y, null);
+		
 		g.drawImage(team1.get(1).playerImage, team1.get(1).x, team1.get(1).y, null);
 		g.drawImage(team2.get(1).playerImage, team2.get(1).x, team2.get(1).y, null);
 		g.drawImage(team1.get(2).playerImage, team1.get(2).x, team1.get(2).y, null);
 		g.drawImage(team2.get(2).playerImage, team2.get(2).x, team2.get(2).y, null);
 		g.drawImage(team1.get(3).playerImage, team1.get(3).x, team1.get(3).y, null);
 		g.drawImage(team2.get(3).playerImage, team2.get(3).x, team2.get(3).y, null);
+		
 		if (reactiveobjects.isEmpty() == false)
 			for (int i = 0; i < reactiveobjects.size(); i++)
 				if (reactiveobjects.get(i).visible == true)

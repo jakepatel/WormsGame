@@ -39,6 +39,7 @@ public class ConnectHandler implements ActionListener{
 	//Method used as Listen and Connect button actionListeners
 	public void actionPerformed(ActionEvent e) {    
 		//If client presses Connect
+		/*
 		if( (e.getActionCommand()).equals( "Connect"))  {
 			System.out.println("Connect Button Pressed");
 			int port = Integer.parseInt(clientPort.getText());
@@ -52,7 +53,8 @@ public class ConnectHandler implements ActionListener{
 			}
 		} 
 		//If server user presses Listen 
-		else if( (e.getActionCommand()).equals("Listen"))  {
+		else */
+		if( (e.getActionCommand()).equals("Listen"))  {
 			//If the port and timeout text fields are empty print message to server text area
 			if(portNum.getText().equals("") || timeOutNum.getText().equals("")) {
 				serverLog.append("Port Number/timeout not entered before pressing Listen");

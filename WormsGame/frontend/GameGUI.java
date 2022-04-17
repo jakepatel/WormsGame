@@ -37,7 +37,7 @@ public class GameGUI extends JFrame
 		client.setGuiFrame(this);
 
 		// Set the title and default close operation.
-		this.setTitle("Chat Client");
+		this.setTitle("Game Client");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Create the card layout container.
@@ -59,8 +59,6 @@ public class GameGUI extends JFrame
 	    client.setCreateAccountControl(control_ca);
 	    client.setLeaderboardControl(control_leaderboard);
 
-	    
-	    
 	    //instantiate all the different view with their controllers when ready
 	    InitialView initial =  new InitialView(control_initial);
 	    LoginView loginview = new LoginView(control_login);

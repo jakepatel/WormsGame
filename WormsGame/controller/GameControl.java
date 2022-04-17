@@ -977,9 +977,7 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 		// TODO Auto-generated method stub
 		// fires automatically when a key is
 		// released
-		
 
-		
 		int index;
 		index = game.pressedKeys.indexOf(data.getKeyCode());
 		if (index != -1)
