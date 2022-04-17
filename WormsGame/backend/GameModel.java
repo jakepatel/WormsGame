@@ -123,8 +123,7 @@ public class GameModel implements Serializable{
 	
 	public String getMethodCalled()
 	{
-		return methodCalled;
-		
+		return methodCalled;	
 		//used by server to update the game view
 	}
 	
@@ -143,8 +142,6 @@ public class GameModel implements Serializable{
 		this.mouseE = mouseE;
 	}
 
-
-
 	public ActionEvent getActionE() {
 		return actionE;
 	}
@@ -162,9 +159,11 @@ public class GameModel implements Serializable{
 	{
 		return serverMessage;
 	}
+	
 	public void setPlayerTurn(int playerTurn) {
 		this.playerTurn = playerTurn;
 	}
+	
 	public int getPlayerTurn() {
 		return playerTurn;
 	}

@@ -103,9 +103,9 @@ public class GameView extends JPanel implements Serializable
 
 		this.setFocusable(true);
 		ImageIcon tempImageIcon;
-		tempImageIcon = new ImageIcon("background.png");
+		tempImageIcon = new ImageIcon("images/layout/background.png");
 		backgroundImage = tempImageIcon.getImage();
-		tempImageIcon = new ImageIcon("/Users/jakepatel/git/WormsGameRepository/board.png");
+		tempImageIcon = new ImageIcon("images/layout/board.png");
 		boardImage = tempImageIcon.getImage();
 		staticobjects = new ArrayList<StaticObjects>();
 		reactiveobjects = new ArrayList<ReactiveObjects>();

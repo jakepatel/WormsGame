@@ -3,7 +3,9 @@ package controller;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -46,10 +48,10 @@ public class LeaderboardControl implements ActionListener
 	    }
 	}
 	// After an account is created, set the User object and display the contacts screen.
-	public void showLeaderboard(String[] token)
+	public void showLeaderboard(String[] leaderboard)
 	{
 	    LeaderboardView leaderView = (LeaderboardView)container.getComponent(6);
-	    LeaderboardModel leaderModel = new LeaderboardModel(token);
+	    LeaderboardModel leaderModel = new LeaderboardModel(leaderboard);
 	    leaderView.setDataList(leaderModel.getleaderboard());
 	    CardLayout cardLayout = (CardLayout)container.getLayout();
 	    cardLayout.show(container, "LeaderboardView");	
