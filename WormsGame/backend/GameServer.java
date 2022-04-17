@@ -246,11 +246,9 @@ public class GameServer extends AbstractServer {
 			
 			System.out.println("player 1: " + gameData.player1);
 			
-//			try {
-//				System.out.println("player 1: " + gameData.player1);
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
+			db.updateScore(gameData.player1, data.getFinalScore());
+			db.updateScore(gameData.player2, data.getFinalScore());
+			
 		}
 	}
 

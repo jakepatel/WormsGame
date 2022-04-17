@@ -1,19 +1,19 @@
 package backend;
 
 public class GameOverModel {
-	private String finalScore;
+	private int finalScore;
 	
 	
-	public GameOverModel(String finalScore){
+	public GameOverModel(int finalScore){
 		this.finalScore = finalScore;
 	}
 	
-	public void setFinalScore(String finalScore) {
+	public void setFinalScore(int finalScore) {
 		this.finalScore = finalScore;
 	}
 	
 
-	public String getFinalScore() {
+	public int getFinalScore() {
 		return finalScore;
 	}
 	

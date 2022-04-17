@@ -143,5 +143,28 @@ public class Database {
 		  }
 		  return leaderboard;
 	  }
+	  
+	  public void updateScore(String username, int score) {
+		  try {
+			  Statement stmt = conn.createStatement();
+			  // only update the score if the new score is greater than the previous one
+			  stmt.executeUpdate("update user set high_score=" + score + "where username='" + username + "' and high_score<" + score + ";");
+		  } catch (SQLException e) {
+			  e.printStackTrace();
+		  }
+	  }
+	  
+	  public int getScore(String username) {
+		  try {
+			  Statement stmt = conn.createStatement();
+			  ResultSet rs = stmt.executeQuery("select high_score from user where username='" + username + "';");
+			  if (rs.next()) {
+				  return rs.getInt("high_score");
+			  }
+		  } catch (SQLException e) {
+			  e.printStackTrace();
+		  }
+		  return 0;
+	  }
 }
 
