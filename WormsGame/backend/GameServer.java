@@ -224,7 +224,7 @@ public class GameServer extends AbstractServer {
 		else if(arg0 instanceof GameModel)		//game model is passed to this server
 		{
 			gameData = (GameModel)arg0;
-
+			
 			//detect the method that is called
 			if(gameData.getMethodCalled().equals("changeTurns"))	//changeTurns on the client side called (within GameView class)
 				changeTurnsTimer(gameData, arg1);
@@ -241,6 +241,16 @@ public class GameServer extends AbstractServer {
 
 
 
+		} else if (arg0 instanceof GameOverModel) {
+			GameOverModel data = (GameOverModel)arg0;
+			
+			System.out.println("player 1: " + gameData.player1);
+			
+//			try {
+//				System.out.println("player 1: " + gameData.player1);
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
 		}
 	}
 

@@ -80,7 +80,7 @@ public class Database {
 				  return false;
 			  } else {
 				  Statement insert = conn.createStatement();
-				  insert.executeUpdate("insert into user values ('" + username + "', aes_encrypt('" + password + "', 'key'), 'user');");
+				  insert.executeUpdate("insert into user values ('" + username + "', aes_encrypt('" + password + "', 'key'), 'user', 0);");
 				  return true;
 			  }
 		  } catch (SQLException e) {
@@ -99,7 +99,7 @@ public class Database {
 				  return false;
 			  } else {
 				  Statement insert = conn.createStatement();
-				  insert.executeUpdate("insert into user values ('" + username + "', aes_encrypt('" + password + "', 'key'), 'admin');");
+				  insert.executeUpdate("insert into user values ('" + username + "', aes_encrypt('" + password + "', 'key'), 'admin', 0);");
 				  return true;
 			  }
 		  } catch (SQLException e) {
@@ -132,10 +132,10 @@ public class Database {
 		  ArrayList<String> leaderboard = new ArrayList<String>();
 		  try {
 			  Statement stmt = conn.createStatement();
-			  ResultSet rs = stmt.executeQuery("select * from user;");
+			  ResultSet rs = stmt.executeQuery("select username, high_score from user;");
 			  
 			  while(rs.next()) {
-				 leaderboard.add(rs.getString(1));
+				 leaderboard.add(rs.getString("username") + " " + rs.getInt("high_score"));
 			  } 
 				  	  
 		  } catch (SQLException e) {
