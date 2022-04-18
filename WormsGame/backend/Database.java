@@ -132,7 +132,7 @@ public class Database {
 		  ArrayList<String> leaderboard = new ArrayList<String>();
 		  try {
 			  Statement stmt = conn.createStatement();
-			  ResultSet rs = stmt.executeQuery("select username, high_score from user;");
+			  ResultSet rs = stmt.executeQuery("select username, high_score from user order by `high_score` desc limit 10;");
 			  
 			  while(rs.next()) {
 				 leaderboard.add(rs.getString("username") + " " + rs.getInt("high_score"));
