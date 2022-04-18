@@ -10,6 +10,7 @@ import ClientComm.GameClient;
 import controller.AdminLoginControl;
 import controller.CreateAccountControl;
 import controller.DeletePlayerControl;
+import controller.GameOverControl;
 import controller.InitialControl;
 import controller.LeaderboardControl;
 import controller.LoginControl;
@@ -53,6 +54,7 @@ public class GameGUI extends JFrame
 	    LogoutControl control_logout = new LogoutControl(container, client, this);	//pass this to close frame 
 	    LeaderboardControl control_leaderboard = new LeaderboardControl(container, client);
 	    DeletePlayerControl control_delete = new DeletePlayerControl(container, client);
+	    GameOverControl control_gameover = new GameOverControl(container, client);
 	    
 	    //Set the client info
 	    client.setLoginControl(control_login);
@@ -69,6 +71,7 @@ public class GameGUI extends JFrame
 	    LeaderboardView leaderboardView = new LeaderboardView(control_leaderboard);
 	    GameWaitingView waitingView = new GameWaitingView();
 	    DeletePlayerView deleteView = new DeletePlayerView(control_delete);
+	    GameOverView gameoverView = new GameOverView(control_gameover);
 	
 	    
 	    //add the view to the container and the commented numbers correspond to the cardLayout.getComponent(number);
@@ -81,11 +84,13 @@ public class GameGUI extends JFrame
 	    container.add(leaderboardView, "LeaderboardView");	//6
 	    container.add(waitingView, "GameWaitingView"); //7
 	    container.add(deleteView, "DeletePlayerView"); //8
-	    
+	    container.add(gameoverView, "GameOverView");  //9
 	    
 	    //test the view
 		this.add(container, BorderLayout.CENTER);
 //		cardLayout.show(container, "GameWaitingView");
+		client.setContainer(container);
+		
 		cardLayout.show(container, "InitialView");
 		
 		// Show the JFrame.

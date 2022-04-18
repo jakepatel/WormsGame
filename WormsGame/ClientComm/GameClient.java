@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import backend.GameModel;
+import backend.GameOverModel;
 import controller.CreateAccountControl;
 import controller.GameControl;
 import controller.LeaderboardControl;
@@ -19,7 +20,9 @@ import controller.MainMenuControl;
 import entities.StartGameGranted;
 import frontend.GameFrame;
 import frontend.GameGUI;
+import frontend.GameOverView;
 import frontend.GameView;
+import frontend.LoginView;
 import frontend.TestFrame;
 import ocsf.client.*;
 
@@ -40,7 +43,10 @@ public class GameClient extends AbstractClient implements Serializable{
 	private String player1, player2;
 	private String clientPlayer;	//the player that belongs to this client (either player 1 or player 2)
 	private String numberPlayer; //either P1 or P2
+	private int GameID = -999;		//set when game started
 	
+	
+
 	//test game
 	private TestFrame testFrame;
 
@@ -108,6 +114,13 @@ public class GameClient extends AbstractClient implements Serializable{
 
 	public void setPlayer2(String player2) {
 		this.player2 = player2;
+	}
+	
+	public int getGameID() {
+		return GameID;
+	}
+	public void setGameID(int gameID) {
+		GameID = gameID;
 	}
 
 	public String getClientPlayer() {
@@ -212,6 +225,8 @@ public class GameClient extends AbstractClient implements Serializable{
 			gameFrame = new GameFrame(this, "Game Window");
 			gameFrame.setPlayer1Name(info.getPlayer1());
 			gameFrame.setPlayer2Name(info.getPlayer2());
+			this.GameID = info.getGameID();
+			
 			
 			
 
@@ -263,10 +278,67 @@ public class GameClient extends AbstractClient implements Serializable{
 			}
 
 		}
+		else if(arg0 instanceof GameOverModel)
+		{//game is over, change view
+			
+			//Typecast
+			GameOverModel data = (GameOverModel)arg0;
+			
+			
+			//reinitize the GUI or test frame
+			if(guiFrame != null)
+			{
+				this.guiFrame.setVisible(true);
+				GameOverView gameOverView = (GameOverView)container.getComponent(9);	//9 is from GameGUI
+				
+				if(data.getNumberWinner().equals(this.getNumberPlayer()))
+					gameOverView.setMsg("You Won!");
+				else if(data.getNumberWinner().equals("draw"))
+					gameOverView.setMsg("It's a Draw!");
+				else
+					gameOverView.setMsg("You Lost :(");
+				
+				
+				//dispose the gameFrame
+				this.gameFrame.dispose();
+
+			}
+			if(testFrame != null)
+			{
+				this.testFrame.setVisible(true);
+				GameOverView gameOverView = (GameOverView)container.getComponent(0);	//0 is from TestFrame
+				
+				if(data.getNumberWinner().equals(this.getNumberPlayer()))
+					gameOverView.setMsg("You Won!");
+				else if(data.getNumberWinner().equals("draw"))
+					gameOverView.setMsg("It's a Draw!");
+				else
+					gameOverView.setMsg("You Lost :(");
+				
+				
+				//dispose the gameFrame
+				this.gameFrame.dispose();
+				
+
+			
+			}
+			
+			
+	
+			
+			CardLayout cardLayout = (CardLayout)container.getLayout();
+		    cardLayout.show(container, "GameOverView");
+		   
+			GameID = -999;
+			
+			
+		}
 
 		
 
-	}
+	}//end of handleMessage method
+	
+	
 	public void connectionException (Throwable exception) 
 	{
 		//Add your code here
@@ -285,202 +357,5 @@ public class GameClient extends AbstractClient implements Serializable{
 	}
 	
 	//game related methods --------------------------------------------------------------------
-	/*
-	private void mousePressed(MouseEvent e)
-	{
-		//the actual implementation of the method
-		game.fired = true;
-		game.mouseXY[0] = e.getX() - game.team1.get((game.playerTurn-1)/2).getX();// gets x of mouse
-				// and takes away
-				// player x
-		game.mouseXY[1] = game.team1.get((game.playerTurn-1)/2).getY() - e.getY();// gets -y of mouse
-				// and adds
-				// player y
-				
-		
-		//mouseReleased implementation
-		int mousecode = e.getButton();
-		if (game.weaponsUsedInTurn < game.MaxWeaponsPerTurn)
-			if (game.playerTurn%2 ==1)
-				if (game.team1.get(0).getGrenadesAvailable() > 0) 
-				{
-					game.mouseXY[0] = e.getX() - game.team1.get((game.playerTurn-1)/2).getX();// gets x of mouse
-															// and takes away
-															// player x
-					game.mouseXY[1] = game.team1.get((game.playerTurn-1)/2).getY() - e.getY();// gets -y of mouse
-															// and adds
-					// player y
-		
-					if (mousecode == MouseEvent.BUTTON1) 
-					{
-						controller.fire(game.clickVelocity); // fires weapon
-						game.fired = false;						 
-						game.clickVelocity = 0; // resets click velocity
-						game.weaponsUsedInTurn++;
-					}
-				}
-		if (game.weaponsUsedInTurn < game.MaxWeaponsPerTurn)
-			if (game.playerTurn%2 == 0)
-				if (game.team1.get(0).getGrenadesAvailable() > 0) 
-				{
-					game.mouseXY[0] = e.getX() - game.team2.get((game.playerTurn-1)/2).getX();// gets x of mouse
-															// and takes away
-															// player x
-					game.mouseXY[1] = game.team2.get((game.playerTurn-1)/2).getY() - e.getY();// gets -y of mouse
-															// and adds
-					// player y
-		
-					if (mousecode == MouseEvent.BUTTON1) 
-					{
-						controller.fire(game.clickVelocity); // fires weapon
-						game.fired = false; // ends the log
-						game.clickVelocity = 0; // resets click velocity
-						game.weaponsUsedInTurn++;
-					}
-				}
-		
-		
-	}
-	
-	
-	//--------------
-	
-	private void mouseReleased(MouseEvent e) 
-	{
 
-		int mousecode = e.getButton();
-		if (game.weaponsUsedInTurn < game.MaxWeaponsPerTurn)
-			if (game.playerTurn%2 ==1)
-				if (game.team1.get(0).getGrenadesAvailable() > 0) 
-				{
-					game.mouseXY[0] = e.getX() - game.team1.get((game.playerTurn-1)/2).getX();// gets x of mouse
-															// and takes away
-															// player x
-					game.mouseXY[1] = game.team1.get((game.playerTurn-1)/2).getY() - e.getY();// gets -y of mouse
-															// and adds
-					// player y
-		
-					if (mousecode == MouseEvent.BUTTON1) 
-					{
-						controller.fire(game.clickVelocity); // fires weapon
-						game.fired = false;						 
-						game.clickVelocity = 0; // resets click velocity
-						game.weaponsUsedInTurn++;
-					}
-				}
-		if (game.weaponsUsedInTurn < game.MaxWeaponsPerTurn)
-			if (game.playerTurn%2 == 0)
-				if (game.team1.get(0).getGrenadesAvailable() > 0) 
-				{
-					game.mouseXY[0] = e.getX() - game.team2.get((game.playerTurn-1)/2).getX();// gets x of mouse
-															// and takes away
-															// player x
-					game.mouseXY[1] = game.team2.get((game.playerTurn-1)/2).getY() - e.getY();// gets -y of mouse
-															// and adds
-					// player y
-		
-					if (mousecode == MouseEvent.BUTTON1) 
-					{
-						controller.fire(game.clickVelocity); // fires weapon
-						game.fired = false; // ends the log
-						game.clickVelocity = 0; // resets click velocity
-						game.weaponsUsedInTurn++;
-					}
-				}
-		
-		
-	}
-	
-	
-	//-----------------------
-	
-	public void keyPressed(GameModel data) 
-	{ // fires automatically when a key is
-
-		
-		if(game.move == true )
-		{
-			int keycode = data.getKeyCode();
-			if (game.pressedKeys.contains(keycode) == false) 
-			{
-				game.pressedKeys.add(keycode);
-			}
-		
-			if (game.playerTurn == 1 | game.playerTurn == 3 | game.playerTurn == 5 | game.playerTurn == 7) 
-			{
-				game.p = game.team1.get((game.playerTurn-1)/2);
-				
-				if (game.pressedKeys.contains(KeyEvent.VK_DOWN)) {
-					controller.changeWeapon(0);
-				}
-				if (game.pressedKeys.contains(KeyEvent.VK_UP)) {
-					controller.playerJump();
-				}
-				if (game.pressedKeys.contains(KeyEvent.VK_RIGHT))
-					game.p.moveRight(3);
-				if (game.pressedKeys.contains(KeyEvent.VK_LEFT))
-					game.p.moveLeft(3);
-				if (game.pressedKeys.contains(KeyEvent.VK_SPACE)) 
-				{
-					//weaponLaunch();
-				}
-		
-			} 
-			
-			else 
-			{
-				game.p = game.team2.get((game.playerTurn-1)/2);
-				
-				if (game.pressedKeys.contains(KeyEvent.VK_DOWN)) {
-					controller.changeWeapon(1);
-				}
-				if (game.pressedKeys.contains(KeyEvent.VK_UP)) {
-					controller.playerJump();
-				}
-				if (game.pressedKeys.contains(KeyEvent.VK_RIGHT))
-					game.p.moveRight(3);
-				if (game.pressedKeys.contains(KeyEvent.VK_LEFT))
-					game.p.moveLeft(3);
-				if (game.pressedKeys.contains(KeyEvent.VK_SPACE)) 
-				{
-					//weaponLaunch();
-				}
-			}
-			game.move = false;
-		}
-		
-		//key released implementation
-		//set the view again
-		
-
-		
-		int index;
-		index = game.pressedKeys.indexOf(data.getKeyCode());
-		if (index != -1)
-		game.pressedKeys.remove(index);
-		
-		
-
-
-	}
-	
-	//--------------
-	
-	public void keyReleased(GameModel data) 
-	{
-		// TODO Auto-generated method stub
-		// fires automatically when a key is
-		// released
-		
-
-		
-		int index;
-		index = game.pressedKeys.indexOf(data.getKeyCode());
-		if (index != -1)
-		game.pressedKeys.remove(index);
-		
-
-		
-	}
-*/
 }//end of class

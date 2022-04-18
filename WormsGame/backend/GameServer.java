@@ -1,12 +1,15 @@
 package backend;
 
 import java.awt.CardLayout;
+
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
 
@@ -21,7 +24,10 @@ import entities.StartGameRequest;
 import frontend.GameView;
 import ocsf.server.*;
 
+
 public class GameServer extends AbstractServer {
+	
+	
 
 	public LoginModel logInData;
 	public LeaderboardModel leaderBrdData;
@@ -45,8 +51,15 @@ public class GameServer extends AbstractServer {
 	private static int gamesGranted = 0;
 
 	private ArrayList<ConnectionToClient> connections;
+	private ArrayList<ConnectionToClient> gameOverQueue;
 
 	private static int getStaticNumber = 0;
+	
+	private String supposedWinner = "";	//either P1 or P2
+	private String actualWinner = "";	//either P1 or P2
+	private boolean draw;	//game draw
+	
+	
 
 	//end of game related data
 
@@ -57,7 +70,9 @@ public class GameServer extends AbstractServer {
 		this.setStatus(status);
 		db = new Database();
 		connections = new ArrayList<ConnectionToClient>();
-
+		gameOverQueue = new ArrayList<ConnectionToClient>();
+		supposedWinner = "";
+		actualWinner = "";
 
 	}
 
@@ -227,7 +242,7 @@ public class GameServer extends AbstractServer {
 			
 			//detect the method that is called
 			if(gameData.getMethodCalled().equals("changeTurns"))	//changeTurns on the client side called (within GameView class)
-				changeTurnsTimer(gameData, arg1);
+				System.out.println("ChangeTurns called");
 			else if(gameData.getMethodCalled().equals("mousePressed"))
 				mousePressed_OnGame(gameData, gameData.getMouseE(), arg1);	//mousePressed on the client side called (within GameControl class)
 			else if(gameData.getMethodCalled().equals("mouseReleased"))
@@ -241,13 +256,116 @@ public class GameServer extends AbstractServer {
 
 
 
-		} else if (arg0 instanceof GameOverModel) {
+		} 
+		else if (arg0 instanceof GameOverModel) 
+		{
+
+			
 			GameOverModel data = (GameOverModel)arg0;
 			
-			System.out.println("player 1: " + gameData.player1);
+			//check to see if both client players report game over
+			if(connections.size() <= 2 && !connections.isEmpty())		//forcing only two connections at the moment
+			{
+				//remove the connection to the array
+				if(connections.contains(arg1))
+				{
+					connections.remove(arg1);
+					gameOverQueue.add(arg1);
+				}
+				
+				//check for two players
+				if(player1 == null || data.getSentBy().equals(player1.getUsername()))	//no players set
+				{
+					//first player
+					player1 = null;
+				}
+				if(player2 == null || data.getSentBy().equals(player2.getUsername()))	//1 player set and second player not set
+				{
+					//second player
+					player2 = null;
+				}
+				
+				if((player1 == null && player2 != null) || (player1 != null && player2 == null ))
+					supposedWinner = data.getNumberWinner();
+			}
+
 			
-			db.updateScore(gameData.player1, data.getFinalScore());
-			db.updateScore(gameData.player2, data.getFinalScore());
+			
+			if(data.isDraw())
+				draw = true;
+			
+			
+			
+			if(gameOverQueue.size() == 2)
+			{//both clients reported game over
+				
+				if(supposedWinner.equals("P1") && data.getNumberWinner().equals("P1"))	//both clients agree on winner P1
+					actualWinner = "P1";
+				else if(supposedWinner.equals("P2") && data.getNumberWinner().equals("P2"))	//both clients agree on winner P2
+					actualWinner = "P2";
+				else if(supposedWinner.equals("draw") && data.getNumberWinner().equals("draw"))
+					actualWinner = "draw";
+				else
+					System.out.println("Inconsisten winner reported");
+				
+				
+				String winner = data.getGameWinner();
+				
+				if(actualWinner.equals("P1"))	//player 1 won
+				{
+					System.out.println("player 1: " + winner + " won");
+					
+					
+					actualWinner = "";
+					supposedWinner = "";
+				}
+				else if(actualWinner.equals("P2")) //player 2 won
+				{
+					System.out.println("player 2: " + winner + " won");
+					
+					actualWinner = "";
+					supposedWinner = "";
+				}
+				else if(draw && actualWinner.equals("draw"))	//game was a draw
+				{
+					System.out.println("The game was a draw:  " + data.getPlayer1() + " & " + data.getPlayer2());
+					
+					actualWinner = "";
+					supposedWinner = "";
+				}
+				else
+				{
+					System.out.println("Invalid GameOver msg");
+					
+					actualWinner = "";
+					supposedWinner = "";
+				}
+				
+				
+				
+				//db.updateScore(gameData.player1, data.getFinalScore());
+				//db.updateScore(gameData.player2, data.getFinalScore());
+				
+				//report back to client
+				try {
+					gameOverQueue.get(0).sendToClient(data);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				try {
+					gameOverQueue.get(1).sendToClient(data);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				gameOverQueue = new ArrayList<ConnectionToClient>();
+				
+			
+				
+			}
 			
 		}
 	}
@@ -335,62 +453,6 @@ public class GameServer extends AbstractServer {
 
 
 	//game related action and change view methods ---------------------------------------------------
-
-
-	private void changeTurnsTimer(GameModel arg0, ConnectionToClient arg1)
-	{//need ActionEvent e
-
-		//this method is now depracted (ie. it is not used, just ignore)
-
-		GameView game = gameData.getViewOfGame();
-		ActionEvent e = gameData.getActionE();
-
-		if (game.timeLeftInTurn == 0 ) 
-		{
-			game.fired = false;
-
-			if(game.playerTurn==8)
-			{
-				game.playerTurn=1;
-			}
-			else
-			{
-				game.playerTurn++;
-			}
-
-			game.MaxWeaponsPerTurn = 1;
-			game.weaponsUsedInTurn = 0;
-			game.timeLeftInTurn = 30;
-		} 
-		else
-			game.timeLeftInTurn--;
-		if (game.timeLeftInTurn>0 && game.timeLeftInTurn<=10)
-		{
-			SoundEffect.TIMERTICK.play();
-		}		
-		System.out.println(game.weaponsUsedInTurn);
-		if(game.weaponsUsedInTurn > 1)
-		{
-			game.timeLeftInTurn = 5;
-			game.weaponsUsedInTurn = 0;
-			game.MaxWeaponsPerTurn = 0;
-
-		}
-
-		game.board = game.createResultBoard();
-
-		//send updated GameModel to client
-		try {
-			arg1.sendToClient(gameData);
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-
-
-	}
-	//-------------
 
 	private void mousePressed_OnGame(GameModel data, MouseEvent e, ConnectionToClient arg1)		//method found in GameControl
 	{

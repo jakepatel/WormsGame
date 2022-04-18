@@ -4,6 +4,7 @@ package frontend;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.Action;
 import javax.swing.JButton;
@@ -19,6 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.Timer;
 
 import ClientComm.GameClient;
+import backend.GameOverModel;
 import controller.ChangeTurnsControl;
 import controller.GameControl;
 import entities.Maps;
@@ -122,6 +124,7 @@ public class GameFrame extends JFrame implements ActionListener
 		//add to container
 		container.add(gameView, "GameView");	//0
 		gameController.setGameView(container);
+		gameView.setGameID(client.getGameID());
 		
 		this.setVisible(false);
 		this.remove(desktop);
@@ -197,43 +200,81 @@ public class GameFrame extends JFrame implements ActionListener
 	{
 		// TODO Auto-generated method stub
 		//if statements start the game
-		/*
+		
 		// TODO Auto-generated method stub
-				if(e.getActionCommand()==timer.getActionCommand())
+				if(e.getActionCommand() == timer.getActionCommand())
 				{
-					if(gameView.team1.get(0).playerHealth==0 && gameView.team2.get(0).playerHealth==0)
+					boolean team1HealthZero = false;
+					boolean team2HealthZero = false;
+					
+					if(gameView.team1.get(0).playerHealth==0 && 
+							gameView.team1.get(1).playerHealth==0 && 
+							gameView.team1.get(2).playerHealth==0 && 
+							gameView.team1.get(3).playerHealth==0)
 					{
-						this.setVisible(false);
+						//checking player 1 health is zero
+						
+						team1HealthZero = true;
+						
+					}
+					
+					if(gameView.team2.get(0).playerHealth==0 && 
+							gameView.team2.get(1).playerHealth==0 && 
+							gameView.team2.get(2).playerHealth==0 && 
+							gameView.team2.get(3).playerHealth==0)
+					{
+						//checking player 2 health is zero
+						
+						team2HealthZero = true;
+						
+					}
+					
+					//team1HealthZero && team2HealthZero
+					
+					if(team1HealthZero && team2HealthZero)
+					{//both team health is zero, the game is a draw, end game
+						
+						//this.setVisible(false);
 						this.remove(gameView);
-						MapWinner[currentMap]="The game was a draw";
-						timer.stop();
+						MapWinner[currentMap] ="The game was a draw";
+						timer.stop();	//stop timer
+						/*
 						if(currentMap==0)
 						{
 							betweenRoundsPanel1.btnStartMap.setEnabled(true);
 							betweenRoundsPanel1.winner1.setText(MapWinner[currentMap]);
 							betweenRoundsPanel1.status1.setText("Finished");
 						}
-						if(currentMap==1)
-						{
-							betweenRoundsPanel1.button.setEnabled(true);
-							betweenRoundsPanel1.btnStartMap.setEnabled(false);
-							betweenRoundsPanel1.winner2.setText(MapWinner[currentMap]);
-							betweenRoundsPanel1.status2.setText("Finished");
-						}
+
 						desktop.remove(goHomePageFrame1);
 						desktop.remove(startGameFrame1);
 						desktop.add(betweenRoundsPanel1);
-						this.add(desktop);
 						this.setVisible(true);
 						this.currentMap++;
+						*/
+						
+						//report to the server about the game results
+						GameOverModel gameOver = new GameOverModel(true, gameView.gameID);
+						gameOver.setPlayer1(player1Name);
+						gameOver.setPlayer2(player2Name);
+						gameOver.setSentBy(client.getClientPlayer());
+						
+						try {
+							client.sendToServer(gameOver);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+
+
 						
 					}
-					else if(gameView.team2.get(0).playerHealth==0 && gameView.team2.get(1).playerHealth==0 && gameView.team2.get(2).playerHealth==0 && gameView.team2.get(3).playerHealth==0)
-					{//player 2 loses all health
+					else if(team2HealthZero)
+					{//player 2 loses all health, player 1 wins, end game
 					
 						this.setVisible(false);
 						this.remove(gameView);
-						MapWinner[currentMap]=this.getPlayer1Name();
+						MapWinner[currentMap]= this.getPlayer1Name();
 						timer.stop();
 						if(currentMap==0)
 						{
@@ -257,8 +298,8 @@ public class GameFrame extends JFrame implements ActionListener
 						
 					}
 					
-					if(gameView.team1.get(0).playerHealth==0 && gameView.team1.get(1).playerHealth==0 && gameView.team1.get(2).playerHealth==0 && gameView.team1.get(3).playerHealth==0)
-					{//player 1 loses all health 
+					if(team1HealthZero)
+					{//player 1 loses all health, player 2 wins, end game
 					
 						this.setVisible(false);
 						this.remove(gameView);
@@ -285,7 +326,7 @@ public class GameFrame extends JFrame implements ActionListener
 						this.currentMap++;
 					}
 				}
-		*/
+		
 		
 		/*
 		if(e.getActionCommand() == startGameFrame1.btnNewButton.getActionCommand())

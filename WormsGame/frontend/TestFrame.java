@@ -1,6 +1,7 @@
 package frontend;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -8,13 +9,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import ClientComm.GameClient;
+import controller.GameOverControl;
 import entities.Player;
 import entities.StartGameRequest;
 
 public class TestFrame extends JFrame
 {
-	
+	private JPanel container;
 	private JPanel waitingView;
+	private JPanel gameOverView;
 	private GameClient client;
 	private Player player1;
 	private ArrayList<Player> names;
@@ -22,15 +25,28 @@ public class TestFrame extends JFrame
 	
 	public TestFrame()
 	{
+		CardLayout layout = new CardLayout();
+		
+		
+		container = new JPanel(layout);
 		client = new GameClient();
 		client.setTestFrame(this);
+		
 		
 		this.setSize(1000, 650);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    
-	    JPanel waitingView = new GameWaitingView();
+	    GameOverControl gameoverController = new GameOverControl(container, client);
 	    
-	    this.add(waitingView, BorderLayout.CENTER);
+	    JPanel waitingView = new GameWaitingView();
+	    gameOverView = new GameOverView(gameoverController);
+	    
+	    container.add(gameOverView, "GameOverView");
+	    container.add(waitingView, "WaitingView");
+	    
+	    layout.show(container, "WaitingView");
+	    
+		client.setContainer(container);
 	    
 	    this.setVisible(true);
 	    
