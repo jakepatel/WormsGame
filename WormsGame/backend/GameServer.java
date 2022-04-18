@@ -306,7 +306,7 @@ public class GameServer extends AbstractServer {
 				else if(supposedWinner.equals("draw") && data.getNumberWinner().equals("draw"))
 					actualWinner = "draw";
 				else
-					System.out.println("Inconsisten winner reported");
+					System.out.println("Inconsistent winner reported");
 				
 				
 				String winner = data.getGameWinner();
@@ -314,15 +314,14 @@ public class GameServer extends AbstractServer {
 				if(actualWinner.equals("P1"))	//player 1 won
 				{
 					System.out.println("player 1: " + winner + " won");
-					
-					
+					db.updateScore(winner);
 					actualWinner = "";
 					supposedWinner = "";
 				}
 				else if(actualWinner.equals("P2")) //player 2 won
 				{
 					System.out.println("player 2: " + winner + " won");
-					
+					db.updateScore(winner);
 					actualWinner = "";
 					supposedWinner = "";
 				}

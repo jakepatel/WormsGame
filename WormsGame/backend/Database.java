@@ -144,11 +144,11 @@ public class Database {
 		  return leaderboard;
 	  }
 	  
-	  public void updateScore(String username, int score) {
+	  public void updateScore(String username) {
 		  try {
 			  Statement stmt = conn.createStatement();
 			  // only update the score if the new score is greater than the previous one
-			  stmt.executeUpdate("update user set high_score=" + score + "where username='" + username + "' and high_score<" + score + ";");
+			  stmt.executeUpdate("update user set high_score = high_score +"+1+" where username='" + username+ "';");
 		  } catch (SQLException e) {
 			  e.printStackTrace();
 		  }

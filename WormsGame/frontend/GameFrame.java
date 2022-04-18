@@ -296,6 +296,19 @@ public class GameFrame extends JFrame implements ActionListener
 						this.setVisible(true);
 						this.currentMap++;
 						
+						//report to the server about the game results
+						GameOverModel gameOver = new GameOverModel(MapWinner[0], "P1", gameView.gameID);
+						gameOver.setPlayer1(player1Name);
+						gameOver.setPlayer2(player2Name);
+						gameOver.setSentBy(client.getClientPlayer());
+						
+						try {
+							client.sendToServer(gameOver);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
 					}
 					
 					if(team1HealthZero)
@@ -324,6 +337,19 @@ public class GameFrame extends JFrame implements ActionListener
 						this.add(betweenRoundsPanel1);
 						this.setVisible(true);
 						this.currentMap++;
+						
+						//report to the server about the game results
+						GameOverModel gameOver = new GameOverModel(MapWinner[0], "P2", gameView.gameID);
+						gameOver.setPlayer1(player1Name);
+						gameOver.setPlayer2(player2Name);
+						gameOver.setSentBy(client.getClientPlayer());
+						
+						try {
+							client.sendToServer(gameOver);
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					}
 				}
 		
