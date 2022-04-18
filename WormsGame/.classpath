@@ -6,7 +6,7 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="mysql-connector-java-8.0.28.jar"/>
+	<classpathentry kind="lib" path="C:/Users/joeti/git/WormsGame/WormsGame/mysql-connector-java-8.0.28.jar"/>
 	<classpathentry kind="lib" path="ocsf.jar" sourcepath="C:/Users/joeti/git/WormsGame/WormsGame/ocsf.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
