@@ -628,9 +628,9 @@ public class GameView extends JPanel implements Serializable
 				if(i==0)
 					g.drawString(board[i], 150, 25);
 				if(i==1)
-					g.drawString(board[i], 250, 25);
+					g.drawString(board[i], 300, 25);
 				if(i==2)
-					g.drawString(board[i], 320, 25);	
+					g.drawString(board[i], 350, 25);	
 				if(i==3)
 					g.drawString(board[i], 585, 25);		
 				if(i==4)

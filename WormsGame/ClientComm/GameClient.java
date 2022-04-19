@@ -165,7 +165,7 @@ public class GameClient extends AbstractClient implements Serializable{
 	//end of test game methods
 	public GameClient()
 	{
-		super("192.168.0.13", 8300);
+		super("localhost", 8300);
 		try {
 			this.openConnection();
 		} catch (IOException e) {
