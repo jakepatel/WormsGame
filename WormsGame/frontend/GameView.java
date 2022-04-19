@@ -61,12 +61,7 @@ public class GameView extends JPanel implements Serializable
 	public int player1Weapon = 1, player2Weapon = 1;
 	public int timeLeftInTurn = 30, weaponsUsedInTurn = 0, MaxWeaponsPerTurn = 1;
 
-
-	//public String board = "";
-
 	public String[] board= {" "," "," "," "," "};
-	
-
 	public boolean fired = false;
 	public boolean actionSwitcher = false;
 	public String player1Name;
@@ -535,39 +530,7 @@ public class GameView extends JPanel implements Serializable
 	}
 
 	//End of Getters/Setters-------------------------------------------------------------------
-	/*
-	public String createResultBoard() {
-		String board = "           ";
-		for (int i = 0; i < 1; i++)
-			board += "          ";
-		int playerhealth1 = team1.get(0).playerHealth + team1.get(1).playerHealth + team1.get(2).playerHealth + team1.get(3).playerHealth;
-		board += String.valueOf(playerhealth1);
-		for (int i = 0; i < 2; i++)
-			board += "        																";
-		if (player1Weapon == 0)
-			board += team1.get(0).getGrenadesAvailable();
-		if (player1Weapon == 1)
-			board += team1.get(0).getMissilesAvailable();
-		for (int i = 0; i < 1; i++)
-			board += "   ";
-		board += "Time: " + String.valueOf(timeLeftInTurn);
-		for (int i = 0; i < 2; i++)
-			board += "      ";
-		board += "         ";
-		int playerhealth2 = team2.get(0).playerHealth + team2.get(1).playerHealth + team2.get(2).playerHealth + team2.get(3).playerHealth;
-		board += String.valueOf(playerhealth2);
-		for (int i = 0; i < 2; i++)
-			board += "       ";
-		board += "  ";
-		if (player2Weapon == 0)
-			board += team2.get(0).getGrenadesAvailable();
-		if (player2Weapon == 1)
-			board += team2.get(0).getMissilesAvailable();
-		board+= "  " + this.numberPlayer;
-
-		return board;
-	}
-	 */	
+	
 	public String[] createResultBoard() {
 		String[] board = new String[5];
 
@@ -622,7 +585,6 @@ public class GameView extends JPanel implements Serializable
 		g.setFont(new Font("standart", Font.BOLD, 20));
 		g.setColor(Color.orange);
 		g.drawImage(boardImage, 0, 0, null);
-		//g.drawString(board, 0, 25);
 		if(!this.board.equals(null)) {
 			for(int i = 0; i<board.length; i++) {
 				if(i==0)
@@ -637,11 +599,6 @@ public class GameView extends JPanel implements Serializable
 					g.drawString(board[i], 740, 25);
 			}
 		}
-
-
-
-
-
 
 		g.setFont(new Font("dialog", Font.ROMAN_BASELINE, 12));
 
