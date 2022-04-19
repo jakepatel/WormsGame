@@ -161,15 +161,11 @@ public class GameClient extends AbstractClient implements Serializable{
 	public void setTestFrame(TestFrame testFrame) {
 		this.testFrame = testFrame;
 	}
-	
-	
+		
 	//end of test game methods
-	
-	
-	
 	public GameClient()
 	{
-		super("localhost", 8300);
+		super("192.168.0.13", 8300);
 		try {
 			this.openConnection();
 		} catch (IOException e) {
@@ -200,10 +196,6 @@ public class GameClient extends AbstractClient implements Serializable{
 				//Handle Login Here
 			} else if (msg.equals("account creation failed")) {
 				createAccountControl.createAccountFailure();
-			}
-			else if (msg.equals("deleted player"))
-			{
-				showView("DeletedAccountView");
 			}
 		}
 		else if(arg0 instanceof StartGameGranted)
