@@ -80,6 +80,8 @@ public class GameView extends JPanel implements Serializable
 
 	GameControl controller;
 	public int gameID = 0;		//will be set by the server
+	
+	public String numberPlayer;
 
 	//helper functions
 
@@ -93,13 +95,14 @@ public class GameView extends JPanel implements Serializable
 
 	//end helper functions
 
-	public GameView(GameControl controller, String player1Name, String player2Name, Maps map) 
+	public GameView(GameControl controller, String player1Name, String player2Name, String numberPlayer, Maps map) 
 	{		
 		this.controller = controller;
 	
 		
 		this.player1Name = player1Name;
 		this.player2Name = player2Name;
+		this.numberPlayer = numberPlayer;
 
 		this.setFocusable(true);
 		ImageIcon tempImageIcon;
@@ -531,7 +534,7 @@ public class GameView extends JPanel implements Serializable
 	//End of Getters/Setters-------------------------------------------------------------------
 
 	public String createResultBoard() {
-		String board = " ";
+		String board = "           ";
 		for (int i = 0; i < 1; i++)
 			board += "          ";
 		int playerhealth1 = team1.get(0).playerHealth + team1.get(1).playerHealth + team1.get(2).playerHealth + team1.get(3).playerHealth;
@@ -557,8 +560,7 @@ public class GameView extends JPanel implements Serializable
 			board += team2.get(0).getGrenadesAvailable();
 		if (player2Weapon == 1)
 			board += team2.get(0).getMissilesAvailable();
-		for (int i = 0; i < 1; i++)
-			board += "          ";
+		board+= "  " + this.numberPlayer;
 		
 		return board;
 	}

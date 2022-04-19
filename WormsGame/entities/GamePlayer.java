@@ -22,12 +22,12 @@ public class GamePlayer implements ActionListener { // the class for the user
 	public int y;
 	public int jumpSpeed; // the current speeds for jump and gravity
 	int gravitySpeed;
-	public final int jumpSpeedBound = 10; // this are the
+	public final int jumpSpeedBound = 7; // this are the
 	final int gravitySpeedBound = 7;
 															// maximum speeds
 															// for jump and
 															// gravity
-	public int playerHealth = 100;
+	public int playerHealth = 50;
 	Rectangle playerRectangleDown, playerRectangleLeft, playerRectangleRight,
 			playerRectangleJump, CollisionRectangle;
 	Line2D.Double lineBottom, lineTop; // this is a Line2D object used to check
@@ -193,10 +193,10 @@ public class GamePlayer implements ActionListener { // the class for the user
 			this.missilesAvailable += 10;
 			break;
 		case 3:
-			if (this.playerHealth <= 80)
-				this.playerHealth += 20;
+			if (this.playerHealth <= 40)
+				this.playerHealth += 10;
 			else
-				this.playerHealth = 100;
+				this.playerHealth = 50;
 			break;
 		}
 

@@ -21,7 +21,6 @@ import javax.swing.Timer;
 
 import ClientComm.GameClient;
 import backend.GameOverModel;
-import controller.ChangeTurnsControl;
 import controller.GameControl;
 import entities.Maps;
 import entities.SoundEffect;
@@ -50,7 +49,7 @@ public class GameFrame extends JFrame implements ActionListener
 	private int currentMap;
 	private String MapWinner[];
 	private String player1Name,player2Name;
-	private ChangeTurnsControl timerController;
+
 	
 	public GameFrame(GameClient client, String title)
 	{
@@ -120,7 +119,7 @@ public class GameFrame extends JFrame implements ActionListener
 		this.player1Name= client.getPlayer1();
 		this.player2Name= client.getPlayer2();
 		
-		gameView = new GameView(gameController, this.getPlayer1Name(), this.getPlayer2Name(),new Maps(1));	//added gameView
+		gameView = new GameView(gameController, this.getPlayer1Name(), this.getPlayer2Name(), client.getNumberPlayer(), new Maps(1));	//added gameView
 		//add to container
 		container.add(gameView, "GameView");	//0
 		gameController.setGameView(container);
@@ -276,6 +275,8 @@ public class GameFrame extends JFrame implements ActionListener
 						this.remove(gameView);
 						MapWinner[currentMap]= this.getPlayer1Name();
 						timer.stop();
+						
+						/*
 						if(currentMap==0)
 						{
 							betweenRoundsPanel1.btnStartMap.setEnabled(true);
@@ -295,12 +296,14 @@ public class GameFrame extends JFrame implements ActionListener
 						this.add(betweenRoundsPanel1);
 						this.setVisible(true);
 						this.currentMap++;
+						*/
 						
 						//report to the server about the game results
 						GameOverModel gameOver = new GameOverModel(MapWinner[0], "P1", gameView.gameID);
 						gameOver.setPlayer1(player1Name);
 						gameOver.setPlayer2(player2Name);
 						gameOver.setSentBy(client.getClientPlayer());
+						gameOver.setDraw(false);
 						
 						try {
 							client.sendToServer(gameOver);
@@ -318,6 +321,8 @@ public class GameFrame extends JFrame implements ActionListener
 						this.remove(gameView);
 						MapWinner[currentMap]=this.getPlayer2Name();
 						timer.stop();
+						
+						/*
 						if(currentMap==0)
 						{
 							betweenRoundsPanel1.btnStartMap.setEnabled(true);
@@ -337,12 +342,14 @@ public class GameFrame extends JFrame implements ActionListener
 						this.add(betweenRoundsPanel1);
 						this.setVisible(true);
 						this.currentMap++;
+						*/
 						
 						//report to the server about the game results
 						GameOverModel gameOver = new GameOverModel(MapWinner[0], "P2", gameView.gameID);
 						gameOver.setPlayer1(player1Name);
 						gameOver.setPlayer2(player2Name);
 						gameOver.setSentBy(client.getClientPlayer());
+						gameOver.setDraw(false);
 						
 						try {
 							client.sendToServer(gameOver);
@@ -389,7 +396,7 @@ public class GameFrame extends JFrame implements ActionListener
 			gameView.stopTimers();
 			this.remove(gameView);
 			
-			gameView = new GameView(gameController, this.getPlayer1Name(), this.getPlayer2Name(),new Maps(1));	//added gameView
+			gameView = new GameView(gameController, this.getPlayer1Name(), this.getPlayer2Name(), client.getNumberPlayer(), new Maps(1));	//added gameView
 			//add to container
 			container.add(gameView, "GameView");	//0
 			gameController.setGameView(container);
@@ -412,7 +419,7 @@ public class GameFrame extends JFrame implements ActionListener
     		this.remove(gameView);
     		
     		
-    		gameView = new GameView(gameController, this.getPlayer1Name(), this.getPlayer2Name(),new Maps(1));	//added gameView
+    		gameView = new GameView(gameController, this.getPlayer1Name(), this.getPlayer2Name(), client.getNumberPlayer(),  new Maps(1));	//added gameView
 		 	//add to container
 			container.add(gameView, "GameView");	//0
 			gameController.setGameView(container);
