@@ -93,4 +93,19 @@ public class LoginView extends JPanel{
 	 {
 		 return submitButton;
 	 }
+	 
+	 public JTextField getUsernameField() 
+	 {
+		 return usernameField;
+	 }
+	 
+	 public JPasswordField getPasswordField() 
+	 {
+		 return passwordField;
+	 }
+	 
+	 public String getError() 
+	 {
+		 return errorLabel.getText();
+	 }
 }
