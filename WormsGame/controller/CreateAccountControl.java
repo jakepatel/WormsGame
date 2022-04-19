@@ -84,7 +84,7 @@ public class CreateAccountControl implements ActionListener {
 	  public void createAccountSuccess()
 	  {
 	    CreateAccountView createAccountPanel = (CreateAccountView)container.getComponent(2);
-	    GameGUI GameGUI = (GameGUI)SwingUtilities.getWindowAncestor(createAccountPanel);
+	    //GameGUI GameGUI = (GameGUI)SwingUtilities.getWindowAncestor(createAccountPanel);
 	    //GameGUI.setUser(new User(createAccountPanel.getUsername(), createAccountPanel.getPassword()));
 	    CardLayout cardLayout = (CardLayout)container.getLayout();
 	    cardLayout.show(container, "LoginView");

@@ -16,6 +16,7 @@ public class CreateAccountView extends JPanel {
 	  private JPasswordField passwordField;
 	  private JPasswordField verifyPasswordField;
 	  private JLabel errorLabel;
+	  private JButton submitButton;
 	  
 	  // Getter for the text in the username field.
 	  public String getUsername()
@@ -73,7 +74,7 @@ public class CreateAccountView extends JPanel {
 	    
 	    // Create a panel for the buttons.
 	    JPanel buttonPanel = new JPanel();
-	    JButton submitButton = new JButton("Submit");
+	    submitButton = new JButton("Submit");
 	    submitButton.addActionListener(cac);
 	    JButton cancelButton = new JButton("Cancel");
 	    cancelButton.addActionListener(cac);    
@@ -88,9 +89,27 @@ public class CreateAccountView extends JPanel {
 	    this.add(grid);
 	  }
 
-
-
-
+	 //getters for GUI elements for JUnit testing
+	 public JTextField getUsernameField()
+	 {
+		 return usernameField;
+	 }
+	 public JPasswordField getPasswordField()
+	 {
+		 return passwordField;
+	 }
+	 public JPasswordField getVerifyField()
+	 {
+		 return verifyPasswordField;
+	 }
+	 public String getError()
+	 {
+		 return errorLabel.getText();
+	 }
+	 public JButton getSubmitButton()
+	 {
+		 return submitButton;
+	 }
 
 
 }

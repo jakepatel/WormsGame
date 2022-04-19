@@ -18,6 +18,7 @@ public class InitialView extends JPanel {
 	private JButton playerLoginButton;
 	private JButton adminLoginButton;
 	private JButton createAccountButton;
+	private JButton changeServerButton;
 	
 	public InitialView(InitialControl lc)
 	{
@@ -25,6 +26,7 @@ public class InitialView extends JPanel {
 		playerLoginButton = new JButton("Player Login");
 		adminLoginButton = new JButton("Admin Login");
 		createAccountButton = new JButton("Create New Account");
+		changeServerButton = new JButton("Change Server");
 		
 		//create buffers for each button
 		JPanel plyLogBtnBuffer = new JPanel();
@@ -33,21 +35,39 @@ public class InitialView extends JPanel {
 		adminLogBtnBuffer.add(adminLoginButton);
 		JPanel createAccBtnBuffer = new JPanel();
 		createAccBtnBuffer.add(createAccountButton);
+		JPanel changeServBtnBuffer = new JPanel();
+		changeServBtnBuffer.add(changeServerButton);
 		
 		//add actionlisteners to the buttons
 		playerLoginButton.addActionListener(lc);
 		adminLoginButton.addActionListener(lc);
-		createAccountButton.addActionListener(lc);		
+		createAccountButton.addActionListener(lc);	
+		changeServerButton.addActionListener(lc);
 		
 		//set up the view for the buttons
-		JPanel grid = new JPanel(new GridLayout(3,1,5,5));
+		JPanel grid = new JPanel(new GridLayout(4,1,5,5));
 		grid.add(plyLogBtnBuffer);
 		grid.add(adminLogBtnBuffer);
 		grid.add(createAccBtnBuffer);
+		grid.add(changeServBtnBuffer);
 		this.add(grid);
 		
 		
 		
+	}
+	
+	//getters for JButtons for JUnit testing
+	public JButton getLoginButton()
+	{
+		return playerLoginButton;
+	}
+	public JButton getAdminButton()
+	{
+		return adminLoginButton;
+	}
+	public JButton getCreateButton()
+	{
+		return createAccountButton;
 	}
 
 }

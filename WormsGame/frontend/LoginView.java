@@ -20,6 +20,10 @@ public class LoginView extends JPanel{
 	  private JPasswordField passwordField;
 	  private JLabel errorLabel;
 	  
+	  //private field for buttons for their JButton getters
+	  private JButton submitButton;
+	  private JButton cancelButton;
+	  
 	  // Getter for the text in the username field.
 	  public String getUsername()
 	  {
@@ -65,9 +69,9 @@ public class LoginView extends JPanel{
 	    
 	    // Create a panel for the buttons.
 	    JPanel buttonPanel = new JPanel();
-	    JButton submitButton = new JButton("Submit");
+	    submitButton = new JButton("Submit");
 	    submitButton.addActionListener(lc);
-	    JButton cancelButton = new JButton("Cancel");
+	    cancelButton = new JButton("Cancel");
 	    cancelButton.addActionListener(lc);    
 	    buttonPanel.add(submitButton);
 	    buttonPanel.add(cancelButton);
@@ -79,4 +83,14 @@ public class LoginView extends JPanel{
 	    grid.add(buttonPanel);
 	    this.add(grid);
 	  }
+	 
+	 //getters for GUI elements for JUnit testing
+	 public JButton getCancelButton()
+	 {
+		 return cancelButton;
+	 }
+	 public JButton getSubmitButton()
+	 {
+		 return submitButton;
+	 }
 }

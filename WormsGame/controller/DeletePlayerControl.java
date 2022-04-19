@@ -4,12 +4,15 @@ package controller;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JPanel;
 
 import ClientComm.GameClient;
 import frontend.DeletePlayerView;
+import frontend.LoginView;
 import backend.DeletePlayerModel;
+import entities.Player;
 
 public class DeletePlayerControl implements ActionListener
 {
@@ -35,8 +38,16 @@ public class DeletePlayerControl implements ActionListener
 		}
 		else if (command == "Delete Account")
 		{
-			
+			LoginView loginView = (LoginView)container.getComponent(1);			
+			Player p = new Player(loginView.getUsername());
+			DeletePlayerModel m = new DeletePlayerModel(p.getUsername());
+			try {
+				client.sendToServer(m);
+				
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 	}
-
 }

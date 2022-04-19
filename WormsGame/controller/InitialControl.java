@@ -57,6 +57,13 @@ public class InitialControl implements ActionListener{
 		      CardLayout cardLayout = (CardLayout)container.getLayout();
 		      cardLayout.show(container, "AdminLoginView");
 	    }
+	    else if(command.equals("Change Server"))
+	    {
+	    	//handle page to Change Server
+	    	CardLayout cardLayout = (CardLayout)container.getLayout();
+	    	cardLayout.show(container, "ChangeServerView");
+	    	
+	    }
 	    else
 	    	System.out.println("Inital Control: Option Not Found");
 		

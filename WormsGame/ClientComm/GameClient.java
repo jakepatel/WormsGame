@@ -201,6 +201,10 @@ public class GameClient extends AbstractClient implements Serializable{
 			} else if (msg.equals("account creation failed")) {
 				createAccountControl.createAccountFailure();
 			}
+			else if (msg.equals("deleted player"))
+			{
+				showView("DeletedAccountView");
+			}
 		}
 		else if(arg0 instanceof StartGameGranted)
 		{

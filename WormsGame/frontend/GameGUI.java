@@ -16,6 +16,8 @@ import controller.LeaderboardControl;
 import controller.LoginControl;
 import controller.LogoutControl;
 import controller.MainMenuControl;
+import controller.DeletedAccountControl;
+import controller.ChangeServerControl;
 import entities.Player;
 
 //Jake
@@ -55,6 +57,8 @@ public class GameGUI extends JFrame
 	    LeaderboardControl control_leaderboard = new LeaderboardControl(container, client);
 	    DeletePlayerControl control_delete = new DeletePlayerControl(container, client);
 	    GameOverControl control_gameover = new GameOverControl(container, client);
+	    DeletedAccountControl control_dac = new DeletedAccountControl(container, this);
+	    ChangeServerControl control_csc = new ChangeServerControl(container, client);
 	    
 	    //Set the client info
 	    client.setLoginControl(control_login);
@@ -72,7 +76,8 @@ public class GameGUI extends JFrame
 	    GameWaitingView waitingView = new GameWaitingView();
 	    DeletePlayerView deleteView = new DeletePlayerView(control_delete);
 	    GameOverView gameoverView = new GameOverView(control_gameover);
-	
+	    DeletedAccountView deletedAccountView = new DeletedAccountView(control_dac);
+	    ChangeServerView changeServerView = new ChangeServerView(control_csc);
 	    
 	    //add the view to the container and the commented numbers correspond to the cardLayout.getComponent(number);
 	    container.add(initial, "InitialView");	//0
@@ -85,6 +90,8 @@ public class GameGUI extends JFrame
 	    container.add(waitingView, "GameWaitingView"); //7
 	    container.add(deleteView, "DeletePlayerView"); //8
 	    container.add(gameoverView, "GameOverView");  //9
+	    container.add(deletedAccountView, "DeletedAccountView"); //10
+	    container.add(changeServerView, "ChangeServerView"); //11
 	    
 	    //test the view
 		this.add(container, BorderLayout.CENTER);

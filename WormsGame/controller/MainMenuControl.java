@@ -100,8 +100,6 @@ public class MainMenuControl implements ActionListener
 		}
 		else if(command.equals("Delete Account"))
 		{
-			//handle page to DeletePlayerView	    	
-	    	DeletePlayerView deletePlayerView = (DeletePlayerView)container.getComponent(8);
 	    	CardLayout cardLayout = (CardLayout)container.getLayout();
 	    	cardLayout.show(container, "DeletePlayerView");
 		}
