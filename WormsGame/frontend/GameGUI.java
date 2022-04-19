@@ -94,7 +94,7 @@ public class GameGUI extends JFrame
 		cardLayout.show(container, "InitialView");
 		
 		// Show the JFrame.
-	    this.setSize(550, 350);
+	    this.setSize(550, 400);
 	    this.setVisible(true);
 	}
 	
