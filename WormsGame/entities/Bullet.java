@@ -64,7 +64,7 @@ public class Bullet implements ActionListener {
 		int[][] trajectoryIncrements = new int[400][2];;
 		for(int i=0;i<400;i++)
 		{
-			trajectoryIncrements[i][0]=3;
+			trajectoryIncrements[i][0]=6;
 			trajectoryIncrements[i][1]=0;
 		}
 		return trajectoryIncrements;

@@ -8,7 +8,6 @@ import java.io.Serializable;
 import controller.GameControl;
 import entities.Maps;
 import entities.Player;
-import entities.Vehicle;
 import entities.Weapon;
 import frontend.GameView;
 

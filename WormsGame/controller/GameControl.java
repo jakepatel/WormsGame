@@ -832,7 +832,7 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 				if (game.team1.get((game.playerTurn-1)/2).directionRight == true) 
 				{
 					if (game.player1Weapon == 1 && game.team1.get((game.playerTurn-1)/2).getMissilesAvailable() > 0)
-						game.missiles.add(new Missile(game.team1.get((game.playerTurn-1)/2), game.team2, game.staticobjects, game.reactiveobjects, true, game.clickVelocity, angleR));
+						game.missiles.add(new Missile(game.team1.get((game.playerTurn-1)/2), game.team2, game.staticobjects, game.reactiveobjects, true, game.clickVelocity + 10, angleR));
 					if (game.player1Weapon == 2)
 						game.bullets.add(new Bullet(game.team1.get((game.playerTurn-1)/2), game.team2.get((game.playerTurn-1)/2), game.staticobjects, game.reactiveobjects, true));
 					if (game.player1Weapon == 0)
@@ -844,7 +844,7 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 				else 
 				{
 					if (game.player1Weapon == 1 && game.team1.get((game.playerTurn-1)/2).getMissilesAvailable() > 0)
-						game.missiles.add(new Missile(game.team1.get((game.playerTurn-1)/2), game.team2, game.staticobjects, game.reactiveobjects, false, game.clickVelocity, angleL));
+						game.missiles.add(new Missile(game.team1.get((game.playerTurn-1)/2), game.team2, game.staticobjects, game.reactiveobjects, false, game.clickVelocity + 10, angleL));
 					if (game.player1Weapon == 2)
 						game.bullets.add(new Bullet(game.team1.get((game.playerTurn-1)/2), game.team2.get((game.playerTurn-1)/2), game.staticobjects, game.reactiveobjects, false));
 					if (game.player1Weapon == 0)
@@ -862,7 +862,7 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 				if (game.team2.get((game.playerTurn-1)/2).directionRight == true) 
 				{
 					if (game.player2Weapon == 1 && game.team2.get((game.playerTurn-1)/2).getMissilesAvailable() > 0)
-						game.missiles.add(new Missile(game.team2.get((game.playerTurn-1)/2), game.team1, game.staticobjects, game.reactiveobjects, true, game.clickVelocity, angleR));
+						game.missiles.add(new Missile(game.team2.get((game.playerTurn-1)/2), game.team1, game.staticobjects, game.reactiveobjects, true, game.clickVelocity + 10, angleR));
 					if (game.player2Weapon == 2)
 						game.bullets.add(new Bullet(game.team2.get((game.playerTurn-1)/2), game.team1.get((game.playerTurn-1)/2), game.staticobjects, game.reactiveobjects, true));
 					if (game.player2Weapon == 0)
@@ -874,7 +874,7 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 				else 
 				{
 					if (game.player2Weapon == 1)
-						game.missiles.add(new Missile(game.team2.get((game.playerTurn-1)/2), game.team1, game.staticobjects, game.reactiveobjects, false, game.clickVelocity, angleL));			
+						game.missiles.add(new Missile(game.team2.get((game.playerTurn-1)/2), game.team1, game.staticobjects, game.reactiveobjects, false, game.clickVelocity + 10, angleL));			
 					if (game.player2Weapon == 2)
 						game.bullets.add(new Bullet(game.team2.get((game.playerTurn-1)/2), game.team1.get((game.playerTurn-1)/2), game.staticobjects, game.reactiveobjects, false));
 					if (game.player2Weapon == 0)
@@ -971,7 +971,7 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 		
 					if (mousecode == MouseEvent.BUTTON1) 
 					{
-						this.fire(game.clickVelocity + 5); // fires weapon
+						this.fire(game.clickVelocity); // fires weapon
 						game.fired = false;						 
 						game.clickVelocity = 0; // resets click velocity
 						game.weaponsUsedInTurn++;
@@ -990,7 +990,7 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 		
 					if (mousecode == MouseEvent.BUTTON1) 
 					{
-						this.fire(game.clickVelocity + 5); // fires weapon
+						this.fire(game.clickVelocity); // fires weapon
 						game.fired = false; // ends the log
 						game.clickVelocity = 0; // resets click velocity
 						game.weaponsUsedInTurn++;
