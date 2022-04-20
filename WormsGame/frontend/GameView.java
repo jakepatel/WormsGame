@@ -61,7 +61,7 @@ public class GameView extends JPanel implements Serializable
 	public int player1Weapon = 1, player2Weapon = 1;
 	public int timeLeftInTurn = 30, weaponsUsedInTurn = 0, MaxWeaponsPerTurn = 1;
 
-	public String[] board= {" "," "," "," "," "};
+	public String[] board= {" "," "," "," "," "," "};
 	public boolean fired = false;
 	public boolean actionSwitcher = false;
 	public String player1Name;
@@ -532,7 +532,7 @@ public class GameView extends JPanel implements Serializable
 	//End of Getters/Setters-------------------------------------------------------------------
 
 	public String[] createResultBoard() {
-		String[] board = new String[5];
+		String[] board = new String[this.board.length];
 
 
 		int playerhealth1 = team1.get(0).playerHealth + team1.get(1).playerHealth + team1.get(2).playerHealth + team1.get(3).playerHealth;
@@ -554,7 +554,7 @@ public class GameView extends JPanel implements Serializable
 		if (player2Weapon == 1)
 			board[4] = String.valueOf(team2.get(0).getMissilesAvailable());
 
-
+		board[5] = this.numberPlayer;
 
 		return board;
 	}
@@ -598,6 +598,8 @@ public class GameView extends JPanel implements Serializable
 					g.drawString(board[i], 585, 25);		
 				if(i==4)
 					g.drawString(board[i], 740, 25);
+				if(i==5)
+					g.drawString(board[i], 770, 25);
 			}
 		}
 
