@@ -530,7 +530,7 @@ public class GameView extends JPanel implements Serializable
 	}
 
 	//End of Getters/Setters-------------------------------------------------------------------
-	
+
 	public String[] createResultBoard() {
 		String[] board = new String[5];
 
@@ -585,8 +585,9 @@ public class GameView extends JPanel implements Serializable
 		g.setFont(new Font("standart", Font.BOLD, 20));
 		g.setColor(Color.orange);
 		g.drawImage(boardImage, 0, 0, null);
-		if(!this.board.equals(null)) {
-			for(int i = 0; i<board.length; i++) {
+
+		for(int i = 0; i<board.length; i++) {
+			if(this.board[i] != null) {
 				if(i==0)
 					g.drawString(board[i], 150, 25);
 				if(i==1)
