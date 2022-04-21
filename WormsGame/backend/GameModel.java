@@ -23,8 +23,7 @@ public class GameModel implements Serializable{
 		private String sentBy;
 		
 		private int score;
-		private GameView viewofGame;
-		private GameControl controller;
+
 		
 		//for methods
 		private String methodCalled;	//includes the name of the method that was called by the control, ex: mousePressed
@@ -74,25 +73,7 @@ public class GameModel implements Serializable{
 
 	
 	
-	public void setViewOfGame(GameView view)
-	{
-		this.viewofGame = view;
-	}
-	public GameView getViewOfGame()
-	{
-		
-		return viewofGame;
-	}
-	
-	public void setGameController(GameControl controller)
-	{
-		this.controller = controller;
-	}
-		
-	public GameControl getController()
-	{
-		return controller;
-	}
+
 	
 	public int getGameID()
 	{
