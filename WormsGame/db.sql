@@ -1,6 +1,6 @@
-CREATE TABLE IF NOT EXISTS user(
+CREATE TABLE IF NOT EXISTS user (
     username    varchar(32) primary key,
     password    varbinary(16),
-    role        varchar(10),
-    high_score  numeric(10)
+    games_won   int(10) default 0,
+    games_lost  int(10) default 0
 );

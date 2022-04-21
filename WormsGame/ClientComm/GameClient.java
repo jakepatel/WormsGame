@@ -190,7 +190,7 @@ public class GameClient extends AbstractClient implements Serializable{
 			} else if (msg.equals("Failed Login")) {
 				loginControl.displayError("Login Failed");
 			} else if(msg.contains(",")) {
-				
+				System.out.println("going to show leaderboard");
 				String[] leaderboard = msg.split(",");
 				leaderboardControl.showLeaderboard(leaderboard);
 				//Handle Login Here

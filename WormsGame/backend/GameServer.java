@@ -106,26 +106,6 @@ public class GameServer extends AbstractServer {
 				}
 			}
 
-		} 
-		else if (arg0 instanceof AdminLoginModel) {
-			System.out.println("admin login model recieved!");
-			LoginModel m = (LoginModel)arg0;
-			// process login
-			if (db.verifyAdminAccount(m.getUsername(), m.getPassword())) {
-				// successful login, send to client
-				try {
-					arg1.sendToClient("admin login successful");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} else {
-				// send login failure to client
-				try {
-					arg1.sendToClient("Failed Login");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
 		} else if (arg0 instanceof DeletePlayerModel) {
 			DeletePlayerModel m = (DeletePlayerModel)arg0;
 
@@ -161,11 +141,10 @@ public class GameServer extends AbstractServer {
 
 
 			if(m.getGameSelection().equals("Leaderboard")) {
-				ArrayList<String> leaderboard = new ArrayList<String>();
-				leaderboard = db.getLeaderBoard();
+				ArrayList<String> leaderboard = db.getLeaderBoard();
 				String concatLeaderboard = "";
 				for(String name : leaderboard) {
-					concatLeaderboard +=name+",";
+					concatLeaderboard += name+",";
 				}
 				log.append(leaderboard.toString());
 				try {
@@ -314,14 +293,16 @@ public class GameServer extends AbstractServer {
 				if(actualWinner.equals("P1"))	//player 1 won
 				{
 					System.out.println("player 1: " + winner + " won");
-					db.updateScore(winner);
+					db.updateScore(winner, true);
+					db.updateScore(player2.getUsername(), false);
 					actualWinner = "";
 					supposedWinner = "";
 				}
 				else if(actualWinner.equals("P2")) //player 2 won
 				{
 					System.out.println("player 2: " + winner + " won");
-					db.updateScore(winner);
+					db.updateScore(winner, true);
+					db.updateScore(player1.getUsername(), false);
 					actualWinner = "";
 					supposedWinner = "";
 				}

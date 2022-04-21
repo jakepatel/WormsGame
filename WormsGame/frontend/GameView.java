@@ -1,7 +1,6 @@
 package frontend;
 //Name: Jake
 
-
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -36,12 +35,7 @@ import entities.ReactiveObjects;
 import entities.SoundEffect;
 import entities.StaticObjects;
 
-
-
-
-
-public class GameView extends JPanel implements Serializable
-{
+public class GameView extends JPanel implements Serializable {
 	Timer timer, changeTurns; // this is the object which is going to call the
 	// function actionPerformed
 
@@ -61,42 +55,32 @@ public class GameView extends JPanel implements Serializable
 	public int player1Weapon = 1, player2Weapon = 1;
 	public int timeLeftInTurn = 30, weaponsUsedInTurn = 0, MaxWeaponsPerTurn = 1;
 
-	public String[] board= {" "," "," "," "," "," "};
+	public String[] board = { " ", " ", " ", " ", " ", " " };
 	public boolean fired = false;
 	public boolean actionSwitcher = false;
 	public String player1Name;
 	public String player2Name;
 
-	public GamePlayer p; 
+	public GamePlayer p;
 	public boolean move = true;
 	public int moving = 0;
 
-	public int boxPos= -200;
+	public int boxPos = -200;
 	public int randX = 0;
 	public boolean drop = false;
 	public StaticObjects box = new StaticObjects(randX, boxPos, 0);
 
 	GameControl controller;
-	public int gameID = 0;		//will be set by the server
+	public int gameID = 0; // will be set by the server
 
 	public String numberPlayer;
 
-	//helper functions
+	// helper functions
 
+	// end helper functions
 
-
-
-
-
-
-
-
-	//end helper functions
-
-	public GameView(GameControl controller, String player1Name, String player2Name, String numberPlayer, Maps map) 
-	{		
+	public GameView(GameControl controller, String player1Name, String player2Name, String numberPlayer, Maps map) {
 		this.controller = controller;
-
 
 		this.player1Name = player1Name;
 		this.player2Name = player2Name;
@@ -153,28 +137,18 @@ public class GameView extends JPanel implements Serializable
 				break;
 			}
 		}
-		this.player1WeaponImage = (new ImageIcon("images/weapons/missile0.png")
-				.getImage());
-		this.player2WeaponImage = (new ImageIcon("images/weapons/missile0.png")
-				.getImage());
+		this.player1WeaponImage = (new ImageIcon("images/weapons/missile0.png").getImage());
+		this.player2WeaponImage = (new ImageIcon("images/weapons/missile0.png").getImage());
 
-		team1.add(new GamePlayer(50, 50, staticobjects, reactiveobjects,
-				team2));
-		team2.add(new GamePlayer(650, 100, staticobjects, reactiveobjects,
-				team1));
+		team1.add(new GamePlayer(50, 50, staticobjects, reactiveobjects, team2));
+		team2.add(new GamePlayer(650, 100, staticobjects, reactiveobjects, team1));
 
-		team1.add(new GamePlayer(500, 100, staticobjects, reactiveobjects,
-				team2));
-		team2.add(new GamePlayer(400, 100, staticobjects, reactiveobjects,
-				team1));
-		team1.add(new GamePlayer(300, 100, staticobjects, reactiveobjects,
-				team2));
-		team2.add(new GamePlayer(900, 100, staticobjects, reactiveobjects,
-				team1));
-		team1.add(new GamePlayer(150, 100, staticobjects, reactiveobjects,
-				team2));
-		team2.add(new GamePlayer(800, 50, staticobjects, reactiveobjects,
-				team1));
+		team1.add(new GamePlayer(500, 100, staticobjects, reactiveobjects, team2));
+		team2.add(new GamePlayer(400, 100, staticobjects, reactiveobjects, team1));
+		team1.add(new GamePlayer(300, 100, staticobjects, reactiveobjects, team2));
+		team2.add(new GamePlayer(900, 100, staticobjects, reactiveobjects, team1));
+		team1.add(new GamePlayer(150, 100, staticobjects, reactiveobjects, team2));
+		team2.add(new GamePlayer(800, 50, staticobjects, reactiveobjects, team1));
 
 		this.p = team1.get(0);
 
@@ -186,35 +160,26 @@ public class GameView extends JPanel implements Serializable
 		changeTurns = new Timer(1000, new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) 
-			{
+			public void actionPerformed(ActionEvent e) {
 
-
-				if (timeLeftInTurn == 0 ) 
-				{
+				if (timeLeftInTurn == 0) {
 					fired = false;
-					if(playerTurn==8)
-					{
-						playerTurn=1;
-					}
-					else
-					{
+					if (playerTurn == 8) {
+						playerTurn = 1;
+					} else {
 						playerTurn++;
 					}
 					MaxWeaponsPerTurn = 1;
 					weaponsUsedInTurn = 0;
 					timeLeftInTurn = 30;
-				} 
-				else
+				} else
 					timeLeftInTurn--;
-				if(timeLeftInTurn>0 && timeLeftInTurn<=10)
-				{
+				if (timeLeftInTurn > 0 && timeLeftInTurn <= 10) {
 					SoundEffect.TIMERTICK.play();
-				}		
+				}
 
-				//System.out.println(weaponsUsedInTurn);
-				if(weaponsUsedInTurn > 1)
-				{
+				// System.out.println(weaponsUsedInTurn);
+				if (weaponsUsedInTurn > 1) {
 					timeLeftInTurn = 5;
 					weaponsUsedInTurn = 0;
 					MaxWeaponsPerTurn = 0;
@@ -223,13 +188,9 @@ public class GameView extends JPanel implements Serializable
 
 				board = createResultBoard();
 
-
 			}
 
 		});
-
-
-
 
 		playerTurn = 1;
 		timer.start();
@@ -238,14 +199,13 @@ public class GameView extends JPanel implements Serializable
 
 	}
 
-	//Getter/Setters Functions//------------------------------------------------------------
-	public int getGameID()
-	{
+	// Getter/Setters
+	// Functions//------------------------------------------------------------
+	public int getGameID() {
 		return gameID;
 	}
 
-	public void setGameID(int id)
-	{
+	public void setGameID(int id) {
 		gameID = id;
 	}
 
@@ -529,13 +489,14 @@ public class GameView extends JPanel implements Serializable
 		this.box = box;
 	}
 
-	//End of Getters/Setters-------------------------------------------------------------------
+	// End of
+	// Getters/Setters-------------------------------------------------------------------
 
 	public String[] createResultBoard() {
 		String[] board = new String[this.board.length];
 
-
-		int playerhealth1 = team1.get(0).playerHealth + team1.get(1).playerHealth + team1.get(2).playerHealth + team1.get(3).playerHealth;
+		int playerhealth1 = team1.get(0).playerHealth + team1.get(1).playerHealth + team1.get(2).playerHealth
+				+ team1.get(3).playerHealth;
 		board[0] = String.valueOf(playerhealth1);
 
 		if (player1Weapon == 0)
@@ -545,8 +506,8 @@ public class GameView extends JPanel implements Serializable
 
 		board[2] = "Time: " + String.valueOf(timeLeftInTurn);
 
-
-		int playerhealth2 = team2.get(0).playerHealth + team2.get(1).playerHealth + team2.get(2).playerHealth + team2.get(3).playerHealth;
+		int playerhealth2 = team2.get(0).playerHealth + team2.get(1).playerHealth + team2.get(2).playerHealth
+				+ team2.get(3).playerHealth;
 		board[3] = String.valueOf(playerhealth2);
 
 		if (player2Weapon == 0)
@@ -559,7 +520,6 @@ public class GameView extends JPanel implements Serializable
 		return board;
 	}
 
-
 	public void stopTimers() {
 		this.timer.stop();
 		this.changeTurns.stop();
@@ -570,15 +530,11 @@ public class GameView extends JPanel implements Serializable
 		this.changeTurns.start();
 	}
 
-
-
-	public void paintComponent(Graphics g) 
-	{
+	public void paintComponent(Graphics g) {
 		renderScreen(g);
 	}
 
-	public void renderScreen(Graphics g) 
-	{
+	public void renderScreen(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(backgroundImage, 0, 0, null);
 		// create the result board
@@ -586,19 +542,19 @@ public class GameView extends JPanel implements Serializable
 		g.setColor(Color.orange);
 		g.drawImage(boardImage, 0, 0, null);
 
-		for(int i = 0; i<board.length; i++) {
-			if(this.board[i] != null) {
-				if(i==0)
+		for (int i = 0; i < board.length; i++) {
+			if (this.board[i] != null) {
+				if (i == 0)
 					g.drawString(board[i], 150, 25);
-				if(i==1)
+				if (i == 1)
 					g.drawString(board[i], 300, 25);
-				if(i==2)
-					g.drawString(board[i], 350, 25);	
-				if(i==3)
-					g.drawString(board[i], 585, 25);		
-				if(i==4)
+				if (i == 2)
+					g.drawString(board[i], 350, 25);
+				if (i == 3)
+					g.drawString(board[i], 585, 25);
+				if (i == 4)
 					g.drawString(board[i], 740, 25);
-				if(i==5)
+				if (i == 5)
 					g.drawString(board[i], 770, 25);
 			}
 		}
@@ -606,16 +562,19 @@ public class GameView extends JPanel implements Serializable
 		g.setFont(new Font("dialog", Font.ROMAN_BASELINE, 12));
 
 		int weapon;
-		if(playerTurn%2==1){weapon = player1Weapon;}			
-		else{weapon = player2Weapon;}
+		if (playerTurn % 2 == 1) {
+			weapon = player1Weapon;
+		} else {
+			weapon = player2Weapon;
+		}
 
-		if(weapon == 1){
+		if (weapon == 1) {
 			g.drawString("The MISSILE has High damage ", 810, 15);
 			g.drawString("and explodes on inpact ", 810, 33);
-		}else if(weapon == 2){
+		} else if (weapon == 2) {
 			g.drawString("The DIGGER cuts easily ", 810, 15);
 			g.drawString("through terrain ", 810, 33);
-		}else if(weapon == 0){
+		} else if (weapon == 0) {
 			g.drawString("The GRENADE bounces with ", 810, 15);
 			g.drawString("High damage ", 810, 33);
 		}
@@ -635,99 +594,83 @@ public class GameView extends JPanel implements Serializable
 		if (reactiveobjects.isEmpty() == false)
 			for (int i = 0; i < reactiveobjects.size(); i++)
 				if (reactiveobjects.get(i).visible == true)
-					g.drawImage(reactiveobjects.get(i).currentImage,
-							reactiveobjects.get(i).x, reactiveobjects.get(i).y,
+					g.drawImage(reactiveobjects.get(i).currentImage, reactiveobjects.get(i).x, reactiveobjects.get(i).y,
 							null);
 		if (staticobjects.isEmpty() == false)
 			for (int i = 0; i < staticobjects.size(); i++)
 				if (staticobjects.get(i).visible == true)
-					g.drawImage(staticobjects.get(i).objectImage,
-							staticobjects.get(i).x, staticobjects.get(i).y,
-							null);
+					g.drawImage(staticobjects.get(i).objectImage, staticobjects.get(i).x, staticobjects.get(i).y, null);
 		if (missiles.isEmpty() == false)
 			for (int i = 0; i < missiles.size(); i++)
 				if (missiles.get(i).visible == true)
-					g.drawImage(missiles.get(i).currentImage,
-							missiles.get(i).x, missiles.get(i).y, null);
+					g.drawImage(missiles.get(i).currentImage, missiles.get(i).x, missiles.get(i).y, null);
 		if (grenades.isEmpty() == false)
 			for (int i = 0; i < grenades.size(); i++)
 				if (grenades.get(i).visible == true)
-					g.drawImage(grenades.get(i).currentImage,
-							grenades.get(i).x, grenades.get(i).y, null);
+					g.drawImage(grenades.get(i).currentImage, grenades.get(i).x, grenades.get(i).y, null);
 		if (bullets.isEmpty() == false)
 			for (int i = 0; i < bullets.size(); i++)
 				if (bullets.get(i).visible == true)
-					g.drawImage(bullets.get(i).currentImage, bullets.get(i).x,
-							bullets.get(i).y, null);
+					g.drawImage(bullets.get(i).currentImage, bullets.get(i).x, bullets.get(i).y, null);
 		String temp = "";
 		g.setFont(new Font("standart", Font.BOLD, 12));
 		g.setColor(Color.RED);
-		for(int i=0; i<4; i++){
+		for (int i = 0; i < 4; i++) {
 			temp = "";
 			temp += team1.get(i).playerHealth;
-			g.drawString(temp, team1.get(i).getX()+10, team1.get(i).getY());
+			g.drawString(temp, team1.get(i).getX() + 10, team1.get(i).getY());
 		}
 		g.setColor(Color.BLUE);
-		for(int i=0; i<4; i++){
+		for (int i = 0; i < 4; i++) {
 			temp = "";
 			temp += team2.get(i).playerHealth;
-			g.drawString(temp, team2.get(i).getX()+10, team2.get(i).getY());
+			g.drawString(temp, team2.get(i).getX() + 10, team2.get(i).getY());
 		}
 
 		g.setFont(new Font("standart", Font.ROMAN_BASELINE, 50));
 
-
-		if(playerTurn%2==1){
-			g.setColor(Color.RED);							
+		if (playerTurn % 2 == 1) {
+			g.setColor(Color.RED);
 		}
-		if(playerTurn%2==1 & timeLeftInTurn>27){			
+		if (playerTurn % 2 == 1 & timeLeftInTurn > 27) {
 			g.drawString("Player 1", 400, 300);
-		}else if(playerTurn%2==0 & timeLeftInTurn>27){
+		} else if (playerTurn % 2 == 0 & timeLeftInTurn > 27) {
 			g.drawString("Player 2", 400, 300);
 		}
-		g.fillPolygon(arrowX(), arrowY(), 8);		
+		g.fillPolygon(arrowX(), arrowY(), 8);
 
-
-		g.drawImage(box.objectImage,box.x,box.y,null);
+		g.drawImage(box.objectImage, box.x, box.y, null);
 		validate();
-
 
 	}
 
-
-
-
-
-	//start here
-	public int[] arrowX(){
-		int[] x = {20,40,40,60,30,0,20,20};
-		if(playerTurn%2==1){			
-			for(int i = 0; i<x.length; i++){
-				x[i] = x[i] + team1.get((playerTurn-1)/2).x-10;
+	// start here
+	public int[] arrowX() {
+		int[] x = { 20, 40, 40, 60, 30, 0, 20, 20 };
+		if (playerTurn % 2 == 1) {
+			for (int i = 0; i < x.length; i++) {
+				x[i] = x[i] + team1.get((playerTurn - 1) / 2).x - 10;
 			}
-		}else{
-			for(int i = 0; i<x.length; i++){
-				x[i] = x[i] + team2.get((playerTurn-1)/2).x-10;
+		} else {
+			for (int i = 0; i < x.length; i++) {
+				x[i] = x[i] + team2.get((playerTurn - 1) / 2).x - 10;
 			}
 		}
 		return x;
 	}
 
-	public int[] arrowY(){
-		int[] y = {0,0,30,30,50,30,30,0};
-		if(playerTurn%2==1){
-			for(int i = 0; i<y.length; i++){
-				y[i] = y[i] + team1.get((playerTurn-1)/2).y -65;
+	public int[] arrowY() {
+		int[] y = { 0, 0, 30, 30, 50, 30, 30, 0 };
+		if (playerTurn % 2 == 1) {
+			for (int i = 0; i < y.length; i++) {
+				y[i] = y[i] + team1.get((playerTurn - 1) / 2).y - 65;
 			}
-		}else{
-			for(int i = 0; i<y.length; i++){
-				y[i] = y[i] + team2.get((playerTurn-1)/2).y -65;
+		} else {
+			for (int i = 0; i < y.length; i++) {
+				y[i] = y[i] + team2.get((playerTurn - 1) / 2).y - 65;
 			}
 		}
 		return y;
 	}
 
-
-
 }
-

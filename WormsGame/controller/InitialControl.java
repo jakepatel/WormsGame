@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 
 import ClientComm.GameClient;
-import frontend.AdminLoginView;
 import frontend.CreateAccountView;
 import frontend.LoginView;
 
@@ -48,14 +47,6 @@ public class InitialControl implements ActionListener{
 	    	CreateAccountView createAccountView = (CreateAccountView)container.getComponent(2);
 	    	CardLayout cardLayout = (CardLayout)container.getLayout();
 	    	cardLayout.show(container, "CreateAccountView");
-	    }
-	    else if(command.equals("Admin Login"))
-	    {
-	    	//handle page to Admin Login
-	    	 AdminLoginView adminloginview = (AdminLoginView)container.getComponent(3);
-		     adminloginview.setError("");
-		      CardLayout cardLayout = (CardLayout)container.getLayout();
-		      cardLayout.show(container, "AdminLoginView");
 	    }
 	    else if(command.equals("Change Server"))
 	    {

@@ -92,6 +92,9 @@ public class MainMenuControl implements ActionListener
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			
+//			CardLayout cardLayout = (CardLayout)container.getLayout();
+//			cardLayout.show(container, "LeaderboardView");
 		}
 		else if(command.equals("Log Out"))
 		{

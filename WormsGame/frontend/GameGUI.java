@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 
 import ClientComm.GameClient;
-import controller.AdminLoginControl;
 import controller.CreateAccountControl;
 import controller.DeletePlayerControl;
 import controller.GameOverControl;
@@ -51,7 +50,6 @@ public class GameGUI extends JFrame
 	    InitialControl control_initial = new InitialControl(container);
 	    LoginControl control_login = new LoginControl(container, client);
 	    CreateAccountControl control_ca = new CreateAccountControl(container, client);
-	    AdminLoginControl control_alc = new AdminLoginControl(container, client);
 	    MainMenuControl control_mmc = new MainMenuControl(container, client);
 	    LogoutControl control_logout = new LogoutControl(container, client, this);	//pass this to close frame 
 	    LeaderboardControl control_leaderboard = new LeaderboardControl(container, client);
@@ -69,7 +67,6 @@ public class GameGUI extends JFrame
 	    InitialView initial =  new InitialView(control_initial);
 	    LoginView loginview = new LoginView(control_login);
 	    CreateAccountView createaccview = new CreateAccountView(control_ca);
-	    AdminLoginView adminloginview = new AdminLoginView(control_alc);
 	    MainMenuView mainmenuview = new MainMenuView(control_mmc);
 	    LogoutView logoutview = new LogoutView(control_logout);
 	    LeaderboardView leaderboardView = new LeaderboardView(control_leaderboard);
@@ -83,7 +80,6 @@ public class GameGUI extends JFrame
 	    container.add(initial, "InitialView");	//0
 	    container.add(loginview, "LoginView");	//1
 	    container.add(createaccview, "CreateAccountView");	//2
-	    container.add(adminloginview, "AdminLoginView");	//3
 	    container.add(mainmenuview, "MainMenuView");	//4
 	    container.add(logoutview, "LogoutView"); 	//5
 	    container.add(leaderboardView, "LeaderboardView");	//6
