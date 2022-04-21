@@ -49,6 +49,7 @@ public class InitialControl implements ActionListener{
 	    	CardLayout cardLayout = (CardLayout)container.getLayout();
 	    	cardLayout.show(container, "CreateAccountView");
 	    }
+	    
 	    else if(command.equals("Admin Login"))
 	    {
 	    	//handle page to Admin Login
@@ -57,6 +58,7 @@ public class InitialControl implements ActionListener{
 		      CardLayout cardLayout = (CardLayout)container.getLayout();
 		      cardLayout.show(container, "AdminLoginView");
 	    }
+	    
 	    else if(command.equals("Change Server"))
 	    {
 	    	//handle page to Change Server

@@ -36,7 +36,7 @@ public class LeaderboardView extends JPanel
 	public LeaderboardView(LeaderboardControl lc)
 	{
 		//create title label for the LeadersBoardView Panel
-		JLabel titleLabel = new JLabel("Leaders Board", JLabel.CENTER);
+		JLabel titleLabel = new JLabel("Leaderboard", JLabel.CENTER);
 
 		//Creating a Scroll Pane for leadersBoard 
 
