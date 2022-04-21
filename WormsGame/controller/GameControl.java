@@ -889,45 +889,6 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 
 	}
 
-	/*used in the gameView
-
-	private String createResultBoard() 
-	{
-
-
-		String board = " ";
-		for (int i = 0; i < 3; i++)
-			board += "        ";
-		int playerhealth1 = game.team1.get(0).playerHealth + game.team1.get(1).playerHealth + game.team1.get(2).playerHealth + game.team1.get(3).playerHealth;
-		board += String.valueOf(playerhealth1);
-		for (int i = 0; i < 2; i++)
-			board += "           ";
-		if (game.player1Weapon == 0)
-			board += game.team1.get(0).getGrenadesAvailable();
-		if (game.player1Weapon == 1)
-			board += game.team1.get(0).getMissilesAvailable();
-		for (int i = 0; i < 1; i++)
-			board += "          ";
-		board += String.valueOf(game.timeLeftInTurn);
-		for (int i = 0; i < 2; i++)
-			board += "         ";
-		board += "          ";
-		int playerhealth2 = game.team2.get(0).playerHealth + game.team2.get(1).playerHealth + game.team2.get(2).playerHealth + game.team2.get(3).playerHealth;
-		board += String.valueOf(playerhealth2);
-		for (int i = 0; i < 2; i++)
-			board += "          ";
-		board += "   ";
-		if (game.player2Weapon == 0)
-			board += game.team2.get(0).getGrenadesAvailable();
-		if (game.player2Weapon == 1)
-			board += game.team2.get(0).getMissilesAvailable();
-		for (int i = 0; i < 1; i++)
-			board += "          ";
-
-		return board;
-	}
-
-	 */
 	
 	
 	//game related methods --------------------------------------------------------------------

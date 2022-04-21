@@ -4,6 +4,8 @@ package frontend;
 import java.awt.CardLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.IOException;
 
 import javax.swing.Action;
@@ -26,7 +28,7 @@ import entities.Maps;
 import entities.SoundEffect;
 
 
-public class GameFrame extends JFrame implements ActionListener 
+public class GameFrame extends JFrame implements ActionListener, WindowListener 
 { //the class that has to be run to start the game
 	
 	
@@ -66,7 +68,7 @@ public class GameFrame extends JFrame implements ActionListener
 		//instantiate the client
 		this.client = client;
 		
-	
+		this.addWindowListener(this);
 		
 		
 		//CardLayout
@@ -107,6 +109,8 @@ public class GameFrame extends JFrame implements ActionListener
 	    //show the game frame
 	    this.setVisible(true);
 	    timer = new Timer(1000,this);
+	    
+	    
 	    
 
 	    
@@ -446,6 +450,93 @@ public class GameFrame extends JFrame implements ActionListener
 			this.setVisible(true);	
 		}
 		*/
+		
+	}
+
+
+
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		// TODO Auto-generated method stub
+		//send a GameOverModel to server
+				//report to the server about the game results
+				GameOverModel gameOver;
+				
+				if(client.getNumberPlayer().equals("P1"))
+					gameOver = new GameOverModel(client.getPlayer2(), "P2", client.getGameID());
+				else
+					gameOver = new GameOverModel(client.getPlayer1(), "P1", client.getGameID());
+				
+				gameOver.setPlayer1(player1Name);
+				gameOver.setPlayer2(player2Name);
+				gameOver.setSentBy(client.getClientPlayer());
+				gameOver.setDraw(false);
+				gameOver.setEarlyGameOver(true);
+				
+				try {
+					client.sendToServer(gameOver);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		
+	}
+
+
+
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+
+		
+		
+	}
+
+
+
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 	

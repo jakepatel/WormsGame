@@ -17,6 +17,8 @@ public class GameOverModel implements Serializable
 	
 	private String serverMsg;
 	
+	private boolean earlyGameOver;
+	
 	
 
 
@@ -29,14 +31,26 @@ public class GameOverModel implements Serializable
 		this.gameWinner = "draw";
 		this.numberWinner = "draw";
 		this.sentBy = "";
+		this.earlyGameOver = false;
 	}
 	
+	
+
 	public GameOverModel(String winner, String numOfWinner, int id)
 	{
 		this.gameWinner = winner;
 		this.numberWinner = numOfWinner;
 		this.gameID = id;
+		this.earlyGameOver = false;
 		
+	}
+	
+	public boolean isEarlyGameOver() {
+		return earlyGameOver;
+	}
+
+	public void setEarlyGameOver(boolean earlyGameOver) {
+		this.earlyGameOver = earlyGameOver;
 	}
 	
 	public boolean isDraw() {

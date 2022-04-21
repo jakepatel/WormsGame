@@ -260,11 +260,18 @@ public class GameServer extends AbstractServer {
 		else if (arg0 instanceof GameOverModel) 
 		{
 
+			System.out.println("GameOver received");
 			
 			GameOverModel data = (GameOverModel)arg0;
 			
 			//check to see if both client players report game over
-			if(connections.size() <= 2 && !connections.isEmpty())		//forcing only two connections at the moment
+			if(data.isEarlyGameOver())
+			{
+				//store connections
+				gameOverQueue = connections;
+				
+			}
+			else if (connections.size() <= 2 && !connections.isEmpty())		//forcing only two connections at the moment
 			{
 				//remove the connection to the array
 				if(connections.contains(arg1))
@@ -296,8 +303,8 @@ public class GameServer extends AbstractServer {
 			
 			
 			
-			if(gameOverQueue.size() == 2)
-			{//both clients reported game over
+			if(gameOverQueue.size() == 2 || data.isEarlyGameOver() == true)
+			{//both clients reported game over or one closed window before game over
 				
 				if(supposedWinner.equals("P1") && data.getNumberWinner().equals("P1"))	//both clients agree on winner P1
 					actualWinner = "P1";
@@ -305,6 +312,13 @@ public class GameServer extends AbstractServer {
 					actualWinner = "P2";
 				else if(supposedWinner.equals("draw") && data.getNumberWinner().equals("draw"))
 					actualWinner = "draw";
+				else if(data.isEarlyGameOver() == true)
+				{
+					actualWinner = data.getNumberWinner();
+					player1 = null;
+					player2 = null;
+					connections = new ArrayList<ConnectionToClient>();
+				}
 				else
 					System.out.println("Inconsistent winner reported");
 				
@@ -314,13 +328,20 @@ public class GameServer extends AbstractServer {
 				if(actualWinner.equals("P1"))	//player 1 won
 				{
 					System.out.println("player 1: " + winner + " won");
+					//increment the win number of the winner
 					db.updateScore(winner);
+					//increment the number of games played of both players
+					
 					actualWinner = "";
 					supposedWinner = "";
 				}
 				else if(actualWinner.equals("P2")) //player 2 won
 				{
 					System.out.println("player 2: " + winner + " won");
+					//increment a win to the winner in the database
+					
+					//increment the number of games played of both players
+					
 					db.updateScore(winner);
 					actualWinner = "";
 					supposedWinner = "";
@@ -328,6 +349,7 @@ public class GameServer extends AbstractServer {
 				else if(draw && actualWinner.equals("draw"))	//game was a draw
 				{
 					System.out.println("The game was a draw:  " + data.getPlayer1() + " & " + data.getPlayer2());
+					//increment a win and number of games played of both players
 					
 					actualWinner = "";
 					supposedWinner = "";
