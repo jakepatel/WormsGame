@@ -128,7 +128,7 @@ public class GameServer extends AbstractServer {
 					e.printStackTrace();
 				}
 			}*/
-=======
+
 //			if (db.verifyAdminAccount(m.getUsername(), m.getPassword())) {
 //				// successful login, send to client
 //				try {
@@ -144,7 +144,7 @@ public class GameServer extends AbstractServer {
 //					e.printStackTrace();
 //				}
 //			}
->>>>>>> branch 'main' of https://github.com/jakepatel/WormsGame
+
 		} else if (arg0 instanceof DeletePlayerModel) {
 			DeletePlayerModel m = (DeletePlayerModel)arg0;
 
