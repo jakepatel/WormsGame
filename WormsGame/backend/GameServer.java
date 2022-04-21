@@ -111,21 +111,21 @@ public class GameServer extends AbstractServer {
 			System.out.println("admin login model recieved!");
 			LoginModel m = (LoginModel)arg0;
 			// process login
-			if (db.verifyAdminAccount(m.getUsername(), m.getPassword())) {
-				// successful login, send to client
-				try {
-					arg1.sendToClient("admin login successful");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} else {
-				// send login failure to client
-				try {
-					arg1.sendToClient("Failed Login");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+//			if (db.verifyAdminAccount(m.getUsername(), m.getPassword())) {
+//				// successful login, send to client
+//				try {
+//					arg1.sendToClient("admin login successful");
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			} else {
+//				// send login failure to client
+//				try {
+//					arg1.sendToClient("Failed Login");
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
 		} else if (arg0 instanceof DeletePlayerModel) {
 			DeletePlayerModel m = (DeletePlayerModel)arg0;
 
@@ -329,7 +329,8 @@ public class GameServer extends AbstractServer {
 				{
 					System.out.println("player 1: " + winner + " won");
 					//increment the win number of the winner
-					db.updateScore(winner);
+					db.updateScore(winner, true);
+					db.updateScore(player2.getUsername(), false);
 					//increment the number of games played of both players
 					
 					actualWinner = "";
@@ -342,7 +343,8 @@ public class GameServer extends AbstractServer {
 					
 					//increment the number of games played of both players
 					
-					db.updateScore(winner);
+					db.updateScore(winner, true);
+					db.updateScore(player1.getUsername(), false);
 					actualWinner = "";
 					supposedWinner = "";
 				}
