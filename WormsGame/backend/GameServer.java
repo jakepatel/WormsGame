@@ -110,6 +110,7 @@ public class GameServer extends AbstractServer {
 		else if (arg0 instanceof AdminLoginModel) {
 			System.out.println("admin login model recieved!");
 			LoginModel m = (LoginModel)arg0;
+			/*
 			// process login
 			if (db.verifyAdminAccount(m.getUsername(), m.getPassword())) {
 				// successful login, send to client
@@ -125,7 +126,7 @@ public class GameServer extends AbstractServer {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}
+			}*/
 		} else if (arg0 instanceof DeletePlayerModel) {
 			DeletePlayerModel m = (DeletePlayerModel)arg0;
 
@@ -325,12 +326,16 @@ public class GameServer extends AbstractServer {
 				
 				String winner = data.getGameWinner();
 				
+				
 				if(actualWinner.equals("P1"))	//player 1 won
 				{
 					System.out.println("player 1: " + winner + " won");
 					//increment the win number of the winner
-					db.updateScore(winner);
-					//increment the number of games played of both players
+					db.updateScore(winner, true);
+					
+					//increment the loss number of the loser
+					db.updateScore(data.getPlayer2(), false);
+					System.out.println("Scores updated");
 					
 					actualWinner = "";
 					supposedWinner = "";
@@ -339,17 +344,24 @@ public class GameServer extends AbstractServer {
 				{
 					System.out.println("player 2: " + winner + " won");
 					//increment a win to the winner in the database
+					db.updateScore(winner, true);
+					//increment the loss number of the loser
+					db.updateScore(data.getPlayer1(), false);
 					
-					//increment the number of games played of both players
+
+					System.out.println("Scores updated");
 					
-					db.updateScore(winner);
 					actualWinner = "";
 					supposedWinner = "";
 				}
 				else if(draw && actualWinner.equals("draw"))	//game was a draw
 				{
 					System.out.println("The game was a draw:  " + data.getPlayer1() + " & " + data.getPlayer2());
-					//increment a win and number of games played of both players
+					//increment a win to both players
+					db.updateScore(data.getPlayer1(), true);
+					db.updateScore(data.getPlayer2(), true);
+					System.out.println("Scores updated");
+					
 					
 					actualWinner = "";
 					supposedWinner = "";
