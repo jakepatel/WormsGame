@@ -112,6 +112,7 @@ public class GameServer extends AbstractServer {
 			LoginModel m = (LoginModel)arg0;
 			/*
 			// process login
+<<<<<<< HEAD
 			if (db.verifyAdminAccount(m.getUsername(), m.getPassword())) {
 				// successful login, send to client
 				try {
@@ -127,6 +128,23 @@ public class GameServer extends AbstractServer {
 					e.printStackTrace();
 				}
 			}*/
+=======
+//			if (db.verifyAdminAccount(m.getUsername(), m.getPassword())) {
+//				// successful login, send to client
+//				try {
+//					arg1.sendToClient("admin login successful");
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			} else {
+//				// send login failure to client
+//				try {
+//					arg1.sendToClient("Failed Login");
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
+//			}
+>>>>>>> branch 'main' of https://github.com/jakepatel/WormsGame
 		} else if (arg0 instanceof DeletePlayerModel) {
 			DeletePlayerModel m = (DeletePlayerModel)arg0;
 
@@ -332,11 +350,12 @@ public class GameServer extends AbstractServer {
 					System.out.println("player 1: " + winner + " won");
 					//increment the win number of the winner
 					db.updateScore(winner, true);
+
 					
 					//increment the loss number of the loser
 					db.updateScore(data.getPlayer2(), false);
 					System.out.println("Scores updated");
-					
+
 					actualWinner = "";
 					supposedWinner = "";
 				}
@@ -351,6 +370,7 @@ public class GameServer extends AbstractServer {
 
 					System.out.println("Scores updated");
 					
+
 					actualWinner = "";
 					supposedWinner = "";
 				}
