@@ -112,7 +112,7 @@ public class GameServer extends AbstractServer {
 			LoginModel m = (LoginModel)arg0;
 			/*
 			// process login
-<<<<<<< HEAD
+
 			if (db.verifyAdminAccount(m.getUsername(), m.getPassword())) {
 				// successful login, send to client
 				try {
