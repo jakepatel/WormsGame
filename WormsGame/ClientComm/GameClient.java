@@ -183,22 +183,34 @@ public class GameClient extends AbstractClient implements Serializable{
 		{
 			System.out.println((String)arg0);
 			String msg = (String)arg0;
-			if(msg.equals("account created")) {
+			if(msg.equals("account created")) 
+			{
 				createAccountControl.createAccountSuccess();
 				//Handle Login Here
-			} else if(msg.equals("login successful")) {
+			} else if(msg.equals("login successful")) 
+			{
 				loginControl.loginSuccess();
 				//Handle Login Here
-			} else if (msg.equals("Failed Login")) {
+			} else if (msg.equals("Failed Login")) 
+			{
 				loginControl.displayError("Login Failed");
-			} else if(msg.contains(",")) {
+			} else if(msg.contains(",")) 
+			{
 				
 				String[] leaderboard = msg.split(",");
 				leaderboardControl.showLeaderboard(leaderboard);
 				//Handle Login Here
-			} else if (msg.equals("account creation failed")) {
+			} else if (msg.equals("account creation failed")) 
+			{
 				createAccountControl.createAccountFailure();
+			} else if (msg.equals("deleted player"))
+			{
+				//go back to initial view
+				CardLayout card = (CardLayout) container.getLayout();
+				card.show(container, "InitialView");
 			}
+			
+			
 		}
 		else if(arg0 instanceof StartGameGranted)
 		{

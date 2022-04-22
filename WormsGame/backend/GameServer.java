@@ -155,6 +155,8 @@ public class GameServer extends AbstractServer {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				
+				System.out.println("Deleted player: " + m.getId());
 			}
 		} else if (arg0 instanceof CreateAccountModel) {
 			System.out.println("CreateAccountModel recieved!");
