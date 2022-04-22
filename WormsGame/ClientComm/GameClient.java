@@ -17,7 +17,9 @@ import controller.GameControl;
 import controller.LeaderboardControl;
 import controller.LoginControl;
 import controller.MainMenuControl;
+import entities.SoundEffect;
 import entities.StartGameGranted;
+import entities.SoundEffect.Volume;
 import frontend.GameFrame;
 import frontend.GameGUI;
 import frontend.GameOverView;
@@ -293,6 +295,7 @@ public class GameClient extends AbstractClient implements Serializable{
 					gameOverView.setMsg("It's a Draw!");
 				else
 					gameOverView.setMsg("You Lost :(");
+				SoundEffect.volume = Volume.MUTE;
 				
 				
 				//dispose the gameFrame
@@ -310,6 +313,7 @@ public class GameClient extends AbstractClient implements Serializable{
 					gameOverView.setMsg("It's a Draw!");
 				else
 					gameOverView.setMsg("You Lost :(");
+				SoundEffect.volume = Volume.MUTE;
 				
 				
 				//dispose the gameFrame
