@@ -295,6 +295,14 @@ public class GameClient extends AbstractClient implements Serializable{
 					gameOverView.setMsg("It's a Draw!");
 				else
 					gameOverView.setMsg("You Lost :(");
+				
+
+				if(data.isEarlyGameOver() && data.getSentBy().equals(this.clientPlayer))
+					gameOverView.appendMsg(", Because you interuppted the game");
+				else if (data.isEarlyGameOver())
+					gameOverView.appendMsg(", Because the other player exited the game");
+				
+				
 				SoundEffect.volume = Volume.MUTE;	//mute volume
 				
 				
