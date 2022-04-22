@@ -21,14 +21,19 @@ public class LeaderboardView extends JPanel
 
 	// Getter for the text in the username field.
 	public void setDataList(String[] dataList){
-
 		DefaultListModel<String> listModel = new DefaultListModel<String>();
 		for (int i = 0; i < dataList.length; i++)
 		{
-			listModel.addElement(dataList[i]+"		");
+			String[] entry = dataList[i].split(" ");
+			String toEnter = "Name: " + entry[0] + "      Wins: " + entry[1] + "      Loss: " + entry[2]
+					+ "      Win/Loss: " + entry[3];
+			
+			listModel.addElement(toEnter);
 		}
 		this.dataList.setModel(listModel);
 
+		
+		
 	}
 	public JList<String> getDataList(){
 		return dataList;
@@ -42,7 +47,7 @@ public class LeaderboardView extends JPanel
 
 		JPanel scrollPanel = new JPanel();
 		dataList = new JList<String>();
-		dataList.setPreferredSize(new Dimension(200, 200));
+		dataList.setPreferredSize(new Dimension(400, 200));
 		JScrollPane scrollPane = new JScrollPane(dataList);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		scrollPanel.add(scrollPane);
