@@ -295,7 +295,7 @@ public class GameClient extends AbstractClient implements Serializable{
 					gameOverView.setMsg("It's a Draw!");
 				else
 					gameOverView.setMsg("You Lost :(");
-				SoundEffect.volume = Volume.MUTE;
+				SoundEffect.volume = Volume.MUTE;	//mute volume
 				
 				
 				//dispose the gameFrame
@@ -307,13 +307,20 @@ public class GameClient extends AbstractClient implements Serializable{
 				this.testFrame.setVisible(true);
 				GameOverView gameOverView = (GameOverView)container.getComponent(0);	//0 is from TestFrame
 				
+				
 				if(data.getNumberWinner().equals(this.getNumberPlayer()))
-					gameOverView.setMsg("You Won!");
+					gameOverView.setMsg("You, " + this.clientPlayer + ",Won!");
 				else if(data.getNumberWinner().equals("draw"))
-					gameOverView.setMsg("It's a Draw!");
+					gameOverView.setMsg("It's a Draw! Both Players Win :)");
 				else
-					gameOverView.setMsg("You Lost :(");
-				SoundEffect.volume = Volume.MUTE;
+					gameOverView.setMsg("You, " + this.clientPlayer+ " Lost :(");
+				
+				if(data.isEarlyGameOver() && data.getSentBy().equals(this.clientPlayer))
+					gameOverView.appendMsg(", Because you interuppted the game");
+				else if (data.isEarlyGameOver())
+					gameOverView.appendMsg(", Because the other player exited the game");
+				
+				SoundEffect.volume = Volume.MUTE;	//mute volume
 				
 				
 				//dispose the gameFrame

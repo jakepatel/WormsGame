@@ -18,7 +18,7 @@ public class Database {
 	{
 		try {
 			Properties prop = new Properties();
-			FileInputStream fis = new FileInputStream("db.properties");
+			FileInputStream fis = new FileInputStream("jake_db.properties");
 			prop.load(fis);
 			url = prop.getProperty("url");
 			user = prop.getProperty("user");

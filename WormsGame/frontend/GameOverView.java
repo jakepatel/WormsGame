@@ -48,6 +48,12 @@ public class GameOverView extends JPanel
 		msg.setText(message);
 	}
 	
+	public void appendMsg(String message)
+	{
+		String toAppend = getMsg();
+		msg.setText(toAppend + message);
+	}
+	
 	public String getMsg()
 	{
 		return msg.getText();

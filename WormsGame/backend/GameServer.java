@@ -146,6 +146,7 @@ public class GameServer extends AbstractServer {
 //			}
 
 		} else if (arg0 instanceof DeletePlayerModel) {
+			System.out.println("delete player model received!");
 			DeletePlayerModel m = (DeletePlayerModel)arg0;
 
 			if (db.deletePlayer(m.getId())) {
@@ -198,6 +199,7 @@ public class GameServer extends AbstractServer {
 		}
 		else if (arg0 instanceof StartGameRequest)
 		{
+			System.out.println("Start Game request received");
 			//TypeCast
 			StartGameRequest request = (StartGameRequest)arg0;
 
@@ -337,6 +339,7 @@ public class GameServer extends AbstractServer {
 					player1 = null;
 					player2 = null;
 					connections = new ArrayList<ConnectionToClient>();
+					System.out.println("game interuppted");
 				}
 				else
 					System.out.println("Inconsistent winner reported");

@@ -38,11 +38,11 @@ public class TestFrame extends JFrame
 	    
 	    GameOverControl gameoverController = new GameOverControl(container, client);
 	    
-	    JPanel waitingView = new GameWaitingView();
+	    waitingView = new GameWaitingView();
 	    gameOverView = new GameOverView(gameoverController);
 	    
-	    container.add(gameOverView, "GameOverView");
-	    container.add(waitingView, "WaitingView");
+	    container.add(gameOverView, "GameOverView");	//0
+	    container.add(waitingView, "WaitingView");		//1
 	    
 	    layout.show(container, "WaitingView");
 	    

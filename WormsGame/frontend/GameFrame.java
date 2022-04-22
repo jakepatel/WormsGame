@@ -60,7 +60,7 @@ public class GameFrame extends JFrame implements ActionListener, WindowListener
 		this.setResizable(false);
 
 		this.setSize(1000, 650);
-	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);	//let the client close after confirming the winner and loser
 	    
 		MapWinner=new String[3];
 		desktop = new JDesktopPane();
@@ -119,6 +119,7 @@ public class GameFrame extends JFrame implements ActionListener, WindowListener
 	    //build view
 	    
 		SoundEffect.STARTROUND.play();
+		SoundEffect.volume = SoundEffect.Volume.MEDIUM;
 		
 		this.player1Name= client.getPlayer1();
 		this.player2Name= client.getPlayer2();

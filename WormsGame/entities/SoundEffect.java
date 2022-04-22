@@ -78,6 +78,13 @@ public enum SoundEffect {
       }
    }
    
+   public void stop()
+   {
+	   if(volume != Volume.MUTE || clip.isRunning())
+		   clip.stop();
+		   
+   }
+   
    // Optional static method to pre-load all the sound files.
    static void init() {
       values(); // calls the constructor for all the elements
