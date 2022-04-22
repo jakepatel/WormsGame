@@ -117,9 +117,10 @@ public class GameFrame extends JFrame implements ActionListener, WindowListener
 
 	    
 	    //build view
-	    
+	    SoundEffect.volume = SoundEffect.Volume.MEDIUM;
 		SoundEffect.STARTROUND.play();
-		SoundEffect.volume = SoundEffect.Volume.MEDIUM;
+
+
 		
 		this.player1Name= client.getPlayer1();
 		this.player2Name= client.getPlayer2();

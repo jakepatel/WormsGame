@@ -1,5 +1,7 @@
 package entities;
 
+
+
 import java.io.*;
 import java.net.URL;
 import javax.sound.sampled.*;
@@ -14,11 +16,10 @@ import javax.sound.sampled.*;
  * 4. You can use the static variable SoundEffect.volume to mute the sound.
  */
 public enum SoundEffect {
-	
    EXPLODE1("sounds/Explosion1.wav"),
    EXPLODE2("sounds/Explosion2.wav"),
    EXPLODE3("sounds/Explosion3.wav"),
-   COUGH("sounds/COUGH.wav"),
+   COUGH("sounds/COUGH.WAV"),
    STARTROUND("sounds/StartRound.wav"),
    TIMERTICK("sounds/TIMERTICK.WAV"),
    WORMPOP("sounds/WORMPOP.WAV"), 
@@ -26,7 +27,6 @@ public enum SoundEffect {
    BACKFLIP("sounds/Walk-Expand.wav"), 
    DAMAGE("sounds/damage.wav"), 
    SHOTGUNRELOAD("sounds/SHOTGUNRELOAD.WAV");
-   
    
    // GONG("gong.wav"),         // gong
    // SHOOT("shoot.wav");       // bullet
@@ -36,7 +36,7 @@ public enum SoundEffect {
       MUTE, LOW, MEDIUM, HIGH
    }
    
-   public static Volume volume = Volume.MEDIUM;
+   public static Volume volume = Volume.HIGH;
    
    // Each sound effect has its own clip, loaded with its own sound file.
    private Clip clip;
@@ -76,13 +76,6 @@ public enum SoundEffect {
          clip.setFramePosition(0); // rewind to the beginning
          clip.start();     // Start playing
       }
-   }
-   
-   public void stop()
-   {
-	   if(volume != Volume.MUTE || clip.isRunning())
-		   clip.stop();
-		   
    }
    
    // Optional static method to pre-load all the sound files.
