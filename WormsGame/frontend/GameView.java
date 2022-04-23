@@ -160,7 +160,7 @@ public class GameView extends JPanel implements Serializable
 
 		team1.add(new GamePlayer(50, 50, staticobjects, reactiveobjects,
 				team2));
-		team2.add(new GamePlayer(650, 100, staticobjects, reactiveobjects,
+		team2.add(new GamePlayer(500, 300, staticobjects, reactiveobjects,
 				team1));
 
 		team1.add(new GamePlayer(500, 100, staticobjects, reactiveobjects,
@@ -171,10 +171,10 @@ public class GameView extends JPanel implements Serializable
 				team2));
 		team2.add(new GamePlayer(900, 100, staticobjects, reactiveobjects,
 				team1));
-		team1.add(new GamePlayer(150, 100, staticobjects, reactiveobjects,
-				team2));
-		team2.add(new GamePlayer(800, 50, staticobjects, reactiveobjects,
+		team2.add(new GamePlayer(150, 100, staticobjects, reactiveobjects,
 				team1));
+		team1.add(new GamePlayer(800, 50, staticobjects, reactiveobjects,
+				team2));
 
 		this.p = team1.get(0);
 
