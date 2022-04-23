@@ -175,9 +175,8 @@ public class GameView extends JPanel implements Serializable
 				team1));
 		team1.add(new GamePlayer(800, 50, staticobjects, reactiveobjects,
 				team2));
-
+		
 		this.p = team1.get(0);
-
 		this.addKeyListener(controller);
 		this.addMouseListener(controller);
 		timer = new Timer(30, controller);
