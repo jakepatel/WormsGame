@@ -111,7 +111,7 @@ public class Database {
 			if (win) {
 				stmt.executeUpdate("update user set games_won=games_won + 1 where username='" + username + "';");
 			} else {
-				stmt.executeUpdate("update user set games_won=games_lost + 1 where username='" + username + "';");
+				stmt.executeUpdate("update user set games_lost=games_lost + 1 where username='" + username + "';");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
