@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import ClientComm.GameClient;
 import backend.DeletePlayerModel;
+import backend.GameServer;
 import controller.*;
 import frontend.*;
 
@@ -35,6 +36,9 @@ public class CreateAccountTest extends JFrame{
 	//Instantiate GameClient
 	private static GameClient gc;
 	
+	//Instantiate GameServer
+	private static GameServer gs;
+	
 	private static JPanel container;
 	
 	private static JTextField user;
@@ -49,11 +53,15 @@ public class CreateAccountTest extends JFrame{
 	int sleep = 500;
 	
 	@Before
-	public void setUp() throws InterruptedException
+	public void setUp() throws InterruptedException, IOException
 	{
 		if(!setUpDone)
 		{		
-			//set up Client, container for createAccount
+			//set up Client, Server, container for createAccount
+			JTextArea log = new JTextArea(10,10);
+			JLabel status = new JLabel("et tu brute");
+			gs = new GameServer(log, status);
+			gs.listen();
 			gc = new GameClient();
 			CardLayout cardLayout = new CardLayout();
 			container = new JPanel(cardLayout);
@@ -239,5 +247,6 @@ public class CreateAccountTest extends JFrame{
 		DeletePlayerModel dpl = new DeletePlayerModel("TestAccount");
 		gc.sendToServer(dpl);
 		Thread.sleep(1000);
+		gs.close();
 	}
 }

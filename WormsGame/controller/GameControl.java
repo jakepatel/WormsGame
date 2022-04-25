@@ -622,19 +622,19 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 
 
 
-		if(game.timeLeftInTurn==0)
+		/*if(game.timeLeftInTurn==0)
 		{
 			game.boxPos = -200;				
 			game.box.make();
 			game.drop=true;
 			game.actionSwitcher = false;
-		}
+		}*/
 		if(game.timeLeftInTurn==28 && game.actionSwitcher==false)
 		{
 			SoundEffect.SHOTGUNRELOAD.play();
 			game.actionSwitcher=true;
 		}
-		if(game.drop==true)
+		/*if(game.drop==true)
 		{
 			if(game.boxPos==-200)
 			{
@@ -643,7 +643,7 @@ public class GameControl implements ActionListener, KeyListener, Serializable, M
 			}
 			game.boxPos++;
 			dropBox(game.boxPos, game.randX);
-		}
+		}*/
 		// drop in box at end of turn
 
 		invisibleObjectCleaner(game.staticobjects, game.reactiveobjects, game.missiles,
